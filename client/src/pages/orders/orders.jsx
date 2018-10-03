@@ -19,7 +19,6 @@ class Orders extends React.Component {
 	componentDidMount() {
 		const _this = this;
 		const api_url = base_url+'/orders.json';
-		console.log(api_url)
 		axios.get(api_url)
 			.then((res) => {
 				_this.setState({orders: res.data})

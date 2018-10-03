@@ -17,18 +17,21 @@ class App extends React.Component {
 
   render () {
     return (
-      <span className="App">
-        <FluidNavbar/>
-        <div className="container-fluid container-fluid-spacious">
-          <div className="dashhead mt-4">
-            <div className="dashhead-titles">
-              <h6 className="dashhead-subtitle">Dashboards</h6>
-              <h2 className="dashhead-title">Overview</h2>
+      <Router>
+        <span className="App">
+          <FluidNavbar/>
+          <div className="container-fluid container-fluid-spacious">
+            <div className="dashhead mt-4">
+              <div className="dashhead-titles">
+                <h6 className="dashhead-subtitle">Dashboards</h6>
+                <h2 className="dashhead-title">Overview</h2>
+              </div>
             </div>
-          </div>          
-          <Orders/>
-        </div>        
-      </span>
+            <Route exact path="/" component={Orders} />
+            <Route path="/orders" component={Orders}/>
+          </div>        
+        </span>
+      </Router>
     )
   }
 }
