@@ -8,7 +8,8 @@ const tableHeaders = [
 	{'id': 7,'name': "total_price", "format": "currency", "label":"Total price"},
 	{'id': 8,'name': "is_paid", "format": "boolean", "label":"Payment status"},
 	{'id': 9,'name': "is_delivered", "format": "boolean", "label":"Shipping status"},
-	{'id': 10,'name': "action", "format": "action", "label":"Action"}
+	{'id': 10,'name': "View", "format": "action", "label":""},
+	{'id': 11,'name': "Edit", "format": "action", "label":""}
 ];
 
 exports.tableHeaders = tableHeaders;

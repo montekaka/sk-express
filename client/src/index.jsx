@@ -7,6 +7,7 @@ import $ from 'jquery';
 
 import FluidNavbar from './components/navbar/navbar.jsx'
 import Orders from './pages/orders/orders.jsx'
+import Products from './pages/products/products.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class App extends React.Component {
             </div>
             <Route exact path="/" component={Orders} />
             <Route path="/orders" component={Orders}/>
+            <Route path="/products" component={Products}/>
           </div>        
         </span>
       </Router>

@@ -15,9 +15,10 @@ class SkTableCell extends React.Component {
 
 	render() {
 		const format = this.props.headerItem.format;
+		const name = this.props.headerItem.name;
 		let cell;
 		if(format === 'action') {
-			cell = <div className="btn" onClick={this.handleViewClick}>View</div>;
+			cell = <div className="btn" onClick={this.handleViewClick}>{name}</div>;
 		} else {
 			cell = actions[format](this.props.tableCell[this.props.headerItem.name]);
 		}

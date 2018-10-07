@@ -6,6 +6,8 @@ import config from './../../../../resource/config';
 
 const tableHeaders = orderTable.tableHeaders;
 const base_url = config.base_url;
+const get_url = '/orders.json';
+
 
 class Orders extends React.Component {
 	constructor(props) {		
@@ -18,7 +20,7 @@ class Orders extends React.Component {
 
 	componentDidMount() {
 		const _this = this;
-		const api_url = base_url+'/orders.json';
+		const api_url = base_url+get_url;
 		axios.get(api_url)
 			.then((res) => {
 				_this.setState({orders: res.data})

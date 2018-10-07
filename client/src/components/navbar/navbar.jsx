@@ -31,7 +31,7 @@ class FluidNavbar extends React.Component {
 	            <NavLink tag={Link} to="/orders">Orders</NavLink>
 	          </NavItem>
 	          <NavItem>
-	            <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+	            <NavLink tag={Link} to="/products">Products</NavLink>
 	          </NavItem>
 	        </Nav>
 	      </Collapse>
