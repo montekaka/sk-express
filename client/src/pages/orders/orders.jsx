@@ -46,7 +46,7 @@ class Orders extends React.Component {
 				<SkTable headerItems={tableHeaders} items={this.state.orders} objectName="orders" handleView={this.handleClickLinkToOrder}/>
 			)
 		} else {
-			// redirect back to login page
+			// redirect back to login
 			return (<div>Please sign in</div>);
 		}
 	}

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import $ from 'jquery';
 // import Auth from 'j-toker';
@@ -14,7 +15,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       toProducts: false,
-      isAuthed: false,
+      isAuthed: PropTypes.bool,
       user: null
     }
     this.handleUserState = this.handleUserState.bind(this);
