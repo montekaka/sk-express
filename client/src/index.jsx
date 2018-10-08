@@ -27,6 +27,7 @@ class App extends React.Component {
   componentDidMount(){    
     var _this = this;
     auth.validateToken((user, error) => {
+      console.log(error);
       _this.setState({user: user, isAuthed: error })
     });
   }
@@ -44,7 +45,9 @@ class App extends React.Component {
               </div>
             </div>
             <Route exact path="/" component={Orders} />
-            <Route path="/orders" component={Orders}/>
+            <Route path='/orders' 
+              render={(props) => <Orders isAuthed={this.state.isAuthed} />} 
+            />
             <Route path="/products" component={Products}/>            
           </div>        
         </span>

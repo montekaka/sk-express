@@ -14,7 +14,7 @@ class Orders extends React.Component {
 		super(props);
 		this.state = {
 			orders: [],
-			auth: false
+			hasPermission: false
 		}
 		this.handleClickLinkToOrder = this.handleClickLinkToOrder.bind(this);
 		this.renderSkTable = this.renderSkTable.bind(this);
@@ -23,24 +23,24 @@ class Orders extends React.Component {
 	componentDidMount() {
 		const _this = this;
 		const api_url = base_url+get_url;
+		//console.log('from order components',this.props.isAuthed)
 		axios.get(api_url)
 			.then((res) => {
 				if(res.data.message !== 'AccessDenied, please check your permission'){
-					_this.setState({orders: res.data, auth: true})
+					_this.setState({orders: res.data, hasPermission: true})
 				}				
 			})
 			.catch((err) => {
 				//console.log(err);
 			});			
-	}		
-
+	}
 
 	handleClickLinkToOrder(id){
 		console.log(id);
 	}
 
 	renderSkTable() {
-		if(this.state.auth === true) {
+		if(this.state.hasPermission === true && this.props.isAuthed === true) {
 			return (
 				<SkTable headerItems={tableHeaders} items={this.state.orders} objectName="orders" handleView={this.handleClickLinkToOrder}/>
 			)
@@ -53,7 +53,7 @@ class Orders extends React.Component {
 		return (
 			<div>
 		    <div className="hr-divider mt-3 mb-5">
-		      <h3 className="hr-divider-content hr-divider-heading">Orders</h3>
+		      <h3 className="hr-divider-content hr-divider-heading">Orders</h3>		      	      
 		      {this.renderSkTable()}
 		    </div>		    
 	    </div>			
