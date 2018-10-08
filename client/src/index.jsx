@@ -23,13 +23,19 @@ class App extends React.Component {
 
   handleUserState(user, error){
     //console.log(user, error)
+    if (!error) {
+      console.log('Email and Password are not matched');
+    } else {
+      // redirect to dashboard page
+      // redirect to order page for now
+    }
     this.setState({user: user, isAuthed: error}); 
   }
 
   componentDidMount(){    
     var _this = this;
     auth.validateToken((user, error) => {
-      console.log(error);
+      // console.log(error);
       _this.setState({user: user, isAuthed: error })
     });
   }
@@ -40,9 +46,14 @@ class App extends React.Component {
         <span className="App">
           <FluidNavbar handleUserState={this.handleUserState} isAuthed={this.state.isAuthed}/>
           <div className="container-fluid container-fluid-spacious">
+            
+            <Route exact path='/' 
+              render={(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
+            />    
 
-            <Route exact path="/" component={Login} />
-            <Route exact path="/login" component={Login} />
+            <Route path='/login' 
+              render={(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
+            />                      
             <Route path='/orders' 
               render={(props) => <Orders isAuthed={this.state.isAuthed} />} 
             />

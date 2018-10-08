@@ -1,5 +1,8 @@
 import React from 'react';
+import { Redirect } from "react-router-dom";
 import PropTypes from 'prop-types';
+import auth from './../../../../resource/libs/helpers/auth.js';
+import Orders from './../orders/orders.jsx'
 
 class Login extends React.Component {
 	constructor(props) {
@@ -19,12 +22,15 @@ class Login extends React.Component {
 	}
 
 	handleSubmit(event) {
-		console.log(this.state.email, this.state.passowrd);
+  	var user = this.state;
+  	auth.signIn(user, this.props.handleUserState);		
 		event.preventDefault();
 	}
 
 	render() {
-
+		if (this.props.isAuthed === true) {
+			return <Redirect to='/orders' render={(props) => <Orders isAuthed={true} />} />
+		}
 		return (
 			<form className="form-signin" onSubmit={this.handleSubmit}>
 				<div className="text-center mb-4">
@@ -34,12 +40,12 @@ class Login extends React.Component {
 				</div>
 				<div className="form-label-group">
 	        <input type="email" name="email" id="inputEmail" className="form-control" placeholder="Email address" onChange={this.handleChange} required />
-	        <label htmlFor="inputEmail">Email address</label>
+	        <label htmlFor="inputEmail" id="inputEmailLabel">Email address</label>
 	      </div>
 
 	      <div className="form-label-group">
 	        <input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" onChange={this.handleChange} required />
-	        <label htmlFor="inputPassword">Password</label>
+	        <label htmlFor="inputPassword" id="inputPasswordLabel">Password</label>
 	      </div>
 
 	      <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
