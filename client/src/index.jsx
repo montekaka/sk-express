@@ -7,6 +7,7 @@ import auth from './../../resource/libs/helpers/auth.js'
 import FluidNavbar from './components/navbar/navbar.jsx'
 import Orders from './pages/orders/orders.jsx'
 import Products from './pages/products/products.jsx'
+import Login from './pages/auth/login.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -44,7 +45,8 @@ class App extends React.Component {
                 <h2 className="dashhead-title">Overview</h2>
               </div>
             </div>
-            <Route exact path="/" component={Orders} />
+            <Route exact path="/" component={Login} />
+            <Route exact path="/login" component={Login} />
             <Route path='/orders' 
               render={(props) => <Orders isAuthed={this.state.isAuthed} />} 
             />

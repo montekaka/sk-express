@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
+import Login from './../../pages/auth/login.jsx'
 //import $ from 'jquery';
 // import Auth from 'j-toker';
 //import config from './../../../../resource/config';
@@ -46,7 +47,7 @@ class FluidNavbar extends React.Component {
   	if (isLoggedIn) {
   		button = <NavLink onClick={this.handleSignOutClick}>Sign Out</NavLink>;
   	} else {
-  		button = <NavLink onClick={this.hanldeSignInClick}>Sign In</NavLink>
+  		button = <NavLink tag={Link} to="/login">Sign In</NavLink>
   	}
   	return button;
   }
