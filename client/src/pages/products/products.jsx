@@ -29,7 +29,6 @@ class Products extends React.Component {
 			});			
 	}		
 
-
 	handleClickLinkToOrder(id){
 		console.log(id);
 	}
