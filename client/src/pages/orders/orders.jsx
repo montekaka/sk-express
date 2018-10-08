@@ -41,7 +41,6 @@ class Orders extends React.Component {
 
 	renderSkTable() {
 		if(this.state.auth === true) {
-			console.log(this.state.auth)
 			return (
 				<SkTable headerItems={tableHeaders} items={this.state.orders} objectName="orders" handleView={this.handleClickLinkToOrder}/>
 			)

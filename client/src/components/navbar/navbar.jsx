@@ -22,6 +22,7 @@ class FluidNavbar extends React.Component {
 		this.toggleNavbar = this.toggleNavbar.bind(this);
 		this.hanldeSignInClick = this.hanldeSignInClick.bind(this);
 		this.handleSignOutClick = this.handleSignOutClick.bind(this);
+		this.loginButton = this.loginButton.bind(this);
 	}
 
   toggleNavbar() {
@@ -39,7 +40,17 @@ class FluidNavbar extends React.Component {
   	auth.signOut(this.props.handleUserState);
   }
 
-
+  loginButton() {
+  	const isLoggedIn = this.props.user_auth;
+  	let button
+  	if (isLoggedIn) {
+  		button = <NavLink onClick={this.handleSignOutClick}>Sign Out</NavLink>;
+  	} else {
+  		button = <NavLink onClick={this.hanldeSignInClick}>Sign In</NavLink>
+  	}
+  	return button;
+  }
+  
 	render() {
 		return (
 	    <Navbar className="navbar navbar-expand-sm fixed-top navbar-dark bg-dark app-navbar">	      
@@ -56,10 +67,7 @@ class FluidNavbar extends React.Component {
 	            <NavLink tag={Link} to="/products">Products</NavLink>
 	          </NavItem>
 	          <NavItem>
-	          	<NavLink onClick={this.hanldeSignInClick}>Sign In</NavLink>
-	          </NavItem>
-	          <NavItem>
-	          	<NavLink onClick={this.handleSignOutClick}>Sign Out</NavLink>
+	          	{this.loginButton()}
 	          </NavItem>	          
 	        </Nav>
 	      </Collapse>

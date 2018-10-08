@@ -35,7 +35,7 @@ class App extends React.Component {
     return (
       <Router>
         <span className="App">
-          <FluidNavbar handleUserState={this.handleUserState}/>
+          <FluidNavbar handleUserState={this.handleUserState} user_auth={this.state.user_auth}/>
           <div className="container-fluid container-fluid-spacious">
             <div className="dashhead mt-4">
               <div className="dashhead-titles">
