@@ -47,7 +47,7 @@ class FluidNavbar extends React.Component {
   	if (isLoggedIn) {
   		button = <NavLink onClick={this.handleSignOutClick}>Sign Out</NavLink>;
   	} else {
-  		button = <NavLink tag={Link} to="/login">Sign In</NavLink>
+  		button = <NavLink tag={Link} to="/login">Login</NavLink>
   	}
   	return button;
   }

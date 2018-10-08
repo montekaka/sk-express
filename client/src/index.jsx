@@ -39,12 +39,7 @@ class App extends React.Component {
         <span className="App">
           <FluidNavbar handleUserState={this.handleUserState} isAuthed={this.state.isAuthed}/>
           <div className="container-fluid container-fluid-spacious">
-            <div className="dashhead mt-4">
-              <div className="dashhead-titles">
-                <h6 className="dashhead-subtitle">Dashboards</h6>
-                <h2 className="dashhead-title">Overview</h2>
-              </div>
-            </div>
+
             <Route exact path="/" component={Login} />
             <Route exact path="/login" component={Login} />
             <Route path='/orders' 

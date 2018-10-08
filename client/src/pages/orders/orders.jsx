@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import SkTable from './../../components/shared/table/skTable.jsx';
 import orderTable from './../../../../resource/orderTable';
+import Dashheader from './../../components/dashheader/dashheader.jsx';
 import config from './../../../../resource/config';
 
 const tableHeaders = orderTable.tableHeaders;
@@ -45,6 +46,7 @@ class Orders extends React.Component {
 				<SkTable headerItems={tableHeaders} items={this.state.orders} objectName="orders" handleView={this.handleClickLinkToOrder}/>
 			)
 		} else {
+			// redirect back to login page
 			return (<div>Please sign in</div>);
 		}
 	}
@@ -52,6 +54,7 @@ class Orders extends React.Component {
 	render() {
 		return (
 			<div>
+				<Dashheader subtitle={'Overview'} title={'Orders'}/>
 		    <div className="hr-divider mt-3 mb-5">
 		      <h3 className="hr-divider-content hr-divider-heading">Orders</h3>		      	      
 		      {this.renderSkTable()}
