@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       toProducts: false,
-      user_auth: false,
+      isAuthed: false,
       user: null
     }
     this.handleUserState = this.handleUserState.bind(this);
@@ -21,13 +21,13 @@ class App extends React.Component {
 
   handleUserState(user, error){
     //console.log(user, error)
-    this.setState({user: user, user_auth: error}); 
+    this.setState({user: user, isAuthed: error}); 
   }
 
   componentDidMount(){    
     var _this = this;
     auth.validateToken((user, error) => {
-      _this.setState({user: user, user_auth: error })
+      _this.setState({user: user, isAuthed: error })
     });
   }
 
@@ -35,7 +35,7 @@ class App extends React.Component {
     return (
       <Router>
         <span className="App">
-          <FluidNavbar handleUserState={this.handleUserState} user_auth={this.state.user_auth}/>
+          <FluidNavbar handleUserState={this.handleUserState} isAuthed={this.state.isAuthed}/>
           <div className="container-fluid container-fluid-spacious">
             <div className="dashhead mt-4">
               <div className="dashhead-titles">
