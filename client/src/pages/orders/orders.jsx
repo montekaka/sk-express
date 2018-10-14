@@ -56,9 +56,9 @@ class Orders extends React.Component {
 			<div>
 				<Dashheader subtitle={'Overview'} title={'Orders'}/>
 		    <div className="hr-divider mt-3 mb-5">
-		      <h3 className="hr-divider-content hr-divider-heading">Orders</h3>		      	      
-		      {this.renderSkTable()}
-		    </div>		    
+		    	<h3 className="hr-divider-content hr-divider-heading">Orders</h3>		      	      
+		    </div>		    		      
+		    {this.renderSkTable()}		    
 	    </div>			
 		)
 	}

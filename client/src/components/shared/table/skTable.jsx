@@ -10,7 +10,7 @@ class SkTable extends React.Component {
 	render() {
 		return (
 	    <div className="table-responsive">
-				<Table hover size="sm" bordered>
+				<Table hover size="sm" bordered dark>
 	        <thead>
 	          <tr>
 	          	{
