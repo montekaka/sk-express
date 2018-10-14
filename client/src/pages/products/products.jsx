@@ -14,21 +14,24 @@ class Products extends React.Component {
 		super(props);
 		this.state = {
 			products: [],
-			perPage: 10,
+			perPage: 5,
+			total: 0,
 			totalPage: 0,
-			currentPage: 0
+			currentPage: 1
 		}
 		this.handleClickLinkToOrder = this.handleClickLinkToOrder.bind(this);
 	}
 
 	componentDidMount() {
 		const _this = this;
-		const api_url = base_url+get_url;
+		const api_url = base_url+get_url+'?page='+this.state.currentPage+'&per_page='+this.state.perPage;
+		console.log(api_url)
 		axios.get(api_url)
 			.then((res) => {
 				let perPage = Number(res.headers['per-page']);
-				let totalPage = Number(res.headers['total']);
-				_this.setState({products: res.data, perPage: perPage, totalPage: totalPage})
+				let total = Number(res.headers['total']);
+				let totalPage = perPage > 0 ? Math.ceil(total / perPage) : 0;
+				_this.setState({products: res.data, perPage: perPage, totalPage: totalPage, total: total})
 			})
 			.catch((err) => {
 				console.log(err);
