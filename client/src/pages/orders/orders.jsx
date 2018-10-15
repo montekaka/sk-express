@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import SkTable from './../../components/shared/table/skTable.jsx';
+import SkPagination from './../../components/shared/pagination/skPagination.jsx';
 import orderTable from './../../../../resource/orderTable';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import config from './../../../../resource/config';
