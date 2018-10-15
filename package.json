@@ -38,6 +38,7 @@
     "react-star-ratings": "^2.3.0",
     "reactstrap": "^6.4.0",
     "request": "^2.87.0",
-    "serialize-javascript": "^1.4.0"
+    "serialize-javascript": "^1.4.0",
+    "underscore": "^1.9.1"
   }
 }

@@ -5,28 +5,32 @@ import SkPagination from './../../components/shared/pagination/skPagination.jsx'
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import productTable from './../../../../resource/productTable';
 import config from './../../../../resource/config';
+import paginationList from './../../../../resource/libs/helpers/paginationList';
 
 const tableHeaders = productTable.tableHeaders;
 const base_url = config.base_url;
 const get_url = '/products.json';
+const getPaginationList = paginationList.getPaginationList;
 
 class Products extends React.Component {
 	constructor(props) {		
 		super(props);
 		this.state = {
-			products: [],
-			perPage: 8,
+			products: [],			
 			total: 0,
 			totalPage: 0,
+			perPage: 8,			
 			currentPage: 1,
-			paginationMax: 5
+			startPage: 1,
+			pageItemsCount: 10,
+			pageItems: []
 		}
 		this.handleClickLinkToOrder = this.handleClickLinkToOrder.bind(this);
 		this.fetch = this.fetch.bind(this);
 		this.handleClickPageNumber = this.handleClickPageNumber.bind(this);
 	}
-
-	componentDidMount() {		
+	//getPaginationList = (currentPage, start, items, min, max)
+	componentDidMount() {				
 		this.fetch(this.state.currentPage);
 	}		
 
@@ -37,8 +41,18 @@ class Products extends React.Component {
 			.then((res) => {
 				let perPage = Number(res.headers['per-page']);
 				let total = Number(res.headers['total']);
-				let totalPage = perPage > 0 ? Math.ceil(total / perPage) : 0;
-				_this.setState({products: res.data, perPage: perPage, totalPage: totalPage, total: total, currentPage: page_number});
+				let totalPage = perPage > 0 ? Math.ceil(total / perPage) : 0;										
+				let pageItems = getPaginationList(page_number, this.state.startPage, this.state.pageItemsCount , 0, totalPage);
+				let startPage = pageItems[0];	
+				_this.setState({
+					products: res.data, 
+					perPage: perPage, 
+					totalPage: totalPage, 
+					total: total, 
+					currentPage: page_number,
+					pageItems: pageItems,
+					startPage: startPage
+				});								
 			})
 			.catch((err) => {
 				console.log(err);
@@ -65,7 +79,7 @@ class Products extends React.Component {
 		    <SkPagination 
 		    	fetch={this.fetch} 
 		    	currentPage={this.state.currentPage}
-		    	paginationMax={this.state.paginationMax} 
+		    	pageItems={this.state.pageItems}
 		    	handleClickPageNumber={this.handleClickPageNumber} 
 		    	totalPage={this.state.totalPage}/>
 	    </div>			
