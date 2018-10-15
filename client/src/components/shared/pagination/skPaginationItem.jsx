@@ -8,10 +8,10 @@ const SkPaginationItem = (props) => {
   }
 
 	return (
-    <PaginationItem>
-      <PaginationLink onClick={handleClick}>
-      	{props.pageNum}
-      </PaginationLink>
+    <PaginationItem active={props.pageNum === props.currentPage}>
+      <PaginationLink onClick={handleClick} >
+        {props.pageNum}
+      </PaginationLink>  
     </PaginationItem>
 	)
 };

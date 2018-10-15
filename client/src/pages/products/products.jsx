@@ -15,11 +15,11 @@ class Products extends React.Component {
 		super(props);
 		this.state = {
 			products: [],
-			perPage: 5,
+			perPage: 8,
 			total: 0,
 			totalPage: 0,
 			currentPage: 1,
-			paginationMax: 10
+			paginationMax: 5
 		}
 		this.handleClickLinkToOrder = this.handleClickLinkToOrder.bind(this);
 		this.fetch = this.fetch.bind(this);
@@ -62,7 +62,12 @@ class Products extends React.Component {
 		      <p>Total Page: {this.state.totalPage}</p>
 		    </div>		    
 		    <SkTable headerItems={tableHeaders} items={this.state.products} objectName="orders" handleView={this.handleClickLinkToOrder}/>
-		    <SkPagination fetch={this.fetch} paginationMax={this.state.paginationMax} handleClickPageNumber={this.handleClickPageNumber}/>
+		    <SkPagination 
+		    	fetch={this.fetch} 
+		    	currentPage={this.state.currentPage}
+		    	paginationMax={this.state.paginationMax} 
+		    	handleClickPageNumber={this.handleClickPageNumber} 
+		    	totalPage={this.state.totalPage}/>
 	    </div>			
 		)
 	}
