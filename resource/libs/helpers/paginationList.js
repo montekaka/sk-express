@@ -11,7 +11,6 @@ const getPaginationList = (currentPage, start, pageItemsCount, min, max) => {
 		newStart = start;
 		newEnd = end
 	}
-
 	return _.range(newStart, newEnd);
 }
 
