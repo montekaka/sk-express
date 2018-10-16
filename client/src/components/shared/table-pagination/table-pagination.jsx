@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import _ from 'underscore';
 import SkTable from './../table/skTable.jsx';
+import SkPagination from './../pagination/skPagination.jsx';
 import paginationList from './../../../../../resource/libs/helpers/paginationList';
 const getPaginationList = paginationList.getPaginationList;
 
@@ -24,6 +25,7 @@ class TablePagination extends React.Component {
 		this.fetch = this.fetch.bind(this);
 		this.handleClickLinkToPage = this.handleClickLinkToPage.bind(this);
 		this.handleClickSort = this.handleClickSort.bind(this);
+		this.handleClickPageNumber = this.handleClickPageNumber.bind(this);
 	}
 
 	componentDidMount() {
@@ -74,6 +76,10 @@ class TablePagination extends React.Component {
 		console.log(this.props.tableHeaders[idx])
 		//console.log(column);
 	}	
+
+	handleClickPageNumber(num){
+		this.fetch(num);
+	}	
 	render() {
 		return (
 			<div>
@@ -81,7 +87,12 @@ class TablePagination extends React.Component {
 		    	headerItems={this.props.tableHeaders} 
 		    	items={this.state.items} 
 		    	handleClickSort={this.handleClickSort}
-		    	handleView={this.handleClickLinkToPage}/>				
+		    	handleView={this.handleClickLinkToPage}/>			
+		    <SkPagination 
+		    	currentPage={this.state.currentPage}
+		    	pageItems={this.state.pageItems}
+		    	handleClickPageNumber={this.handleClickPageNumber} 
+		    	totalPage={this.state.totalPage}/>		    		
 			</div>
 		)
 	}
