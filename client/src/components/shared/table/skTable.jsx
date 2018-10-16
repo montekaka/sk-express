@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'reactstrap';
 import SkTableRow  from './skTableRow.jsx'
+import SkTableHeader  from './skTableHeader.jsx'
 
 class SkTable extends React.Component {
 	constructor(props) {
@@ -14,7 +15,7 @@ class SkTable extends React.Component {
 	        <thead>
 	          <tr>
 	          	{
-	          		this.props.headerItems.map((headerItem) => <th key={this.props.objectName+'th'+headerItem.id}>{headerItem.label}</th>)
+	          		this.props.headerItems.map((headerItem) => <SkTableHeader key={this.props.objectName+'th'+headerItem.id} headerItem={headerItem} handleClickSort={this.props.handleClickSort}/>)
 	          	}
 	          </tr>
 	        </thead>

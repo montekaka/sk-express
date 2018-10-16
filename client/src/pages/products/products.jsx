@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import _ from 'underscore';
 import SkTable from './../../components/shared/table/skTable.jsx';
 import SkPagination from './../../components/shared/pagination/skPagination.jsx';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
@@ -7,10 +8,12 @@ import productTable from './../../../../resource/productTable';
 import config from './../../../../resource/config';
 import paginationList from './../../../../resource/libs/helpers/paginationList';
 
-const tableHeaders = productTable.tableHeaders;
+//const tableHeaders = productTable.tableHeaders;
 const base_url = config.base_url;
 const get_url = '/products.json';
 const getPaginationList = paginationList.getPaginationList;
+
+// parse page number from url
 
 class Products extends React.Component {
 	constructor(props) {		
@@ -28,9 +31,10 @@ class Products extends React.Component {
 		this.handleClickLinkToOrder = this.handleClickLinkToOrder.bind(this);
 		this.fetch = this.fetch.bind(this);
 		this.handleClickPageNumber = this.handleClickPageNumber.bind(this);
+		this.handleClickSort = this.handleClickSort.bind(this);
 	}
 	//getPaginationList = (currentPage, start, items, min, max)
-	componentDidMount() {				
+	componentDidMount() {
 		this.fetch(this.state.currentPage);
 	}		
 
@@ -67,6 +71,16 @@ class Products extends React.Component {
 		this.fetch(num);
 	}
 
+	handleClickSort(column) {
+		let new_sort_by = column['sort_by'] === 'ASC' ? 'DESC' : 'ASC';
+		let idx = _.findLastIndex(this.props.tableHeaders, column);
+		if (idx > -1) {
+			this.props.tableHeaders[idx]['sort_by'] = new_sort_by;
+		}
+		console.log(this.props.tableHeaders[idx])
+		//console.log(column);
+	}
+
 	render() {
 		return (
 			<div>
@@ -75,7 +89,12 @@ class Products extends React.Component {
 		      <h3 className="hr-divider-content hr-divider-heading">Products</h3>		      
 		      <p>Total Page: {this.state.totalPage}</p>
 		    </div>		    
-		    <SkTable headerItems={tableHeaders} items={this.state.products} objectName="orders" handleView={this.handleClickLinkToOrder}/>
+		    <SkTable 
+		    	headerItems={this.props.tableHeaders} 
+		    	items={this.state.products} 
+		    	objectName="products" 
+		    	handleClickSort={this.handleClickSort}
+		    	handleView={this.handleClickLinkToOrder}/>
 		    <SkPagination 
 		    	fetch={this.fetch} 
 		    	currentPage={this.state.currentPage}

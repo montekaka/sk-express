@@ -10,6 +10,10 @@ import Orders from './pages/orders/orders.jsx'
 import Products from './pages/products/products.jsx'
 import Login from './pages/auth/login.jsx'
 
+// project states
+import productTable from './../../resource/productTable';
+const productTableHeaders = productTable.tableHeaders;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -48,16 +52,20 @@ class App extends React.Component {
           <div className="container-fluid container-fluid-spacious">
             
             <Route exact path='/' 
-              render={(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
+              render= {(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
             />    
 
             <Route path='/login' 
-              render={(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
+              render= {(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
             />                      
             <Route path='/orders' 
-              render={(props) => <Orders isAuthed={this.state.isAuthed} />} 
+              render= {(props) => <Orders isAuthed={this.state.isAuthed} />} 
             />
-            <Route path="/products" component={Products}/>            
+            <Route path="/products" 
+              render= {
+                (props) => <Products tableHeaders={productTableHeaders} />
+              }
+            />
           </div>        
         </span>
       </Router>
