@@ -47,7 +47,7 @@ class TablePagination extends React.Component {
 	fetch(page_number) {
 		const _this = this;	
 		let params = getSortedParams(this.props.tableHeaders);
-		if (this.state.searchTerm !== null) {
+		if (this.state.searchTerm !== null && this.state.searchTerm.length > 0) {
 			params['search_value'] = this.state.searchTerm;
 		}
 		const api_url = `${_this.state.base_url+_this.state.get_url}?page=${page_number}&per_page=${_this.state.perPage}`;

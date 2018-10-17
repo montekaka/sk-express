@@ -14,6 +14,9 @@ import Login from './pages/auth/login.jsx'
 import productTable from './../../resource/productTable';
 const productTableHeaders = productTable.tableHeaders;
 
+import orderTable from './../../resource/orderTable';
+const orderTableHeaders = orderTable.tableHeaders;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +62,7 @@ class App extends React.Component {
               render= {(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
             />                      
             <Route path='/orders' 
-              render= {(props) => <Orders isAuthed={this.state.isAuthed} />} 
+              render= {(props) => <Orders isAuthed={this.state.isAuthed} tableHeaders={orderTableHeaders} />} 
             />
             <Route path="/products" 
               render= {
