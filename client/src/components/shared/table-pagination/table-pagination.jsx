@@ -3,6 +3,7 @@ import axios from 'axios';
 import _ from 'underscore';
 import SkTable from './../table/skTable.jsx';
 import SkPagination from './../pagination/skPagination.jsx';
+import SkSearchBar from './../searchbar/skSearchBar.jsx';
 import paginationList from './../../../../../resource/libs/helpers/paginationList';
 import sortedParams from './../../../../../resource/libs/helpers/sortedParams';
 const getPaginationList = paginationList.getPaginationList;
@@ -20,6 +21,7 @@ class TablePagination extends React.Component {
 			currentPage: 1,
 			startPage: 1,
 			pageItemsCount: 10,
+			searchTerm: null,
 			pageItems: [],
 			get_url: '',
 			base_url: ''
@@ -29,6 +31,7 @@ class TablePagination extends React.Component {
 		this.handleClickLinkToPage = this.handleClickLinkToPage.bind(this);
 		this.handleClickSort = this.handleClickSort.bind(this);
 		this.handleClickPageNumber = this.handleClickPageNumber.bind(this);
+		this.handleSearch = this.handleSearch.bind(this);
 	}
 
 	componentDidMount() {
@@ -41,32 +44,35 @@ class TablePagination extends React.Component {
 			});		
 	}
 
-	fetch(page_number, order_by) {
+	fetch(page_number) {
 		const _this = this;	
-		const params = getSortedParams(this.props.tableHeaders);
+		let params = getSortedParams(this.props.tableHeaders);
+		if (this.state.searchTerm !== null) {
+			params['search_value'] = this.state.searchTerm;
+		}
 		const api_url = `${_this.state.base_url+_this.state.get_url}?page=${page_number}&per_page=${_this.state.perPage}`;
 		axios.get(api_url, {
-    		params: params
-  		})
-			.then((res) => {
-				let perPage = Number(res.headers['per-page']);
-				let total = Number(res.headers['total']);
-				let totalPage = perPage > 0 ? Math.ceil(total / perPage) : 0;	
-				let pageItems = getPaginationList(page_number, this.state.startPage, this.state.pageItemsCount , 0, totalPage);
-				let startPage = pageItems[0];	
-				_this.setState({
-					items: res.data, 
-					perPage: perPage, 
-					totalPage: totalPage, 
-					total: total, 
-					currentPage: page_number,
-					pageItems: pageItems,
-					startPage: startPage
-				});								
-			})
-			.catch((err) => {
-				console.log(err);
-			});				
+  		params: params
+		})		
+		.then((res) => {
+			let perPage = Number(res.headers['per-page']);
+			let total = Number(res.headers['total']);
+			let totalPage = perPage > 0 ? Math.ceil(total / perPage) : 0;	
+			let pageItems = getPaginationList(page_number, this.state.startPage, this.state.pageItemsCount , 0, totalPage);
+			let startPage = pageItems[0];	
+			_this.setState({
+				items: res.data, 
+				perPage: perPage, 
+				totalPage: totalPage, 
+				total: total, 
+				currentPage: page_number,
+				pageItems: pageItems,
+				startPage: startPage
+			});								
+		})
+		.catch((err) => {
+			console.log(err);
+		});				
 	}
 
 	handleClickLinkToPage(id){
@@ -92,19 +98,28 @@ class TablePagination extends React.Component {
 	handleClickPageNumber(num){
 		this.fetch(num);
 	}	
+
+	handleSearch(searchTerm) {
+		this.setState({searchTerm: searchTerm, currentPage: 1, startPage: 1},() => {
+			this.fetch(1);
+		});
+	}
 	render() {
 		return (
 			<div>
-		    <SkTable 
-		    	headerItems={this.props.tableHeaders} 
-		    	items={this.state.items} 
-		    	handleClickSort={this.handleClickSort}
-		    	handleView={this.handleClickLinkToPage}/>			
-		    <SkPagination 
-		    	currentPage={this.state.currentPage}
-		    	pageItems={this.state.pageItems}
-		    	handleClickPageNumber={this.handleClickPageNumber} 
-		    	totalPage={this.state.totalPage}/>		    		
+				<div className="searchbar">
+					<SkSearchBar handleSearch={this.handleSearch}/>		
+				</div>				
+			    <SkTable 
+			    	headerItems={this.props.tableHeaders} 
+			    	items={this.state.items} 
+			    	handleClickSort={this.handleClickSort}
+			    	handleView={this.handleClickLinkToPage}/>			
+			    <SkPagination 
+			    	currentPage={this.state.currentPage}
+			    	pageItems={this.state.pageItems}
+			    	handleClickPageNumber={this.handleClickPageNumber} 
+			    	totalPage={this.state.totalPage}/>		    		
 			</div>
 		)
 	}
