@@ -18,11 +18,17 @@ class Products extends React.Component {
 		super(props);
 		this.state = {
 			perPage: 8,			
-			pageItemsCount: 10			
+			pageItemsCount: 10,
+			totalPage: 0,
+			total: 0
 		}
+		this.handleUpdateTotalItems = this.handleUpdateTotalItems.bind(this);
 	}
 	//getPaginationList = (currentPage, start, items, min, max)
 	
+	handleUpdateTotalItems(totalPage, total) {
+		this.setState({totalPage: totalPage, total: total});
+	}
 
 	render() {
 		return (
@@ -30,9 +36,11 @@ class Products extends React.Component {
 				<Dashheader subtitle={'Overview'} title={'Product'}/>
 		    <div className="hr-divider mt-3 mb-5">
 		      <h3 className="hr-divider-content hr-divider-heading">Products</h3>		      
+		      <p>Total Products: {this.state.total}</p>
 		      <p>Total Page: {this.state.totalPage}</p>
 		    </div>		    
-		    <TablePagination 		    	
+		    <TablePagination 		 
+		    	handleUpdateTotalItems={this.handleUpdateTotalItems}   	
 		    	base_url={base_url} 
 		    	get_url={get_url} 
 		    	perPage={this.state.perPage}
