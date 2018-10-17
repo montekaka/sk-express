@@ -4,7 +4,9 @@ import _ from 'underscore';
 import SkTable from './../table/skTable.jsx';
 import SkPagination from './../pagination/skPagination.jsx';
 import paginationList from './../../../../../resource/libs/helpers/paginationList';
+import sortedParams from './../../../../../resource/libs/helpers/sortedParams';
 const getPaginationList = paginationList.getPaginationList;
+const getSortedParams = sortedParams.get;
 
 class TablePagination extends React.Component {
 	constructor(props) {
@@ -39,9 +41,12 @@ class TablePagination extends React.Component {
 	}
 
 	fetch(page_number) {
-		const _this = this;
+		const _this = this;	
+		const params = getSortedParams(this.props.tableHeaders);
 		const api_url = `${_this.state.base_url+_this.state.get_url}?page=${page_number}&per_page=${_this.state.perPage}`;
-		axios.get(api_url)
+		axios.get(api_url, {
+    		params: params
+  		})
 			.then((res) => {
 				let perPage = Number(res.headers['per-page']);
 				let total = Number(res.headers['total']);
@@ -73,7 +78,10 @@ class TablePagination extends React.Component {
 		if (idx > -1) {
 			this.props.tableHeaders[idx]['sort_by'] = new_sort_by;
 		}
-		console.log(this.props.tableHeaders[idx])
+		this.fetch(1);
+		// we will call the fetch method get new data, remember to set the page_number to 1
+		//console.log(getSortedParams(this.props.tableHeaders));
+		//console.log(this.props.tableHeaders[idx])
 		//console.log(column);
 	}	
 
