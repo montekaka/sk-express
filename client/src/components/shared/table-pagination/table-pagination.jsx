@@ -7,6 +7,7 @@ import paginationList from './../../../../../resource/libs/helpers/paginationLis
 import sortedParams from './../../../../../resource/libs/helpers/sortedParams';
 const getPaginationList = paginationList.getPaginationList;
 const getSortedParams = sortedParams.get;
+const resetSortedParams = sortedParams.reset;
 
 class TablePagination extends React.Component {
 	constructor(props) {
@@ -40,7 +41,7 @@ class TablePagination extends React.Component {
 			});		
 	}
 
-	fetch(page_number) {
+	fetch(page_number, order_by) {
 		const _this = this;	
 		const params = getSortedParams(this.props.tableHeaders);
 		const api_url = `${_this.state.base_url+_this.state.get_url}?page=${page_number}&per_page=${_this.state.perPage}`;
@@ -73,16 +74,19 @@ class TablePagination extends React.Component {
 	}	
 
 	handleClickSort(column) {
-		let new_sort_by = column['sort_by'] === 'ASC' ? 'DESC' : 'ASC';
+		let newSortBy = column['sort_by'] === 'ASC' ? 'DESC' : 'ASC';
+		resetSortedParams(this.props.tableHeaders);
 		let idx = _.findLastIndex(this.props.tableHeaders, column);
 		if (idx > -1) {
-			this.props.tableHeaders[idx]['sort_by'] = new_sort_by;
+			this.props.tableHeaders[idx]['sort_by'] = newSortBy;
+			this.props.tableHeaders[idx]['sort_on'] = true;
 		}
-		this.fetch(1);
+		this.setState({currentPage: 1, startPage: 1}, () => {
+			this.fetch(1);
+		});
 		// we will call the fetch method get new data, remember to set the page_number to 1
 		//console.log(getSortedParams(this.props.tableHeaders));
 		//console.log(this.props.tableHeaders[idx])
-		//console.log(column);
 	}	
 
 	handleClickPageNumber(num){
