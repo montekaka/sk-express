@@ -17,6 +17,7 @@ const productSkState = productTable.skState;
 
 import orderTable from './../../resource/orderTable';
 const orderTableHeaders = orderTable.tableHeaders;
+const orderSkState = orderTable.skState;
 
 class App extends React.Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class App extends React.Component {
               render= {(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
             />                      
             <Route path='/orders' 
-              render= {(props) => <Orders isAuthed={this.state.isAuthed} tableHeaders={orderTableHeaders} />} 
+              render= {(props) => <Orders isAuthed={this.state.isAuthed} skState={orderSkState} />} 
             />
             <Route path="/products" 
               render= {
