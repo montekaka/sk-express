@@ -9,7 +9,7 @@ const SkSearchBar = (props) => {
 	}
 
   return (
-    <Input placeholder="Search..." name="search" onChange={handleChange}/>
+    <Input placeholder="Search..." name="search" onChange={handleChange} value={props.search_term}/>
   )
 };
 

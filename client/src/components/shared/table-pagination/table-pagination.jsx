@@ -21,7 +21,7 @@ class TablePagination extends React.Component {
 			//currentPage: 1,
 			startPage: 1,
 			pageItemsCount: 10,
-			searchTerm: null,
+			//searchTerm: null,
 			pageItems: [],
 			get_url: '',
 			base_url: ''
@@ -48,8 +48,12 @@ class TablePagination extends React.Component {
 	fetch(page_number) {
 		const _this = this;	
 		let params = getSortedParams(this.props.skState.tableHeaders);
-		if (this.state.searchTerm !== null && this.state.searchTerm.length > 0) {
-			params['search_value'] = this.state.searchTerm;
+		// if (this.state.searchTerm !== null && this.state.searchTerm.length > 0) {
+		// 	params['search_value'] = this.state.searchTerm;
+		// }
+
+		if (this.props.skState.params.SEARCH_TERM !== null && this.props.skState.params.SEARCH_TERM.length > 0 ) {
+			params['search_value'] = this.props.skState.params.SEARCH_TERM;
 		}
 		const api_url = `${_this.state.base_url+_this.state.get_url}?page=${page_number}&per_page=${_this.state.perPage}`;
 		axios.get(api_url, {
@@ -105,7 +109,8 @@ class TablePagination extends React.Component {
 
 	handleSearch(searchTerm) {
 		this.props.skState.params.CURRENT_PAGE = 1;
-		this.setState({searchTerm: searchTerm, startPage: 1},() => {
+		this.props.skState.params.SEARCH_TERM = searchTerm;
+		this.setState({startPage: 1},() => {
 			this.fetch(1);
 		});
 	}
@@ -113,7 +118,7 @@ class TablePagination extends React.Component {
 		return (
 			<div>
 				<div className="searchbar">
-					<SkSearchBar handleSearch={this.handleSearch}/>		
+					<SkSearchBar handleSearch={this.handleSearch} search_term={this.props.skState.params.SEARCH_TERM}/>		
 				</div>				
 			    <SkTable 
 			    	headerItems={this.props.skState.tableHeaders} 
