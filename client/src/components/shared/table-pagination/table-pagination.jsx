@@ -46,7 +46,7 @@ class TablePagination extends React.Component {
 
 	fetch(page_number) {
 		const _this = this;	
-		let params = getSortedParams(this.props.tableHeaders);
+		let params = getSortedParams(this.props.skState.tableHeaders);
 		if (this.state.searchTerm !== null && this.state.searchTerm.length > 0) {
 			params['search_value'] = this.state.searchTerm;
 		}
@@ -82,18 +82,18 @@ class TablePagination extends React.Component {
 
 	handleClickSort(column) {
 		let newSortBy = column['sort_by'] === 'ASC' ? 'DESC' : 'ASC';
-		resetSortedParams(this.props.tableHeaders);
-		let idx = _.findLastIndex(this.props.tableHeaders, column);
+		resetSortedParams(this.props.skState.tableHeaders);
+		let idx = _.findLastIndex(this.props.skState.tableHeaders, column);
 		if (idx > -1) {
-			this.props.tableHeaders[idx]['sort_by'] = newSortBy;
-			this.props.tableHeaders[idx]['sort_on'] = true;
+			this.props.skState.tableHeaders[idx]['sort_by'] = newSortBy;
+			this.props.skState.tableHeaders[idx]['sort_on'] = true;
 		}
 		this.setState({currentPage: 1, startPage: 1}, () => {
 			this.fetch(1);
 		});
 		// we will call the fetch method get new data, remember to set the page_number to 1
-		//console.log(getSortedParams(this.props.tableHeaders));
-		//console.log(this.props.tableHeaders[idx])
+		//console.log(getSortedParams(this.props.skState.tableHeaders));
+		//console.log(this.props.skState.tableHeaders[idx])
 	}	
 
 	handleClickPageNumber(num){
@@ -112,7 +112,7 @@ class TablePagination extends React.Component {
 					<SkSearchBar handleSearch={this.handleSearch}/>		
 				</div>				
 			    <SkTable 
-			    	headerItems={this.props.tableHeaders} 
+			    	headerItems={this.props.skState.tableHeaders} 
 			    	items={this.state.items} 
 			    	handleClickSort={this.handleClickSort}
 			    	handleView={this.handleClickLinkToPage}/>			
