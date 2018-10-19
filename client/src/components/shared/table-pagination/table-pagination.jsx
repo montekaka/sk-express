@@ -18,7 +18,7 @@ class TablePagination extends React.Component {
 			total: 0,
 			totalPage: 0,
 			perPage: 8,
-			currentPage: 1,
+			//currentPage: 1,
 			startPage: 1,
 			pageItemsCount: 10,
 			searchTerm: null,
@@ -40,7 +40,8 @@ class TablePagination extends React.Component {
 			, pageItemsCount: this.props.pageItemsCount
 			, get_url: this.props.get_url
 			, base_url: this.props.base_url}, () => {
-				_this.fetch(_this.state.currentPage);
+				//_this.fetch(_this.state.currentPage);
+				_this.fetch(_this.props.skState.params.CURRENT_PAGE);
 			});		
 	}
 
@@ -61,12 +62,13 @@ class TablePagination extends React.Component {
 			let pageItems = getPaginationList(page_number, this.state.startPage, this.state.pageItemsCount , 0, totalPage);
 			let startPage = pageItems[0];	
 			_this.props.handleUpdateTotalItems(totalPage, total);
+			_this.props.skState.params.CURRENT_PAGE = page_number;
 			_this.setState({
 				items: res.data, 
 				perPage: perPage, 
 				totalPage: totalPage, 
 				total: total, 
-				currentPage: page_number,
+				//currentPage: page_number,
 				pageItems: pageItems,
 				startPage: startPage
 			});								
@@ -88,7 +90,8 @@ class TablePagination extends React.Component {
 			this.props.skState.tableHeaders[idx]['sort_by'] = newSortBy;
 			this.props.skState.tableHeaders[idx]['sort_on'] = true;
 		}
-		this.setState({currentPage: 1, startPage: 1}, () => {
+		this.props.skState.params.CURRENT_PAGE = 1;
+		this.setState({startPage: 1}, () => {
 			this.fetch(1);
 		});
 		// we will call the fetch method get new data, remember to set the page_number to 1
@@ -101,7 +104,8 @@ class TablePagination extends React.Component {
 	}	
 
 	handleSearch(searchTerm) {
-		this.setState({searchTerm: searchTerm, currentPage: 1, startPage: 1},() => {
+		this.props.skState.params.CURRENT_PAGE = 1;
+		this.setState({searchTerm: searchTerm, startPage: 1},() => {
 			this.fetch(1);
 		});
 	}
@@ -117,7 +121,7 @@ class TablePagination extends React.Component {
 			    	handleClickSort={this.handleClickSort}
 			    	handleView={this.handleClickLinkToPage}/>			
 			    <SkPagination 
-			    	currentPage={this.state.currentPage}
+			    	currentPage={this.props.skState.params.CURRENT_PAGE}
 			    	pageItems={this.state.pageItems}
 			    	handleClickPageNumber={this.handleClickPageNumber} 
 			    	totalPage={this.state.totalPage}/>		    		

@@ -12,11 +12,9 @@ import Login from './pages/auth/login.jsx'
 
 // project states
 import productTable from './../../resource/productTable';
-const productTableHeaders = productTable.tableHeaders;
 const productSkState = productTable.skState;
 
 import orderTable from './../../resource/orderTable';
-const orderTableHeaders = orderTable.tableHeaders;
 const orderSkState = orderTable.skState;
 
 class App extends React.Component {
