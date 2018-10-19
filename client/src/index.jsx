@@ -13,6 +13,7 @@ import Login from './pages/auth/login.jsx'
 // project states
 import productTable from './../../resource/productTable';
 const productTableHeaders = productTable.tableHeaders;
+const productSkState = productTable.skState;
 
 import orderTable from './../../resource/orderTable';
 const orderTableHeaders = orderTable.tableHeaders;
@@ -66,7 +67,7 @@ class App extends React.Component {
             />
             <Route path="/products" 
               render= {
-                (props) => <Products tableHeaders={productTableHeaders} />
+                (props) => <Products skState={productSkState} />
               }
             />
           </div>        

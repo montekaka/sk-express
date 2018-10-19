@@ -45,7 +45,7 @@ class Products extends React.Component {
 		    	get_url={get_url} 
 		    	perPage={this.state.perPage}
 		    	pageItemsCount={this.state.pageItemsCount}
-		    	tableHeaders={this.props.tableHeaders}/> 		    	
+		    	skState={this.props.skState}/> 		    	
 	    </div>			
 		)
 	}
