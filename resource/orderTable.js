@@ -27,7 +27,7 @@ const skState = {
 		{'id': 11,'name': "Edit", "format": "action", "label":""}
 	], 
 	params: {
-		SEARCH_TERM: null,
+		SEARCH_TERM: '',
 		CURRENT_PAGE: 1			
 	}
 }

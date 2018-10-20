@@ -23,11 +23,16 @@ class Products extends React.Component {
 			total: 0
 		}
 		this.handleUpdateTotalItems = this.handleUpdateTotalItems.bind(this);
+		this.handleClickViewItem = this.handleClickViewItem.bind(this);
 	}
 	//getPaginationList = (currentPage, start, items, min, max)
 	
 	handleUpdateTotalItems(totalPage, total) {
 		this.setState({totalPage: totalPage, total: total});
+	}
+
+	handleClickViewItem(id){
+		console.log(id)
 	}
 
 	render() {
@@ -41,7 +46,8 @@ class Products extends React.Component {
 		    </div>		    
 		    <TablePagination 		 
 		    	handleUpdateTotalItems={this.handleUpdateTotalItems}   	
-		    	base_url={base_url} 
+		    	base_url={base_url}
+		    	endpointsActions={{get: this.endpointsActions}} 
 		    	get_url={get_url} 
 		    	perPage={this.state.perPage}
 		    	pageItemsCount={this.state.pageItemsCount}
