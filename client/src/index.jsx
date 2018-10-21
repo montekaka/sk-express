@@ -6,10 +6,15 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import Auth from 'j-toker';
 import auth from './../../resource/libs/helpers/auth.js'
 import FluidNavbar from './components/navbar/navbar.jsx'
+import Login from './pages/auth/login.jsx'
+
+/* Order */
 import Orders from './pages/orders/orders.jsx'
+/* Product */
 import Products from './pages/products/products.jsx'
 import Product from './pages/products/product.jsx'
-import Login from './pages/auth/login.jsx'
+import ProductNew from './pages/products/productNew.jsx'
+
 
 // project states
 import productTable from './../../resource/productTable';
@@ -70,10 +75,14 @@ class App extends React.Component {
                 (props) => <Products skState={productSkState} />
               }
             />     
+            <Route path="/new/products" 
+              render= {
+                (props) => <ProductNew skState={productSkState} params={props.match}/> }
+            />                      
             <Route path="/products/:id" 
               render= {
                 (props) => <Product skState={productSkState} params={props.match}/> }
-            />                                           
+            />                       
           </div>        
         </span>
       </Router>

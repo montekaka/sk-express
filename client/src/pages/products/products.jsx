@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import TablePagination from './../../components/shared/table-pagination/table-pagination.jsx';
@@ -8,8 +9,6 @@ import config from './../../../../resource/config';
 
 //const tableHeaders = productTable.tableHeaders;
 const base_url = config.base_url;
-const get_url = '/products.json';
-
 
 // parse page number from url
 
@@ -20,7 +19,7 @@ class Products extends React.Component {
 			perPage: 8,			
 			pageItemsCount: 10,
 			totalPage: 0,
-			total: 0
+			total: 0			
 		}
 		this.handleUpdateTotalItems = this.handleUpdateTotalItems.bind(this);
 		this.handleClickItem = this.handleClickItem.bind(this);
@@ -36,9 +35,11 @@ class Products extends React.Component {
 	}
 
 	render() {
+		const new_api_base = `new${this.props.skState.apis['NEW']}`;
 		return (
 			<div>
 				<Dashheader subtitle={'Overview'} title={'Product'}/>
+				<Link to={new_api_base} className="btn btn-outline-info product-btn">New</Link>
 		    <div className="hr-divider mt-3 mb-5">
 		      <h3 className="hr-divider-content hr-divider-heading">Products</h3>		      
 		      <p>Total Products: {this.state.total}</p>
@@ -48,7 +49,6 @@ class Products extends React.Component {
 		    	handleUpdateTotalItems={this.handleUpdateTotalItems}   	
 		    	base_url={base_url}
 		    	handleClickItem={this.handleClickItem} 
-		    	get_url={get_url} 
 		    	perPage={this.state.perPage}
 		    	pageItemsCount={this.state.pageItemsCount}
 		    	skState={this.props.skState}/> 		    	

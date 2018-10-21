@@ -12,8 +12,9 @@ const skState = {
 	apis: {
 		FORMAT: '.json',
 		GET: '/products',
+		NEW: '/products',
 		DELETE: '/products',
-		UPDATE: '/products',
+		UPDATE: '/products'		
 	}
 }
 
