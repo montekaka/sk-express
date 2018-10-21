@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import config from './../../../../resource/config';
-
+import ProductForm from './productForm.jsx';
 const base_url = config.base_url;
 
 class ProductNew extends React.Component {
@@ -16,7 +16,10 @@ class ProductNew extends React.Component {
 
 	render() {
 		return (
-			<div>New</div>
+			<div>
+				<Dashheader subtitle={'Overview'} title={'Product New'}/>
+				<ProductForm/>
+			</div>
 		)
 	}
 
