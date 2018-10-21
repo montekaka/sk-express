@@ -22,7 +22,9 @@ app.get('/*', (req, res) => {
 			res.status(500).send(err);
 		}
 	})
-})
+});
+
+
 
 app.listen(4200, function() {
   console.log('listening on port 4200!');

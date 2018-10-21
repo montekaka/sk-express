@@ -15,7 +15,8 @@ class SkTableRow extends React.Component {
 						key={this.props.objectName+"td"+headerItem.id+"|"+this.props.item.id} 
 						tableCell={this.props.item} 
 						headerItem={headerItem}
-						handleView={this.props.handleView}
+						apis={this.props.apis}
+						handleClickItem={this.props.handleClickItem}
 						/>
 					)
 				}

@@ -8,6 +8,7 @@ import auth from './../../resource/libs/helpers/auth.js'
 import FluidNavbar from './components/navbar/navbar.jsx'
 import Orders from './pages/orders/orders.jsx'
 import Products from './pages/products/products.jsx'
+import Product from './pages/products/product.jsx'
 import Login from './pages/auth/login.jsx'
 
 // project states
@@ -39,7 +40,7 @@ class App extends React.Component {
     this.setState({user: user, isAuthed: error}); 
   }
 
-  componentDidMount(){    
+  componentDidMount(){  
     var _this = this;
     auth.validateToken((user, error) => {
       // console.log(error);
@@ -58,17 +59,21 @@ class App extends React.Component {
               render= {(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
             />    
 
-            <Route path='/login' 
+            <Route exact path='/login' 
               render= {(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
             />                      
-            <Route path='/orders' 
+            <Route exact path='/orders' 
               render= {(props) => <Orders isAuthed={this.state.isAuthed} skState={orderSkState} />} 
-            />
-            <Route path="/products" 
+            />             
+            <Route exact path="/products" 
               render= {
                 (props) => <Products skState={productSkState} />
               }
-            />
+            />     
+            <Route path="/products/:id" 
+              render= {
+                (props) => <Product/> }
+            />                                           
           </div>        
         </span>
       </Router>

@@ -28,7 +28,7 @@ class TablePagination extends React.Component {
 		}
 
 		this.fetch = this.fetch.bind(this);
-		this.handleClickLinkToPage = this.handleClickLinkToPage.bind(this);
+		//this.handleClickLinkToPage = this.handleClickLinkToPage.bind(this);
 		this.handleClickSort = this.handleClickSort.bind(this);
 		this.handleClickPageNumber = this.handleClickPageNumber.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
@@ -38,7 +38,7 @@ class TablePagination extends React.Component {
 		const _this = this;
 		this.setState({perPage: this.props.perPage
 			, pageItemsCount: this.props.pageItemsCount
-			, get_url: this.props.get_url
+			, get_url: this.props.skState.apis['GET']+this.props.skState.apis['FORMAT']
 			, base_url: this.props.base_url}, () => {
 				//_this.fetch(_this.state.currentPage);
 				_this.fetch(_this.props.skState.params.CURRENT_PAGE);
@@ -82,9 +82,9 @@ class TablePagination extends React.Component {
 		});				
 	}
 
-	handleClickLinkToPage(id){
-		console.log(id);
-	}	
+	// handleClickLinkToPage(id){
+	// 	console.log(id);
+	// }	
 
 	handleClickSort(column) {
 		let newSortBy = column['sort_by'] === 'ASC' ? 'DESC' : 'ASC';
@@ -122,9 +122,10 @@ class TablePagination extends React.Component {
 				</div>				
 			    <SkTable 
 			    	headerItems={this.props.skState.tableHeaders} 
-			    	items={this.state.items} 
+			    	items={this.state.items}
+			    	apis={this.props.skState.apis} 
 			    	handleClickSort={this.handleClickSort}
-			    	handleView={this.handleClickLinkToPage}/>			
+			    	handleClickItem={this.props.handleClickItem}/>			
 			    <SkPagination 
 			    	currentPage={this.props.skState.params.CURRENT_PAGE}
 			    	pageItems={this.state.pageItems}

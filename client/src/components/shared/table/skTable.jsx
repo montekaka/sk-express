@@ -27,7 +27,8 @@ class SkTable extends React.Component {
 	          			key={this.props.objectName+'tr'+item.id} 
 	          			headerItems={this.props.headerItems} 
 	          			objectName={this.props.objectName}
-	          			handleView={this.props.handleView}
+	          			apis={this.props.apis}
+	          			handleClickItem={this.props.handleClickItem}
 	          			/>
 	          	)
 	          }		        

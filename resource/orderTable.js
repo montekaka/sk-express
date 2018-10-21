@@ -29,7 +29,11 @@ const skState = {
 	params: {
 		SEARCH_TERM: '',
 		CURRENT_PAGE: 1			
-	}
+	},
+	apis: {
+		FORMAT: '.json',
+		GET: '/orders'
+	}	
 }
 
 
