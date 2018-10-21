@@ -11,14 +11,55 @@ const base_url = config.base_url;
 class ProductNew extends React.Component {
 	constructor(props) {		
 		super(props);
+		this.state = {
+			name: '',
+			description: '',
+			product_code: '',
+			price: 0,
+			price_category_1_label: '',
+			price_category_2_label: '',
+			price_category_3_label: '',
+			price_category_1_unit: 0,
+			price_category_2_unit: 0,
+			price_category_3_unit: 0
+		}
+		this.updateState = this.updateState.bind(this);
+		this.submit = this.submit.bind(this);
+		this.create = this.create.bind(this);
+	}
 
+	updateState(newState) {
+		const name = newState.name;
+		const value = newState.value;
+		this.setState({[name]: value});
+	}
+
+	submit() {		
+		if (this.state.name.length === 0 || this.state.product_code.length === 0 || Number(this.state.price) === 0) {
+			console.log('invalid...');
+		} else {
+			this.create();
+		}
+	}
+
+	create() {		
+		const new_api_base = `${base_url+this.props.skState.apis['NEW']}`;		
+		//console.log('create',new_api_base, this.state);
+		const data = this.state;
+		axios.post(new_api_base, data)
+		.then((res) => {
+			console.log(res);
+		})
+		.catch((err) => {
+			console.log(err);
+		})
 	}
 
 	render() {
 		return (
 			<div>
 				<Dashheader subtitle={'Overview'} title={'Product New'}/>
-				<ProductForm/>
+				<ProductForm updateState={this.updateState} create={this.submit}/>
 			</div>
 		)
 	}
