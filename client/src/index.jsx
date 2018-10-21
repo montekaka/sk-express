@@ -72,7 +72,7 @@ class App extends React.Component {
             />     
             <Route path="/products/:id" 
               render= {
-                (props) => <Product/> }
+                (props) => <Product skState={productSkState} params={props.match}/> }
             />                                           
           </div>        
         </span>
