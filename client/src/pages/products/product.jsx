@@ -14,6 +14,7 @@ class Product extends React.Component {
 		this.state = {
 			id: '',
 			api_base: '',
+			edit_page: '',
 			product_code: null,
 			name: null,
 			price: 0,
@@ -26,6 +27,9 @@ class Product extends React.Component {
 
 	componentDidMount() {
 	  const id = this.props.params.params.id;
+	  const edit_page = `/edit${this.props.skState.apis['UPDATE']}/${id}`;
+	  console.log(edit_page);
+	  this.setState({edit_page: edit_page});
 	  this.get(id);
 	}	
 
@@ -79,7 +83,7 @@ class Product extends React.Component {
 		    		<h5 className="card-title">{this.state.name}</h5>
 		    		<p className="card-text">Product code: {this.state.product_code}</p>
 		    		<p className="card-text">Price: HK${this.state.price}</p>
-		    		<div className="btn btn-primary product-btn">Edit</div>
+		    		<Link to={this.state.edit_page} className="btn btn-primary product-btn">Edit</Link>
 		    		<div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>
 		    	</div>
 		    </div>		    	    	

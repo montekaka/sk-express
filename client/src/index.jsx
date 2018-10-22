@@ -14,6 +14,7 @@ import Orders from './pages/orders/orders.jsx'
 import Products from './pages/products/products.jsx'
 import Product from './pages/products/product.jsx'
 import ProductNew from './pages/products/productNew.jsx'
+import ProductEdit from './pages/products/productEdit.jsx'
 
 
 // project states
@@ -77,12 +78,16 @@ class App extends React.Component {
             />     
             <Route path="/new/products" 
               render= {
-                (props) => <ProductNew skState={productSkState} params={props.match}/> }
-            />                      
+                (props) => <ProductNew skState={productSkState} /> }
+            />                                 
             <Route path="/products/:id" 
               render= {
                 (props) => <Product skState={productSkState} params={props.match}/> }
-            />                       
+            /> 
+            <Route path="/edit/products/:id" 
+              render= {
+                (props) => <ProductEdit skState={productSkState} params={props.match}/> }
+            /> 
           </div>        
         </span>
       </Router>

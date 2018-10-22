@@ -13,6 +13,7 @@ class ProductNew extends React.Component {
 	constructor(props) {		
 		super(props);
 		this.state = {
+			toGoback: false,
 			name: '',
 			description: '',
 			product_code: '',
@@ -47,13 +48,15 @@ class ProductNew extends React.Component {
 		}
 	}
 
-	create() {		
+	create() {	
+		const _this = this;
 		const new_api_base = `${base_url+this.props.skState.apis['NEW']}`;		
 		//console.log('create',new_api_base, this.state);
 		const data = this.state;
 		axios.post(new_api_base, data)
 		.then((res) => {
 			console.log(res);
+			_this.setState({toGoback: true});
 			// redirect back
 		})
 		.catch((err) => {
@@ -68,6 +71,9 @@ class ProductNew extends React.Component {
 	}
 
 	render() {
+		if (this.state.toGoback === true) {
+			return <Redirect to='/products' />
+		}				
 		return (
 			<div>
 				<SkModal 
@@ -78,7 +84,10 @@ class ProductNew extends React.Component {
 					message={this.state.errorMessage}
 					closeBtnLabel={'OK'}/>
 				<Dashheader subtitle={'Overview'} title={'Product New'}/>
-				<ProductForm updateState={this.updateState} create={this.submit}/>
+				<ProductForm
+					data={this.state} 
+					updateState={this.updateState} 
+					create={this.submit}/>
 			</div>
 		)
 	}
