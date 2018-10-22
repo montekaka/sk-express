@@ -24,6 +24,7 @@ class ProductEdit extends React.Component {
 			price_category_1_unit: 0,
 			price_category_2_unit: 0,
 			price_category_3_unit: 0,
+			backToPage: '',
 			errorModal: false,
 			errorMessage: 'Please make sure you fill up the Product name, code and price'
 		}
@@ -40,8 +41,9 @@ class ProductEdit extends React.Component {
 
 	get(id) {
 		const api_base = `${this.props.skState.apis['GET']}`
+		this.setState({backToPage: `${api_base}/${id}`});
 		const api_url = `${base_url+api_base}/${id}.json`;
-		this.setState({api_base: api_base})
+		//this.setState({api_base: api_base})
 		const _this = this;
 		axios.get(api_url)
 			.then((res) => {
@@ -78,18 +80,30 @@ class ProductEdit extends React.Component {
 	}
 
 	update() {		
-		//const new_api_base = `${base_url+this.props.skState.apis['NEW']}`;		
-		//console.log('create',new_api_base, this.state);
-		const data = this.state;
-		// axios.post(new_api_base, data)
-		// .then((res) => {
-		// 	console.log(res);
-		// 	// redirect back
-		// })
-		// .catch((err) => {
-		// 	console.log(err);
-		// 	// show error using the modal..
-		// })
+		const new_api_base = `${base_url+this.props.skState.apis['UPDATE']}/${this.state.id}`;		
+		console.log('create',new_api_base, this.state);
+		const data = {
+			id: this.state.id,
+			name: this.state.name,
+			description: this.state.description,
+			product_code: this.state.product_code,
+			price: this.state.price,
+			price_category_1_label: this.state.price_category_1_label,
+			price_category_2_label: this.state.price_category_2_label,
+			price_category_3_label: this.state.price_category_3_label,
+			price_category_1_unit: this.state.price_category_1_unit,
+			price_category_2_unit: this.state.price_category_2_unit,
+			price_category_3_unit: this.state.price_category_3_unit,			
+		}
+		axios.put(new_api_base, data)
+		.then((res) => {
+			console.log(res);
+			// redirect back
+		})
+		.catch((err) => {
+			console.log('err',err);
+			// show error using the modal..
+		})
 	}
 
 	modalToggle(){
@@ -111,6 +125,7 @@ class ProductEdit extends React.Component {
 				<ProductForm 
 					data={this.state}
 					updateState={this.updateState} 
+					backToPage={this.state.backToPage}
 					create={this.submit}/>
 			</div>
 		)

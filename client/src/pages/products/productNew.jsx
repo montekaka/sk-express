@@ -24,6 +24,7 @@ class ProductNew extends React.Component {
 			price_category_1_unit: 0,
 			price_category_2_unit: 0,
 			price_category_3_unit: 0,
+			backToPage: '',
 			errorModal: false,
 			errorMessage: 'Please make sure you fill up the Product name, code and price'
 		}
@@ -31,6 +32,10 @@ class ProductNew extends React.Component {
 		this.submit = this.submit.bind(this);
 		this.create = this.create.bind(this);
 		this.modalToggle = this.modalToggle.bind(this);
+	}
+
+	componentDidMount() {
+		this.setState({backToPage: this.props.skState.apis['GET']});
 	}
 
 	updateState(newState) {
@@ -85,7 +90,8 @@ class ProductNew extends React.Component {
 					closeBtnLabel={'OK'}/>
 				<Dashheader subtitle={'Overview'} title={'Product New'}/>
 				<ProductForm
-					data={this.state} 
+					data={this.state}
+					backToPage={this.state.backToPage} 
 					updateState={this.updateState} 
 					create={this.submit}/>
 			</div>

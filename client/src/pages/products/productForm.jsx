@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Col, Row, Button, Form, FormGroup, Label, Input,FormFeedback, FormText } from 'reactstrap';
 
 const ProductForm = (props) => {	
@@ -88,7 +89,8 @@ const ProductForm = (props) => {
 			      	</FormGroup>	      	
 			     	</Col>			     			     	
 	      	</Row>	
-	      	<div className="btn btn-outline-success" onClick={sumbit}>Submit</div>
+	      	<Link to={props.backToPage} className="btn btn-outline-info product-btn" >Back</Link>
+	      	<div className="btn btn-outline-success" onClick={sumbit}>Submit</div>	      	
 	      </Form>
 	    </div>
     </div>
