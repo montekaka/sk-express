@@ -6,6 +6,7 @@ import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import config from './../../../../resource/config';
 import ProductForm from './productForm.jsx';
+import SkModal from './../../components/shared/modal/skModal.jsx';
 const base_url = config.base_url;
 
 class ProductNew extends React.Component {
@@ -21,11 +22,14 @@ class ProductNew extends React.Component {
 			price_category_3_label: '',
 			price_category_1_unit: 0,
 			price_category_2_unit: 0,
-			price_category_3_unit: 0
+			price_category_3_unit: 0,
+			errorModal: false,
+			errorMessage: 'Please make sure you fill up the Product name, code and price'
 		}
 		this.updateState = this.updateState.bind(this);
 		this.submit = this.submit.bind(this);
 		this.create = this.create.bind(this);
+		this.modalToggle = this.modalToggle.bind(this);
 	}
 
 	updateState(newState) {
@@ -36,6 +40,7 @@ class ProductNew extends React.Component {
 
 	submit() {		
 		if (this.state.name.length === 0 || this.state.product_code.length === 0 || Number(this.state.price) === 0) {
+			this.setState({errorModal: true});
 			console.log('invalid...');
 		} else {
 			this.create();
@@ -49,15 +54,29 @@ class ProductNew extends React.Component {
 		axios.post(new_api_base, data)
 		.then((res) => {
 			console.log(res);
+			// redirect back
 		})
 		.catch((err) => {
 			console.log(err);
+			// show error using the modal..
 		})
+	}
+
+	modalToggle(){
+		const errorModal = !this.state.errorModal;
+		this.setState({errorModal: errorModal});
 	}
 
 	render() {
 		return (
 			<div>
+				<SkModal 
+					modal={this.state.errorModal} 
+					className={'error'} 
+					toggle={this.modalToggle}
+					modalTitle={'Error'}
+					message={this.state.errorMessage}
+					closeBtnLabel={'OK'}/>
 				<Dashheader subtitle={'Overview'} title={'Product New'}/>
 				<ProductForm updateState={this.updateState} create={this.submit}/>
 			</div>
