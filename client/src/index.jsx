@@ -10,19 +10,28 @@ import Login from './pages/auth/login.jsx'
 
 /* Order */
 import Orders from './pages/orders/orders.jsx'
+// project states
+import orderTable from './../../resource/orderTable';
+const orderSkState = orderTable.skState;
+
 /* Product */
 import Products from './pages/products/products.jsx'
 import Product from './pages/products/product.jsx'
 import ProductNew from './pages/products/productNew.jsx'
 import ProductEdit from './pages/products/productEdit.jsx'
-
-
 // project states
 import productTable from './../../resource/productTable';
 const productSkState = productTable.skState;
 
-import orderTable from './../../resource/orderTable';
-const orderSkState = orderTable.skState;
+/* Buyer Company*/
+import BuyerCompanies from './pages/buyer_companies/buyer_companies.jsx'
+import BuyerCompany from './pages/buyer_companies/buyer_company.jsx'
+// project states
+import buyerCompanyTable from './../../resource/buyerCompanyTable';
+const buyerComapnySkState = buyerCompanyTable.skState;
+
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -87,7 +96,15 @@ class App extends React.Component {
             <Route path="/edit/products/:id" 
               render= {
                 (props) => <ProductEdit skState={productSkState} params={props.match}/> }
-            /> 
+            />            
+            <Route exact path="/buyer_companies" 
+              render= {
+                (props) => <BuyerCompanies skState={buyerComapnySkState} /> }
+            />                   
+            <Route path="/buyer_companies/:id" 
+              render= {
+                (props) => <BuyerCompany skState={buyerComapnySkState} params={props.match}/> }
+            />                                    
           </div>        
         </span>
       </Router>
