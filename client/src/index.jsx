@@ -26,6 +26,8 @@ const productSkState = productTable.skState;
 /* Buyer Company*/
 import BuyerCompanies from './pages/buyer_companies/buyer_companies.jsx'
 import BuyerCompany from './pages/buyer_companies/buyer_company.jsx'
+import BuyerCompanyNew from './pages/buyer_companies/buyer_companyNew.jsx'
+import BuyerCompanyEdit from './pages/buyer_companies/buyer_companyEdit.jsx'
 // project states
 import buyerCompanyTable from './../../resource/buyerCompanyTable';
 const buyerComapnySkState = buyerCompanyTable.skState;
@@ -104,7 +106,15 @@ class App extends React.Component {
             <Route path="/buyer_companies/:id" 
               render= {
                 (props) => <BuyerCompany skState={buyerComapnySkState} params={props.match}/> }
-            />                                    
+            /> 
+            <Route path="/new/buyer_companies" 
+              render= {
+                (props) => <BuyerCompanyNew skState={buyerComapnySkState} /> }
+            />      
+            <Route path="/edit/buyer_companies/:id" 
+              render= {
+                (props) => <BuyerCompanyEdit skState={buyerComapnySkState} params={props.match}/> }
+            />                                                             
           </div>        
         </span>
       </Router>

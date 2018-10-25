@@ -16,6 +16,8 @@ class BuyerCompany extends React.Component {
             api_base: '',
             edit_page: '',
             name: null,
+            billing_address: null,
+            description: null,
             toGoback: false
         }
         this.get = this.get.bind(this);
@@ -24,8 +26,8 @@ class BuyerCompany extends React.Component {
 
     componentDidMount() {
       const id = this.props.params.params.id;
-      // const edit_page = `/edit${this.props.skState.apis['UPDATE']}/${id}`;
-      // this.setState({edit_page: edit_page});
+      const edit_page = `/edit${this.props.skState.apis['UPDATE']}/${id}`;
+      this.setState({edit_page: edit_page});
       this.get(id);
     }	
 
@@ -38,7 +40,9 @@ class BuyerCompany extends React.Component {
             .then((res) => {
                 const id = res.data.id;
                 const name = res.data.name;
-                _this.setState({id: id, name: name});
+                const billing_address = res.data.billing_address;
+                const description = res.data.description;
+                _this.setState({id: id, name: name, billing_address: billing_address, description: description});
             })
             .catch((err) => {
                 console.log(err);
@@ -73,7 +77,15 @@ class BuyerCompany extends React.Component {
           </div>
           <div className="card bg-dark text-white">
             <div className="card-body">
-              <h5 className="card-title">{this.state.name}</h5>
+              <h5 className="card-title">{this.state.name}</h5>              
+              {
+                  this.state.billing_address && 
+                  <p>Billing address: {this.state.billing_address}</p>
+              }   
+              {
+                  this.state.description && 
+                  <p>Description: {this.state.description}</p>
+              }                         
               <Link to={this.state.edit_page} className="btn btn-primary product-btn">Edit</Link>
               <div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>
             </div>
