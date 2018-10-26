@@ -69,7 +69,10 @@ class FluidNavbar extends React.Component {
 	          </NavItem>
 	          <NavItem>
 	            <NavLink tag={Link} to="/buyer_companies">Buyer Companies</NavLink>
-	          </NavItem>						
+	          </NavItem>	
+	          <NavItem>
+	            <NavLink tag={Link} to="/buyers">Buyers</NavLink>
+	          </NavItem>												
 	          <NavItem>
 	          	{this.loginButton()}
 	          </NavItem>	          

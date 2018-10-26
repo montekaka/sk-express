@@ -89,7 +89,7 @@ class BuyerCompany extends React.Component {
               <Link to={this.state.edit_page} className="btn btn-primary product-btn">Edit</Link>
               <div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>
             </div>
-          </div>		    	    	
+          </div>	
         </div>			
         )
     }	

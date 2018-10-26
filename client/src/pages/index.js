@@ -10,6 +10,8 @@ import BuyerCompany from './buyer_companies/buyer_company.jsx'
 import BuyerCompanyNew from './buyer_companies/buyer_companyNew.jsx'
 import BuyerCompanyEdit from './buyer_companies/buyer_companyEdit.jsx'
 
+import Buyers from './buyers/buyers.jsx'
+
 module.exports.BuyerCompanies = BuyerCompanies
 module.exports.BuyerCompany = BuyerCompany
 module.exports.BuyerCompanyNew = BuyerCompanyNew
@@ -19,3 +21,4 @@ module.exports.Product = Product
 module.exports.ProductNew = ProductNew
 module.exports.productEdit = productEdit
 module.exports.Orders = Orders
+module.exports.Buyers = Buyers
