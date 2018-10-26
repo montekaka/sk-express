@@ -7,33 +7,25 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import auth from './../../resource/libs/helpers/auth.js'
 import FluidNavbar from './components/navbar/navbar.jsx'
 import Login from './pages/auth/login.jsx'
+import {
+  BuyerCompanies,
+  BuyerCompany,
+  BuyerCompanyNew,
+  BuyerCompanyEdit,
+  Products,
+  Product,
+  ProductNew,
+  ProductEdit,
+  Orders
+} from './pages'
 
-/* Order */
-import Orders from './pages/orders/orders.jsx'
-// project states
 import orderTable from './../../resource/orderTable';
-const orderSkState = orderTable.skState;
-
-/* Product */
-import Products from './pages/products/products.jsx'
-import Product from './pages/products/product.jsx'
-import ProductNew from './pages/products/productNew.jsx'
-import ProductEdit from './pages/products/productEdit.jsx'
-// project states
 import productTable from './../../resource/productTable';
-const productSkState = productTable.skState;
-
-/* Buyer Company*/
-import BuyerCompanies from './pages/buyer_companies/buyer_companies.jsx'
-import BuyerCompany from './pages/buyer_companies/buyer_company.jsx'
-import BuyerCompanyNew from './pages/buyer_companies/buyer_companyNew.jsx'
-import BuyerCompanyEdit from './pages/buyer_companies/buyer_companyEdit.jsx'
-// project states
 import buyerCompanyTable from './../../resource/buyerCompanyTable';
+
+const orderSkState = orderTable.skState;
+const productSkState = productTable.skState;
 const buyerComapnySkState = buyerCompanyTable.skState;
-
-
-
 
 class App extends React.Component {
   constructor(props) {
