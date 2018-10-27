@@ -128,7 +128,7 @@ class App extends React.Component {
             <Route path="/new/buyer_companies/:buyer_company_id/buyers" 
               render= {
                 (props) => <BuyerNew skState={buyerSkState} params={props.match}/> }
-            />                                                                                                              
+            />                                                                                                                         
           </div>        
         </span>
       </Router>

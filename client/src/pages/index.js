@@ -15,6 +15,9 @@ import Buyer from './buyers/buyer.jsx'
 import BuyerEdit from './buyers/buyerEdit.jsx'
 import BuyerNew from './buyers/buyerNew.jsx'
 
+
+import BuyerCompanyShippingAddresses from './buyer_company_shipping_addresses/buyer_company_shipping_addresses.jsx'
+
 module.exports.BuyerCompanies = BuyerCompanies
 module.exports.BuyerCompany = BuyerCompany
 module.exports.BuyerCompanyNew = BuyerCompanyNew
@@ -28,3 +31,4 @@ module.exports.Buyers = Buyers
 module.exports.Buyer = Buyer
 module.exports.BuyerEdit = BuyerEdit
 module.exports.BuyerNew = BuyerNew
+module.exports.BuyerCompanyShippingAddresses = BuyerCompanyShippingAddresses
