@@ -13,6 +13,8 @@ import {
   BuyerCompanyNew,
   BuyerCompanyEdit,
   Buyers,
+  Buyer,
+  BuyerEdit,
   Products,
   Product,
   ProductNew,
@@ -113,7 +115,15 @@ class App extends React.Component {
             <Route exact path="/buyers" 
               render= {
                 (props) => <Buyers skState={buyerSkState} /> }
-            />                                                                            
+            />  
+            <Route path="/buyers/:id" 
+              render= {
+                (props) => <Buyer skState={buyerSkState} params={props.match}/> }
+            />   
+            <Route path="/edit/buyers/:id" 
+              render= {
+                (props) => <BuyerEdit skState={buyerSkState} params={props.match}/> }
+            />                                                                                                  
           </div>        
         </span>
       </Router>
