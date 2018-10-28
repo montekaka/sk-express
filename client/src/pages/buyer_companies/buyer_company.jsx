@@ -22,6 +22,7 @@ class BuyerCompany extends React.Component {
             billing_address: null,
             description: null,
             child_component_base_url: '',
+            parent_path: '',
             toGoback: false
         }
         this.get = this.get.bind(this);
@@ -30,28 +31,30 @@ class BuyerCompany extends React.Component {
     
     componentDidMount() {
       const id = this.props.params.params.id;
+      const parent_path = `${this.props.skState.apis['GET']}/${id}`;
+      console.log(parent_path);
       const edit_page = `/edit${this.props.skState.apis['UPDATE']}/${id}`;
       const child_component_base_url = `${base_url+this.props.skState.apis['GET']}/${id}`;        
-      this.setState({edit_page: edit_page, child_component_base_url: child_component_base_url});
+      this.setState({edit_page: edit_page, child_component_base_url: child_component_base_url, parent_path: parent_path});
       this.get(id);
     }	
 
     get(id) {
-        const api_base = `${this.props.skState.apis['GET']}`
-        const api_url = `${base_url+api_base}/${id}.json`;        
-        this.setState({api_base: api_base})
-        const _this = this;
-        axios.get(api_url)
-            .then((res) => {
-                const id = res.data.id;
-                const name = res.data.name;
-                const billing_address = res.data.billing_address;
-                const description = res.data.description;
-                _this.setState({id: id, name: name, billing_address: billing_address, description: description});
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+      const api_base = `${this.props.skState.apis['GET']}`
+      const api_url = `${base_url+api_base}/${id}.json`;        
+      this.setState({api_base: api_base})
+      const _this = this;
+      axios.get(api_url)
+          .then((res) => {
+              const id = res.data.id;
+              const name = res.data.name;
+              const billing_address = res.data.billing_address;
+              const description = res.data.description;
+              _this.setState({id: id, name: name, billing_address: billing_address, description: description});
+          })
+          .catch((err) => {
+              console.log(err);
+          })
     }
 
     delete() {
@@ -73,6 +76,7 @@ class BuyerCompany extends React.Component {
       if (this.state.id) {
         shippingAddressTable = <BuyerCompanyShippingAddresses 
           skState={buyerCompanyShippingAddressSkState} 
+          parent_path={this.state.parent_path}
           base_url={this.state.child_component_base_url}
           parent_id={this.state.id}
         />;

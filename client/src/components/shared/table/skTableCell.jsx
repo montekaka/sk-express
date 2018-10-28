@@ -25,7 +25,7 @@ class SkTableCell extends React.Component {
 
 		if(format === 'action') {			
 			//cell = <div className="btn btn-primary" onClick={this.handleViewClick}>{name}</div>;
-			cell = <Link to={this.props.apis[action]+'/'+this.props.tableCell.id} className="btn btn-xs btn-outline-primary">{name}</Link>
+			cell = <Link to={this.props.parent_path+this.props.apis[action]+'/'+this.props.tableCell.id} className="btn btn-xs btn-outline-primary">{name}</Link>
 		} else {
 			cell = actions[format](this.props.tableCell[this.props.headerItem.name]);
 		}

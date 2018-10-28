@@ -24,7 +24,8 @@ class SkTable extends React.Component {
 	          	this.props.items.map((item) => 
 	          		<SkTableRow 
 	          			item={item} 
-	          			key={this.props.objectName+'tr'+item.id} 
+									key={this.props.objectName+'tr'+item.id} 
+									parent_path={this.props.parent_path}
 	          			headerItems={this.props.headerItems} 
 	          			objectName={this.props.objectName}
 	          			apis={this.props.apis}

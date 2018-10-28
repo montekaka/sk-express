@@ -16,6 +16,7 @@ import {
   Buyer,
   BuyerEdit,
   BuyerNew,
+  BuyerCompanyShippingAddress,
   Products,
   Product,
   ProductNew,
@@ -27,11 +28,13 @@ import orderTable from './../../resource/orderTable';
 import productTable from './../../resource/productTable';
 import buyerCompanyTable from './../../resource/buyerCompanyTable';
 import buyerTable from './../../resource/buyerTable';
+import buyerCompanyShippingAddressTable from './../../resource/buyerCompanyShippingAddressTable';
 
 const orderSkState = orderTable.skState;
 const productSkState = productTable.skState;
 const buyerComapnySkState = buyerCompanyTable.skState;
 const buyerSkState = buyerTable.skState;
+const buyerCompanyShippingAddressSkState = buyerCompanyShippingAddressTable.skState;
 
 class App extends React.Component {
   constructor(props) {
@@ -100,8 +103,12 @@ class App extends React.Component {
             <Route exact path="/buyer_companies" 
               render= {
                 (props) => <BuyerCompanies skState={buyerComapnySkState} /> }
-            />                   
-            <Route path="/buyer_companies/:id" 
+            />    
+            <Route path="/buyer_companies/:buyer_company_id/shipping_addresses/:id" 
+              render= {
+                (props) => <BuyerCompanyShippingAddress skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
+            />                            
+            <Route exact path="/buyer_companies/:id" 
               render= {
                 (props) => <BuyerCompany skState={buyerComapnySkState} params={props.match}/> }
             /> 

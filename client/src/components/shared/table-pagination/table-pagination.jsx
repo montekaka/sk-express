@@ -24,7 +24,8 @@ class TablePagination extends React.Component {
 			//searchTerm: null,
 			pageItems: [],
 			get_url: '',
-			base_url: ''
+      base_url: '',
+      parent_path: ''
 		}
 
 		this.fetch = this.fetch.bind(this);
@@ -36,7 +37,9 @@ class TablePagination extends React.Component {
 
 	componentDidMount() {
 		const _this = this;
-		this.setState({perPage: this.props.perPage
+    var parent_path = this.props.parent_path ? this.props.parent_path : '';
+    this.setState({perPage: this.props.perPage
+      , parent_path: parent_path
 			, pageItemsCount: this.props.pageItemsCount
 			, get_url: this.props.skState.apis['GET']+this.props.skState.apis['FORMAT']
 			, base_url: this.props.base_url}, () => {
@@ -123,7 +126,8 @@ class TablePagination extends React.Component {
 					</div>				
 				    <SkTable 
 				    	headerItems={this.props.skState.tableHeaders} 
-				    	items={this.state.items}
+              items={this.state.items}
+              parent_path={this.state.parent_path}
 				    	apis={this.props.skState.apis} 
 				    	handleClickSort={this.handleClickSort}
 				    	handleClickItem={this.props.handleClickItem}/>			

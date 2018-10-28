@@ -43,6 +43,7 @@ class BuyerCompanyShippingAddresses extends React.Component {
 						base_url={this.props.base_url}
 						handleClickItem={this.handleClickItem} 
 						perPage={this.state.perPage}
+						parent_path={this.props.parent_path}
 						pageItemsCount={this.state.pageItemsCount}
 						skState={this.props.skState}/> 	
       </div>			
