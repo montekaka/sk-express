@@ -1,9 +1,9 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
+import BuyerShippingAddresses from './buyer_shipping_addresses.jsx';
 import config from '../../../../resource/config';
 
 const base_url = config.base_url;
@@ -12,7 +12,7 @@ class Buyer extends React.Component {
     constructor(props) {		
         super(props);
         this.state = {
-            id: '',
+            id: null,
             api_base: '',
             edit_page: '',
             name: null,
@@ -29,7 +29,7 @@ class Buyer extends React.Component {
     componentDidMount() {
       const id = this.props.params.params.id;
       const edit_page = `/edit${this.props.skState.apis['UPDATE']}/${id}`;
-      this.setState({edit_page: edit_page});
+      this.setState({edit_page: edit_page, id: id});
       this.get(id);
     }	
 
@@ -40,12 +40,11 @@ class Buyer extends React.Component {
         const _this = this;
         axios.get(api_url)
             .then((res) => {
-                const id = res.data.id;
                 const name = res.data.name;
                 const buyer_company_name = res.data.buyer_company_name;
                 const buyer_company_id = res.data.buyer_company_id;
                 const phone_number = res.data.phone_number;
-                _this.setState({id: id, name: name, buyer_company_id: buyer_company_id, buyer_company_name: buyer_company_name, phone_number: phone_number});
+                _this.setState({name: name, buyer_company_id: buyer_company_id, buyer_company_name: buyer_company_name, phone_number: phone_number});
             })
             .catch((err) => {
                 console.log(err);
@@ -97,6 +96,7 @@ class Buyer extends React.Component {
               <div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>
             </div>
           </div>	
+          <BuyerShippingAddresses buyer_id={this.state.id}/>
         </div>			
         )
     }	

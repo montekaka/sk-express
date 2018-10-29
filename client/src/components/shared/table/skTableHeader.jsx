@@ -14,16 +14,18 @@ class SkTableHeader extends React.Component {
 	}
 
 	setIcon() {
-		var icon = 'nothing';		
-		let asc = undefined;
-		if (this.props.headerItem['sort_by'] === 'ASC') {
-			icon = iconClass+'up';
-			asc = true;
-		} else if (this.props.headerItem['sort_by'] === 'DESC') {
-			icon = iconClass+'down';
-			asc = false;
-		}		
-		this.setState({icon: icon, asc: asc});		
+		if (this.props.handleClickSort) {
+			var icon = 'nothing';		
+			let asc = undefined;
+			if (this.props.headerItem['sort_by'] === 'ASC') {
+				icon = iconClass+'up';
+				asc = true;
+			} else if (this.props.headerItem['sort_by'] === 'DESC') {
+				icon = iconClass+'down';
+				asc = false;
+			}		
+			this.setState({icon: icon, asc: asc});	
+		}	
 	}
 
 	componentDidMount() {
@@ -31,7 +33,7 @@ class SkTableHeader extends React.Component {
 	}
 
 	handleClick() {
-		if (this.props.headerItem.format !== 'action') {
+		if (this.props.handleClickSort && this.props.headerItem.format !== 'action') {
 			let newAsc = !this.state.asc;
 			let icon = newAsc ? iconClass+'up' : iconClass+'down';
 			this.setState({icon: icon, asc: newAsc}, () => {
