@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import { Redirect } from "react-router-dom";
 import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import TablePagination from './../../components/shared/table-pagination/table-pagination.jsx';
@@ -16,27 +16,13 @@ class Orders extends React.Component {
 			perPage: 8,			
 			pageItemsCount: 10,
 			totalPage: 0,
-			total: 0,
+      total: 0,
+      isAuthed: false,
 			hasPermission: false
 		}
 		this.handleClickLinkToOrder = this.handleClickLinkToOrder.bind(this);
 		this.handleUpdateTotalItems = this.handleUpdateTotalItems.bind(this);
-	}
-
-	// componentDidMount() {
-	// 	const _this = this;
-	// 	const api_url = base_url+get_url;
-	// 	//console.log('from order components',this.props.isAuthed)
-	// 	axios.get(api_url)
-	// 		.then((res) => {
-	// 			if(res.data.message !== 'AccessDenied, please check your permission'){
-	// 				_this.setState({orders: res.data, hasPermission: true})
-	// 			}				
-	// 		})
-	// 		.catch((err) => {
-	// 			//console.log(err);
-	// 		});			
-	// }
+  }
 
 	handleUpdateTotalItems(totalPage, total) {
 		this.setState({totalPage: totalPage, total: total});
@@ -46,18 +32,10 @@ class Orders extends React.Component {
 		console.log(id);
 	}
 
-	// renderSkTable() {
-	// 	if(this.state.hasPermission === true && this.props.isAuthed === true) {
-	// 		return (
-	// 			<SkTable headerItems={tableHeaders} items={this.state.orders} objectName="orders" handleView={this.handleClickLinkToOrder}/>
-	// 		)
-	// 	} else {
-	// 		// redirect back to login
-	// 		return (<div>Please sign in</div>);
-	// 	}
-	// }
-
 	render() {
+    if (this.props.isAuthed === false) {
+      return <Redirect to={'/'} />
+    }	    
 		return (
 			<div>
 				<Dashheader subtitle={'Overview'} title={'Order'}/>
