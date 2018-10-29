@@ -17,6 +17,7 @@ import {
   BuyerEdit,
   BuyerNew,
   BuyerCompanyShippingAddress,
+  BuyerCompanyShippingAddressNew,
   Products,
   Product,
   ProductNew,
@@ -103,11 +104,7 @@ class App extends React.Component {
             <Route exact path="/buyer_companies" 
               render= {
                 (props) => <BuyerCompanies skState={buyerComapnySkState} /> }
-            />    
-            <Route path="/buyer_companies/:buyer_company_id/shipping_addresses/:id" 
-              render= {
-                (props) => <BuyerCompanyShippingAddress skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
-            />                            
+            />                               
             <Route exact path="/buyer_companies/:id" 
               render= {
                 (props) => <BuyerCompany skState={buyerComapnySkState} params={props.match}/> }
@@ -132,10 +129,18 @@ class App extends React.Component {
               render= {
                 (props) => <BuyerEdit skState={buyerSkState} params={props.match}/> }
             />         
-            <Route path="/new/buyer_companies/:buyer_company_id/buyers" 
+            <Route exact path="/new/buyer_companies/:buyer_company_id/buyers" 
               render= {
                 (props) => <BuyerNew skState={buyerSkState} params={props.match}/> }
-            />                                                                                                                         
+            /> 
+            <Route path="/buyer_companies/:buyer_company_id/shipping_addresses/:id" 
+              render= {
+                (props) => <BuyerCompanyShippingAddress skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
+            />             
+            <Route path="/buyer_companies/:buyer_company_id/new/shipping_addresses" 
+              render= {
+                (props) => <BuyerCompanyShippingAddressNew skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
+            />                                                                                                                                     
           </div>        
         </span>
       </Router>
