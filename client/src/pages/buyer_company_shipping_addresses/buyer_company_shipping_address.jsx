@@ -101,8 +101,8 @@ class BuyerBuyerCompanyShippingAddress extends React.Component {
                   <p>Phone number: {this.state.phone_number}</p>
               }                
               {
-                  this.state.email && 
-                  <p>Email: {this.state.email}</p>
+                  this.state.fax_number && 
+                  <p>Fax number: {this.state.fax_number}</p>
               }                                       
               <Link to={this.state.edit_page} className="btn btn-primary product-btn">Edit</Link>
               <div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>

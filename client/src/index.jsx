@@ -18,6 +18,7 @@ import {
   BuyerNew,
   BuyerCompanyShippingAddress,
   BuyerCompanyShippingAddressNew,
+  BuyerCompanyShippingAddressEdit,
   Products,
   Product,
   ProductNew,
@@ -133,14 +134,18 @@ class App extends React.Component {
               render= {
                 (props) => <BuyerNew skState={buyerSkState} params={props.match}/> }
             /> 
-            <Route path="/buyer_companies/:buyer_company_id/shipping_addresses/:id" 
+            <Route exact path="/buyer_companies/:buyer_company_id/shipping_addresses/:id" 
               render= {
                 (props) => <BuyerCompanyShippingAddress skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
             />             
-            <Route path="/buyer_companies/:buyer_company_id/new/shipping_addresses" 
+            <Route exact path="/buyer_companies/:buyer_company_id/new/shipping_addresses" 
               render= {
                 (props) => <BuyerCompanyShippingAddressNew skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
-            />                                                                                                                                     
+            /> 
+            <Route path="/buyer_companies/:buyer_company_id/shipping_addresses/edit/:id" 
+              render= {
+                (props) => <BuyerCompanyShippingAddressEdit skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
+            />                                                                                                                                                 
           </div>        
         </span>
       </Router>
