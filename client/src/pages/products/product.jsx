@@ -17,6 +17,12 @@ class Product extends React.Component {
 			edit_page: '',
 			product_code: null,
 			name: null,
+			price_category_1_label: null,
+			price_category_2_label: null,
+			price_category_3_label: null,
+			price_category_1_unit: 0,
+			price_category_2_unit: 0,
+			price_category_3_unit: 0,
 			price: 0,
 			toGoback: false,
 			warehouse_inventories: []
@@ -44,8 +50,23 @@ class Product extends React.Component {
 				const product_code = res.data.product_code;
 				const name = res.data.name;
 				const price = res.data.price;
+				const price_category_1_label = res.data.price_category_1_label;
+				const price_category_2_label = res.data.price_category_2_label;
+				const price_category_3_label = res.data.price_category_3_label;
+				const price_category_1_unit = res.data.price_category_1_unit;
+				const price_category_2_unit = res.data.price_category_2_unit;
+				const price_category_3_unit = res.data.price_category_3_unit;
 				const warehouse_inventories = res.data.warehouse_inventories;
-				_this.setState({id: id, product_code: product_code, name: name, price: price, warehouse_inventories: warehouse_inventories});
+				_this.setState({id: id, product_code: product_code
+					, name: name, price: price
+					, warehouse_inventories: warehouse_inventories
+					, price_category_1_label: price_category_1_label
+					, price_category_2_label: price_category_2_label
+					, price_category_3_label: price_category_3_label
+					, price_category_1_unit: price_category_1_unit
+					, price_category_2_unit: price_category_2_unit
+					, price_category_3_unit: price_category_3_unit										
+				});
 			})
 			.catch((err) => {
 				console.log(err);
@@ -81,10 +102,15 @@ class Product extends React.Component {
 		    <div className="card bg-dark text-white">
 		    	<div className="card-body">
 		    		<h5 className="card-title">{this.state.name}</h5>
-		    		<p className="card-text">Product code: {this.state.product_code}</p>
-		    		<p className="card-text">Price: HK${this.state.price}</p>
-		    		<Link to={this.state.edit_page} className="btn btn-primary product-btn">Edit</Link>
-		    		<div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>
+					<p>Product code: {this.state.product_code}</p>
+					<p>Price HK$ {this.state.price}</p>
+					<p>Bundle category 1: {this.state.price_category_1_label} {this.state.price_category_1_unit}</p>
+					<p>Bundle category 2: {this.state.price_category_2_label} {this.state.price_category_2_unit}</p>
+					<p>Bundle category 3: {this.state.price_category_3_label} {this.state.price_category_3_unit}</p>
+					<div>
+		    			<Link to={this.state.edit_page} className="btn btn-primary product-btn">Edit</Link>
+		    			<div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>						
+					</div>							
 		    	</div>
 		    </div>		    	    	
 	    </div>			

@@ -94,11 +94,11 @@ class App extends React.Component {
               render= {
                 (props) => <ProductNew skState={productSkState} /> }
             />                                 
-            <Route path="/products/:id" 
+            <Route exact path="/products/:id" 
               render= {
                 (props) => <Product skState={productSkState} params={props.match}/> }
             /> 
-            <Route path="/edit/products/:id" 
+            <Route exact path="/edit/products/:id" 
               render= {
                 (props) => <ProductEdit skState={productSkState} params={props.match}/> }
             />            
@@ -110,11 +110,11 @@ class App extends React.Component {
               render= {
                 (props) => <BuyerCompany skState={buyerComapnySkState} params={props.match}/> }
             /> 
-            <Route exact path="/new/buyer_companies" 
+            <Route exact exact path="/new/buyer_companies" 
               render= {
                 (props) => <BuyerCompanyNew skState={buyerComapnySkState} /> }
             />      
-            <Route path="/edit/buyer_companies/:id" 
+            <Route exact path="/edit/buyer_companies/:id" 
               render= {
                 (props) => <BuyerCompanyEdit skState={buyerComapnySkState} params={props.match}/> }
             /> 
@@ -122,11 +122,11 @@ class App extends React.Component {
               render= {
                 (props) => <Buyers skState={buyerSkState} /> }
             />  
-            <Route path="/buyers/:id" 
+            <Route exact path="/buyers/:id" 
               render= {
                 (props) => <Buyer skState={buyerSkState} params={props.match}/> }
             />   
-            <Route path="/edit/buyers/:id" 
+            <Route exact path="/edit/buyers/:id" 
               render= {
                 (props) => <BuyerEdit skState={buyerSkState} params={props.match}/> }
             />         
