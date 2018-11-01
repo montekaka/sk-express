@@ -8,7 +8,7 @@ const skState = {
         {'id': 6,'name': "external_purchase_price_category_unit", "format": "number", "label": "Purchase bundle unit", "sort_by":"ASC", "sort_on": true},
         {'id': 7,'name': "external_contract_price_category_label", "format": "string", "label": "Contract bundle", "sort_by":"ASC", "sort_on": true},
         {'id': 8,'name': "external_contract_price_category_unit", "format": "number", "label": "Contract bundle unit", "sort_by":"ASC", "sort_on": true},
-        {'id': 9,'name': "external_price", "format": "currency", "label": "Price", "sort_by":"ASC", "sort_on": true},
+        {'id': 9,'name': "external_price", "format": "currency", "label": "Contract price", "sort_by":"ASC", "sort_on": true},
 		{'id': 10,'name': "View", "format": "action", "label":"","action":"GET"}
 	], 
 	params: {
