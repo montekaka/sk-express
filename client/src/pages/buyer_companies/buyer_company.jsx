@@ -6,10 +6,13 @@ import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
 import BuyerCompanyShippingAddresses from './../buyer_company_shipping_addresses/buyer_company_shipping_addresses.jsx';
+import BuyerCompanyProducts from './../buyer_company_products/buyer_company_products.jsx';
 import buyerCompanyShippingAddressTable from '../../../../resource/buyerCompanyShippingAddressTable';
+import buyerCompanyProductTable from '../../../../resource/buyerCompanyProductTable';
 
 const base_url = config.base_url;
 const buyerCompanyShippingAddressSkState = buyerCompanyShippingAddressTable.skState;
+const buyerCompanyProductSkState = buyerCompanyProductTable.skState;
 
 class BuyerCompany extends React.Component {
     constructor(props) {		
@@ -73,6 +76,8 @@ class BuyerCompany extends React.Component {
     
     render() {
       let shippingAddressTable;
+      let productTable;
+
       if (this.state.id) {
         shippingAddressTable = <BuyerCompanyShippingAddresses 
           skState={buyerCompanyShippingAddressSkState} 
@@ -80,8 +85,17 @@ class BuyerCompany extends React.Component {
           base_url={this.state.child_component_base_url}
           parent_id={this.state.id}
         />;
+        
+        productTable = <BuyerCompanyProducts 
+          skState={buyerCompanyProductSkState} 
+          parent_path={this.state.parent_path}
+          base_url={this.state.child_component_base_url}
+          parent_id={this.state.id}
+        />;
+
       } else {
         shippingAddressTable = <div>Hello world</div>;
+        productTable = <div>Hello world</div>;
       }
       if (this.state.toGoback === true) {
           return <Redirect to='/buyer_companies' />
@@ -109,6 +123,7 @@ class BuyerCompany extends React.Component {
             </div>
           </div>
           {shippingAddressTable}
+          {productTable}
         </div>			
       )
     }	
