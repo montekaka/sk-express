@@ -41,6 +41,32 @@ const BuyerCompanyProductForm = (props) => {
     }
   }
 
+  function ExternalBundleUnitInput(props, handleSelect, labelName, unitName, inputLabel, inputUnitLabel) {
+    if(props.data.internal_price_category_list.length > 0) {    
+      return (
+        <Row>
+          <Col md={6}>
+            <FormGroup>
+              <Label for="exampleSelect">{inputLabel}</Label>
+              <SkInputSelect 
+                selectName={labelName}
+                handleSelect={handleSelect}
+                selectedValue={props.data[labelName]}
+                optionsKeyLabel={'label'}
+                options={props.data.internal_price_category_list}
+              />
+            </FormGroup>  
+          </Col>
+          <Col md={6}>
+            <FormGroup>
+              <Label for={unitName}>{inputUnitLabel}</Label>
+              <Input disabled type="number" name={unitName} id={unitName} placeholder="with a placeholder"  value={ getInputValue(props.data[unitName])}/>
+            </FormGroup>	             
+          </Col> 
+        </Row>
+      );  
+    }          
+  }
 
 	return (
     <div className="card bg-dark text-white">
@@ -74,59 +100,19 @@ const BuyerCompanyProductForm = (props) => {
     			    </FormGroup>	             
 	      		</Col>            
 	      	</Row>
-          <Row>
-            <Col md={4}>
-              <FormGroup>
-                <Label for="external_price">Contract price</Label>
-                <InputGroup>
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText className="text-white">
-                      $
-                    </InputGroupText>
-                  </InputGroupAddon>
-                  <Input type="number" name="external_price" id="external_price" placeholder="with a placeholder" onChange={handleInputChange} value={ getInputValue(props.data.external_price)}/>
-                </InputGroup>                
-              </FormGroup>            
-            </Col>
-            <Col md={4}>
-              <FormGroup>
-                <Label for="exampleSelect">Contract bundle</Label>
-                <SkInputSelect 
-                  selectName='external_contract_price_category_label'
-                  handleSelect={handleSelect}
-                  selectedValue={props.data.external_contract_price_category_label}
-                  optionsKeyLabel={'label'}
-                  options={props.data.internal_price_category_list}
-                />
-              </FormGroup>  
-            </Col>
-	      		<Col md={4}>
-              <FormGroup>
-    				    <Label for="external_contract_price_category_unit">Contract unit</Label>
-    				    <Input disabled type="number" name="external_contract_price_category_unit" id="external_purchase_price_category_unit" placeholder="with a placeholder"  value={ getInputValue(props.data.external_contract_price_category_unit)}/>
-    			    </FormGroup>	             
-	      		</Col>             
-          </Row> 
-          <Row>
-            <Col md={6}>
-              <FormGroup>
-                <Label for="exampleSelect">Purchase bundle</Label>
-                <SkInputSelect 
-                  selectName='external_purchase_price_category_label'
-                  handleSelect={handleSelect}
-                  selectedValue={props.data.external_purchase_price_category_label}
-                  optionsKeyLabel={'label'}
-                  options={props.data.internal_price_category_list}
-                />
-              </FormGroup>  
-            </Col>
-	      		<Col md={6}>
-              <FormGroup>
-    				    <Label for="external_purchase_price_category_unit">Purchase unit</Label>
-    				    <Input disabled type="number" name="external_purchase_price_category_unit" id="external_purchase_price_category_unit" placeholder="with a placeholder"  value={ getInputValue(props.data.external_purchase_price_category_unit)}/>
-    			    </FormGroup>	             
-	      		</Col>             
-          </Row>             	
+          <FormGroup>
+            <Label for="external_price">Contract price</Label>
+            <InputGroup>
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText className="text-white">
+                  $
+                </InputGroupText>
+              </InputGroupAddon>
+              <Input type="number" name="external_price" id="external_price" placeholder="with a placeholder" onChange={handleInputChange} value={ getInputValue(props.data.external_price)}/>
+            </InputGroup>                
+          </FormGroup>
+          {ExternalBundleUnitInput(props, handleSelect, 'external_contract_price_category_label', 'external_contract_price_category_unit', 'Contract bundle', 'Contract unit')}
+          {ExternalBundleUnitInput(props, handleSelect, 'external_purchase_price_category_label', 'external_purchase_price_category_unit', 'Purchase bundle', 'Purchase unit')}
           <div>
 	      		<Link to={props.backToPage} className="btn btn-outline-info product-btn" >Back</Link>
 	      		<div className="btn btn-outline-success" onClick={sumbit}>Submit</div>	      	          	

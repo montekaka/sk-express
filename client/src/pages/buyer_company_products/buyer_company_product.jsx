@@ -28,7 +28,8 @@ class BuyerCompanyProduct extends React.Component {
             external_contract_price_category_unit: null,
             internal_price_category_list: [],
             buyer_company_name: '',
-            buyer_company_id: null,		
+            buyer_company_id: null,	
+            endpoint: '',	
             backToPage: '',
             errorModal: false,
             errorMessage: 'Please make sure you fill up the external product name and code'
@@ -58,6 +59,7 @@ class BuyerCompanyProduct extends React.Component {
           _this.setState({
             buyer_company_name: res.data.name,
             buyer_company_id: res.data.id,
+            endpoint: product_api_url,
             backToPage: backToPage
           });
         })
@@ -95,17 +97,18 @@ class BuyerCompanyProduct extends React.Component {
     }
 
     submit() {		
-      if (this.state.external_code.length === 0 || this.state.external_name.length === 0) {
-          this.setState({errorModal: true});
-          console.log('invalid...');
+      console.log('hi')
+      if (this.state.external_code === null || this.state.external_name === null|| this.state.external_code.length === 0 || this.state.external_name.length === 0) {
+        this.setState({errorModal: true});
+        console.log('invalid...');
       } else {
-          this.update();
+        this.update();
       }
     }
 
     update() {	
       const _this = this;    
-      const new_api_base = `${base_url+this.state.backToPage}.json`;		
+      const new_api_base = this.state.endpoint;
       const data = this.state;
       axios.put(new_api_base, data)
       .then((res) => {
