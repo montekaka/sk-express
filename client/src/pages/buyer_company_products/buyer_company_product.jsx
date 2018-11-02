@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
-// import BuyerCompanyProductForm from './buyer_company_shipping_address_form.jsx';
+import BuyerCompanyProductForm from './buyer_company_product_form.jsx';
 import SkModal from '../../components/shared/modal/skModal.jsx';
 const base_url = config.base_url;
 
@@ -49,9 +49,9 @@ class BuyerCompanyProduct extends React.Component {
 
     get(buyer_company_id, id) {
       const api_base = `${this.props.skState.apis['PARENT_GET']}`
-      const backToPage = `${api_base}/${buyer_company_id}${this.props.skState.apis['UPDATE']}`
+      const backToPage = `${api_base}/${buyer_company_id}`
       const api_url = `${base_url+api_base}/${buyer_company_id}.json`;      
-      const product_api_url = `${base_url+backToPage}/${id}.json`
+      const product_api_url = `${base_url+backToPage}${this.props.skState.apis['UPDATE']}/${id}.json`
       const _this = this;
       axios.get(api_url)
         .then((res) => {
@@ -89,56 +89,62 @@ class BuyerCompanyProduct extends React.Component {
     }		
 
     updateState(newState) {
-        const name = newState.name;
-        const value = newState.value;
-        this.setState({[name]: value});
+      const name = newState.name;
+      const value = newState.value;
+      this.setState({[name]: value});
     }
 
     submit() {		
-        if (this.state.external_code.length === 0 || this.state.external_name.length === 0) {
-            this.setState({errorModal: true});
-            console.log('invalid...');
-        } else {
-            this.update();
-        }
+      if (this.state.external_code.length === 0 || this.state.external_name.length === 0) {
+          this.setState({errorModal: true});
+          console.log('invalid...');
+      } else {
+          this.update();
+      }
     }
 
     update() {	
-        const _this = this;    
-        const new_api_base = `${base_url+this.state.backToPage}.json`;		
-        const data = this.state;
-        axios.put(new_api_base, data)
-        .then((res) => {
-            _this.setState({toGoback: true});
-            // redirect back
-        })
-        .catch((err) => {
-            console.log(err);
-            // show error using the modal..
-        })
+      const _this = this;    
+      const new_api_base = `${base_url+this.state.backToPage}.json`;		
+      const data = this.state;
+      axios.put(new_api_base, data)
+      .then((res) => {
+          _this.setState({toGoback: true});
+          // redirect back
+      })
+      .catch((err) => {
+          console.log(err);
+          // show error using the modal..
+      })
     }
 
     modalToggle(){
-        const errorModal = !this.state.errorModal;
-        this.setState({errorModal: errorModal});
+      const errorModal = !this.state.errorModal;
+      this.setState({errorModal: errorModal});
     }
 
     render() {
-        if (this.state.toGoback === true) {
-            return <Redirect to={this.state.backToPage} />
-        }				
-        return (
-            <div>
-                <SkModal 
-                    modal={this.state.errorModal} 
-                    className={'error'} 
-                    toggle={this.modalToggle}
-                    modalTitle={'Error'}
-                    message={this.state.errorMessage}
-                    closeBtnLabel={'OK'}/>
-                <Dashheader subtitle={'Product edit'} title={this.state.buyer_company_name}/>
-            </div>
-        )
+      if (this.state.toGoback === true) {
+        return <Redirect to={this.state.backToPage} />
+      }				
+      return (
+        <div>
+          <SkModal 
+              modal={this.state.errorModal} 
+              className={'error'} 
+              toggle={this.modalToggle}
+              modalTitle={'Error'}
+              message={this.state.errorMessage}
+              closeBtnLabel={'OK'}/>
+          <Dashheader subtitle={'Product edit'} title={this.state.buyer_company_name}/>
+          <BuyerCompanyProductForm
+            data={this.state}
+            updateState={this.updateState} 
+            backToPage={this.state.backToPage}
+            create={this.submit}
+          />
+        </div>
+      )
     }
 
 }
