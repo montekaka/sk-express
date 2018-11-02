@@ -1,6 +1,8 @@
 import React from 'react';
+import _ from 'underscore';
 import { Link } from 'react-router-dom';
-import { Col, Row, Button, Form, FormGroup, Label, Input,FormFeedback, FormText } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, Label, Input,FormFeedback, FormText ,InputGroup, InputGroupAddon, InputGroupText, } from 'reactstrap';
+import SkInputSelect from './../../components/shared/input-selection/input-selection.jsx'
 
 const BuyerCompanyProductForm = (props) => {	
 
@@ -16,7 +18,28 @@ const BuyerCompanyProductForm = (props) => {
 
 	function getInputValue(val) {
 		return val ? val : '';
-	}
+  }
+  
+  function handleSelect(target) {
+    const selectedValue = target.value;
+    const result = _.filter(props.data.internal_price_category_list, (item) => {
+      return item['label'] === selectedValue;
+    });
+    const label = result[0]['label'];
+    const unit = result[0]['unit'];
+    switch(target.name) {
+      case 'external_purchase_price_category_label':
+        props.updateState({name: 'external_purchase_price_category_label', value: label});
+        props.updateState({name: 'external_purchase_price_category_unit', value: unit});
+        break;
+      case 'external_contract_price_category_label':
+        props.updateState({name: 'external_contract_price_category_label', value: label});
+        props.updateState({name: 'external_contract_price_category_unit', value: unit});      
+        break;
+      default:
+        console.log('error buyer company product from', target.name, target.value)
+    }
+  }
 
 
 	return (
@@ -51,10 +74,59 @@ const BuyerCompanyProductForm = (props) => {
     			    </FormGroup>	             
 	      		</Col>            
 	      	</Row>
-          <FormGroup>
-            <Label for="external_price">External product price</Label>
-            <Input type="number" name="external_price" id="external_price" placeholder="with a placeholder" onChange={handleInputChange} value={ getInputValue(props.data.external_price)}/>
-	      	</FormGroup>     	
+          <Row>
+            <Col md={4}>
+              <FormGroup>
+                <Label for="external_price">Contract price</Label>
+                <InputGroup>
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText className="text-white">
+                      $
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input type="number" name="external_price" id="external_price" placeholder="with a placeholder" onChange={handleInputChange} value={ getInputValue(props.data.external_price)}/>
+                </InputGroup>                
+              </FormGroup>            
+            </Col>
+            <Col md={4}>
+              <FormGroup>
+                <Label for="exampleSelect">Contract bundle</Label>
+                <SkInputSelect 
+                  selectName='external_contract_price_category_label'
+                  handleSelect={handleSelect}
+                  selectedValue={props.data.external_contract_price_category_label}
+                  optionsKeyLabel={'label'}
+                  options={props.data.internal_price_category_list}
+                />
+              </FormGroup>  
+            </Col>
+	      		<Col md={4}>
+              <FormGroup>
+    				    <Label for="external_contract_price_category_unit">Contract unit</Label>
+    				    <Input disabled type="number" name="external_contract_price_category_unit" id="external_purchase_price_category_unit" placeholder="with a placeholder"  value={ getInputValue(props.data.external_contract_price_category_unit)}/>
+    			    </FormGroup>	             
+	      		</Col>             
+          </Row> 
+          <Row>
+            <Col md={6}>
+              <FormGroup>
+                <Label for="exampleSelect">Purchase bundle</Label>
+                <SkInputSelect 
+                  selectName='external_purchase_price_category_label'
+                  handleSelect={handleSelect}
+                  selectedValue={props.data.external_purchase_price_category_label}
+                  optionsKeyLabel={'label'}
+                  options={props.data.internal_price_category_list}
+                />
+              </FormGroup>  
+            </Col>
+	      		<Col md={6}>
+              <FormGroup>
+    				    <Label for="external_purchase_price_category_unit">Purchase unit</Label>
+    				    <Input disabled type="number" name="external_purchase_price_category_unit" id="external_purchase_price_category_unit" placeholder="with a placeholder"  value={ getInputValue(props.data.external_purchase_price_category_unit)}/>
+    			    </FormGroup>	             
+	      		</Col>             
+          </Row>             	
           <div>
 	      		<Link to={props.backToPage} className="btn btn-outline-info product-btn" >Back</Link>
 	      		<div className="btn btn-outline-success" onClick={sumbit}>Submit</div>	      	          	
