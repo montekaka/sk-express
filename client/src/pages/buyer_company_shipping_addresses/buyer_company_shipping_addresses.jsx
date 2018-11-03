@@ -36,7 +36,7 @@ class BuyerCompanyShippingAddresses extends React.Component {
 	render() {
 		const new_api_base = `${this.props.parent_id}/new${this.props.skState.apis['NEW']}`;
 		return (
-			<div className="nn">				
+			<div className="nn">		                	
         <Link to={new_api_base} className="btn btn-sm btn-outline-info product-btn">Add Shipping address</Link>			
         <TablePagination 		 
 						handleUpdateTotalItems={this.handleUpdateTotalItems}   	

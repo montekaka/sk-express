@@ -19,6 +19,7 @@ import {
   BuyerCompanyShippingAddress,
   BuyerCompanyShippingAddressNew,
   BuyerCompanyShippingAddressEdit,
+  BuyerCompanyProductPickProduct,
   BuyerCompanyProduct,
   Products,
   Product,
@@ -32,6 +33,7 @@ import productTable from './../../resource/productTable';
 import buyerCompanyTable from './../../resource/buyerCompanyTable';
 import buyerTable from './../../resource/buyerTable';
 import buyerCompanyShippingAddressTable from './../../resource/buyerCompanyShippingAddressTable';
+import pickProductTable from './../../resource/pickProductTable';
 import buyerCompanyProductTable from './../../resource/buyerCompanyProductTable';
 
 const orderSkState = orderTable.skState;
@@ -39,6 +41,7 @@ const productSkState = productTable.skState;
 const buyerComapnySkState = buyerCompanyTable.skState;
 const buyerSkState = buyerTable.skState;
 const buyerCompanyShippingAddressSkState = buyerCompanyShippingAddressTable.skState;
+const pickProductSkState = pickProductTable.skState;
 const buyerCompanyProductSkState = buyerCompanyProductTable.skState;
 
 class App extends React.Component {
@@ -152,7 +155,11 @@ class App extends React.Component {
             <Route exact path="/buyer_companies/:buyer_company_id/external_product_prices/:id" 
               render= {
                 (props) => <BuyerCompanyProduct skState={buyerCompanyProductSkState} params={props.match}/> }
-            />                                                                                                                                                             
+            />  
+            <Route exact path="/buyer_companies/:buyer_company_id/new/external_product_prices" 
+              render= {
+                (props) => <BuyerCompanyProductPickProduct skState={pickProductSkState} params={props.match}/> }
+            />                                                                                                                                                                         
           </div>        
         </span>
       </Router>
