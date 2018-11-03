@@ -36,7 +36,7 @@ class BuyerCompanProductNew extends React.Component {
         }
         this.updateState = this.updateState.bind(this);
         this.submit = this.submit.bind(this);
-        this.update = this.update.bind(this);
+        this.create = this.create.bind(this);
         this.modalToggle = this.modalToggle.bind(this);
         this.get = this.get.bind(this);
     }
@@ -54,7 +54,7 @@ class BuyerCompanProductNew extends React.Component {
       const backToPage = `${api_base}/${buyer_company_id}`
       const api_url = `${base_url+api_base}/${buyer_company_id}.json`;      
       const product_api_url = `${base_url+product_api}/${product_id}.json`;      
-      // const product_api_url = `${base_url+backToPage}${this.props.skState.apis['UPDATE']}/${id}.json`
+      const new_api_url = `${base_url+backToPage}${this.props.skState.apis['NEW']}.json`
       const _this = this;
       // get buyer company info
       axios.get(api_url)
@@ -62,7 +62,7 @@ class BuyerCompanProductNew extends React.Component {
           _this.setState({
             buyer_company_name: res.data.name,
             buyer_company_id: res.data.id,
-            // endpoint: product_api_url,
+            endpoint: new_api_url,
             backToPage: backToPage
           });
         })
@@ -97,15 +97,15 @@ class BuyerCompanProductNew extends React.Component {
         this.setState({errorModal: true});
         console.log('invalid...');
       } else {
-        this.update();
+        this.create();
       }
     }
 
-    update() {	
+    create() {	
       const _this = this;    
       const new_api_base = this.state.endpoint;
       const data = this.state;
-      axios.put(new_api_base, data)
+      axios.post(new_api_base, data)
       .then((res) => {
           _this.setState({toGoback: true});
           // redirect back
@@ -113,7 +113,7 @@ class BuyerCompanProductNew extends React.Component {
       .catch((err) => {
           console.log(err);
           // show error using the modal..
-      })
+      });
     }
 
     modalToggle(){
