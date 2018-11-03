@@ -36,7 +36,7 @@ class BuyerCompanyProductPickProduct extends React.Component {
 
 	render() {
 		const buyer_company_id = this.props.params.params.buyer_company_id;        
-		const parent_path = `${this.props.skState.apis['PARENT_PATH']}/${buyer_company_id}/new/external_product_prices${this.props.skState.apis['GET']}`		
+		const parent_path = `${this.props.skState.apis['PARENT_PATH']}/${buyer_company_id}/new/external_product_prices`;
 		console.log(parent_path);
 		return (
 			<div>

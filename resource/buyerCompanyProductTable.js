@@ -21,7 +21,8 @@ const skState = {
 		NEW: '/external_product_prices',
 		DELETE: '/external_product_prices',
 		UPDATE: '/external_product_prices',
-		PARENT_GET: '/buyer_companies'		
+		PARENT_GET: '/buyer_companies',
+		SIBLING_GET: '/products'
 	}
 }
 

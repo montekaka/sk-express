@@ -21,6 +21,7 @@ import {
   BuyerCompanyShippingAddressEdit,
   BuyerCompanyProductPickProduct,
   BuyerCompanyProduct,
+  BuyerCompanyProductNew,  
   Products,
   Product,
   ProductNew,
@@ -159,7 +160,11 @@ class App extends React.Component {
             <Route exact path="/buyer_companies/:buyer_company_id/new/external_product_prices" 
               render= {
                 (props) => <BuyerCompanyProductPickProduct skState={pickProductSkState} params={props.match}/> }
-            />                                                                                                                                                                         
+            />  
+            <Route exact path="/buyer_companies/:buyer_company_id/new/external_product_prices/products/:product_id" 
+              render= {
+                (props) => <BuyerCompanyProductNew skState={buyerCompanyProductSkState} params={props.match}/> }
+            />                                                                                                                                                                                              
           </div>        
         </span>
       </Router>
