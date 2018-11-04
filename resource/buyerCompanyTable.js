@@ -13,7 +13,12 @@ const skState = {
 		NEW: '/buyer_companies',
 		DELETE: '/buyer_companies',
 		UPDATE: '/buyer_companies'		
-	}
+	},
+	tabs: {
+		shippingAddressClass: ' active',
+		buyerProductClass: ''
+	},
+	tabActiveStateName: ' active'
 }
 
 exports.skState = skState;

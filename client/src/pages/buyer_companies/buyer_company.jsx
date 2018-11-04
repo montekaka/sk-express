@@ -13,7 +13,7 @@ import buyerCompanyProductTable from '../../../../resource/buyerCompanyProductTa
 const base_url = config.base_url;
 const buyerCompanyShippingAddressSkState = buyerCompanyShippingAddressTable.skState;
 const buyerCompanyProductSkState = buyerCompanyProductTable.skState;
-const activeState = ' active';
+// const activeState = ' active';
 
 class BuyerCompany extends React.Component {
     constructor(props) {		
@@ -28,21 +28,34 @@ class BuyerCompany extends React.Component {
             child_component_base_url: '',
             parent_path: '',
             toGoback: false,
-            shippingAddressClass: activeState,
+            shippingAddressClass: '',
             buyerProductClass: '',
+            tabActiveStateName: ''
         }
         this.get = this.get.bind(this);
         this.delete = this.delete.bind(this);
         this.handleTabClick = this.handleTabClick.bind(this);
+        this.updateToggleState = this.updateToggleState.bind(this);
     }
     
     componentDidMount() {
       const id = this.props.params.params.id;
       const parent_path = `${this.props.skState.apis['GET']}/${id}`;
-      console.log(parent_path);
       const edit_page = `/edit${this.props.skState.apis['UPDATE']}/${id}`;
       const child_component_base_url = `${base_url+this.props.skState.apis['GET']}/${id}`;        
-      this.setState({edit_page: edit_page, child_component_base_url: child_component_base_url, parent_path: parent_path});
+      const shippingAddressClass = this.props.skState.tabs.shippingAddressClass;
+      const buyerProductClass = this.props.skState.tabs.buyerProductClass;
+      const tabActiveStateName = this.props.skState.tabActiveStateName;
+
+      this.setState({
+        shippingAddressClass: shippingAddressClass,
+        buyerProductClass: buyerProductClass,
+        tabActiveStateName: tabActiveStateName,
+        edit_page: edit_page, 
+        child_component_base_url: child_component_base_url, 
+        parent_path: parent_path
+      });
+        
       this.get(id);
     }	
 
@@ -78,19 +91,30 @@ class BuyerCompany extends React.Component {
             })
     }
 
-    handleTabClick() {
-      if (this.state.shippingAddressClass === activeState) {
-        this.setState({shippingAddressClass: ''});
-      } else {
-        this.setState({shippingAddressClass: activeState});
-      }
-      if (this.state.buyerProductClass === activeState) {
-        this.setState({buyerProductClass: ''});
-      } else {
-        this.setState({buyerProductClass: activeState});
-      }      
+    handleTabClick(e) {
+      const name = e.target.dataset.name;
+      const tabActiveStateName = this.state.tabActiveStateName;
+      let counterName = '';
+      switch(name) {
+        case 'shippingAddressClass':
+          counterName = 'buyerProductClass'
+          break
+        default :
+          counterName = 'shippingAddressClass'
+      } 
+      this.updateToggleState({[name]: tabActiveStateName, [counterName]: ''});
     }
-    
+
+
+    updateToggleState(status) {
+      // status = {name: value}
+      this.setState(status);
+      const names = Object.keys(status);
+      names.forEach((name) => {
+        this.props.skState.tabs[name] = status[name];
+      });
+    }
+
     render() {
       let shippingAddressTable;
       let productTable;
@@ -143,13 +167,15 @@ class BuyerCompany extends React.Component {
             <ul className="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
               <li className="nav-item" role="presentation">
                 <div
-                  onClick={this.handleTabClick}
+                  onClick={(e) => this.handleTabClick(e)}
+                  data-name="shippingAddressClass"
                   className={"nav-link"+this.state.shippingAddressClass}
                   role="tab" data-toggle="tab" aria-controls="shipping-address">Shipping Address</div>
               </li>
               <li className="nav-item" role="presentation">
                 <div
-                onClick={this.handleTabClick}
+                onClick={(e) => this.handleTabClick(e)}
+                data-name="buyerProductClass"
                 className={"nav-link"+this.state.buyerProductClass} 
                 role="tab" data-toggle="tab" aria-controls="buyer-company-product">Product</div>
               </li>
