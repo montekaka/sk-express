@@ -13,6 +13,7 @@ import buyerCompanyProductTable from '../../../../resource/buyerCompanyProductTa
 const base_url = config.base_url;
 const buyerCompanyShippingAddressSkState = buyerCompanyShippingAddressTable.skState;
 const buyerCompanyProductSkState = buyerCompanyProductTable.skState;
+const activeState = ' active';
 
 class BuyerCompany extends React.Component {
     constructor(props) {		
@@ -26,10 +27,13 @@ class BuyerCompany extends React.Component {
             description: null,
             child_component_base_url: '',
             parent_path: '',
-            toGoback: false
+            toGoback: false,
+            shippingAddressClass: activeState,
+            buyerProductClass: '',
         }
         this.get = this.get.bind(this);
         this.delete = this.delete.bind(this);
+        this.handleTabClick = this.handleTabClick.bind(this);
     }
     
     componentDidMount() {
@@ -73,6 +77,19 @@ class BuyerCompany extends React.Component {
                 console.log("err", err);
             })
     }
+
+    handleTabClick() {
+      if (this.state.shippingAddressClass === activeState) {
+        this.setState({shippingAddressClass: ''});
+      } else {
+        this.setState({shippingAddressClass: activeState});
+      }
+      if (this.state.buyerProductClass === activeState) {
+        this.setState({buyerProductClass: ''});
+      } else {
+        this.setState({buyerProductClass: activeState});
+      }      
+    }
     
     render() {
       let shippingAddressTable;
@@ -94,8 +111,8 @@ class BuyerCompany extends React.Component {
         />;
 
       } else {
-        shippingAddressTable = <div>Hello world</div>;
-        productTable = <div>Hello world</div>;
+        shippingAddressTable = <div></div>;
+        productTable = <div></div>;
       }
       if (this.state.toGoback === true) {
           return <Redirect to='/buyer_companies' />
@@ -122,8 +139,30 @@ class BuyerCompany extends React.Component {
               <div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>
             </div>
           </div>
-          {shippingAddressTable}
-          {productTable}
+          <div className="hr-divider my-4">
+            <ul className="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
+              <li className="nav-item" role="presentation">
+                <div
+                  onClick={this.handleTabClick}
+                  className={"nav-link"+this.state.shippingAddressClass}
+                  role="tab" data-toggle="tab" aria-controls="shipping-address">Shipping Address</div>
+              </li>
+              <li className="nav-item" role="presentation">
+                <div
+                onClick={this.handleTabClick}
+                className={"nav-link"+this.state.buyerProductClass} 
+                role="tab" data-toggle="tab" aria-controls="buyer-company-product">Product</div>
+              </li>
+            </ul>
+          </div>
+          <div className="tab-content">
+            <div role="tabpanel" className={"tab-pane"+this.state.shippingAddressClass} id="shipping-address">
+              {shippingAddressTable}
+            </div>
+            <div role="tabpanel" className={"tab-pane"+this.state.buyerProductClass} id="buyer-company-product">
+              {productTable}
+            </div>
+          </div>          
         </div>			
       )
     }	
