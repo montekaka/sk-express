@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import config from './../../../../resource/config';
+import ProductInventroies from './product_inventories.jsx';
 
 const base_url = config.base_url;
 
@@ -34,7 +35,6 @@ class Product extends React.Component {
 	componentDidMount() {
 	  const id = this.props.params.params.id;
 	  const edit_page = `/edit${this.props.skState.apis['UPDATE']}/${id}`;
-	  console.log(edit_page);
 	  this.setState({edit_page: edit_page});
 	  this.get(id);
 	}	
@@ -102,17 +102,25 @@ class Product extends React.Component {
 		    <div className="card bg-dark text-white">
 		    	<div className="card-body">
 		    		<h5 className="card-title">{this.state.name}</h5>
-					<p>Product code: {this.state.product_code}</p>
-					<p>Price HK$ {this.state.price}</p>
-					<p>Bundle category 1: {this.state.price_category_1_label} {this.state.price_category_1_unit}</p>
-					<p>Bundle category 2: {this.state.price_category_2_label} {this.state.price_category_2_unit}</p>
-					<p>Bundle category 3: {this.state.price_category_3_label} {this.state.price_category_3_unit}</p>
-					<div>
-		    			<Link to={this.state.edit_page} className="btn btn-primary product-btn">Edit</Link>
-		    			<div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>						
-					</div>							
+            <p>Product code: {this.state.product_code}</p>
+            <p>Price HK$ {this.state.price}</p>
+            <p>Bundle category 1: {this.state.price_category_1_label} {this.state.price_category_1_unit}</p>
+            <p>Bundle category 2: {this.state.price_category_2_label} {this.state.price_category_2_unit}</p>
+            <p>Bundle category 3: {this.state.price_category_3_label} {this.state.price_category_3_unit}</p>
+            <div>
+                <Link to={this.state.edit_page} className="btn btn-primary product-btn">Edit</Link>
+                <div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>						
+            </div>							
 		    	</div>
-		    </div>		    	    	
+		    </div>
+        <div className="card bg-dark text-white">
+          <div className="card-body">
+            <ProductInventroies 
+              headerItems={this.props.skState.inventroyTableHeaders}
+              items={this.state.warehouse_inventories}
+            />
+          </div>          
+        </div>		    	    	
 	    </div>			
 		)
 	}	

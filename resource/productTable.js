@@ -17,7 +17,13 @@ const skState = {
 		NEW: '/products',
 		DELETE: '/products',
 		UPDATE: '/products'		
-	}
+	},
+	inventroyTableHeaders: [
+		{'id': 1,'name': "warehouse_name", "format": "string", "label":"Warehouse name", "sort_by":"ASC", "sort_on": true},
+		{'id': 2,'name': "quantity", "format": "number", "label":"Quantity", "sort_by":"ASC", "sort_on": true},
+		{'id': 3,'name': "min", "format": "number", "label":"Min", "sort_by":"ASC", "sort_on": true},
+		{'id': 4,'name': "max", "format": "number", "label":"Max", "sort_by":"ASC", "sort_on": true}
+	]
 }
 
 
