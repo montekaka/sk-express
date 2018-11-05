@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
+import {Collapse, Navbar, NavbarToggler,
+	NavbarBrand, Nav, NavItem, NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem	
+} from 'reactstrap';
 import Login from './../../pages/auth/login.jsx'
 //import $ from 'jquery';
 // import Auth from 'j-toker';
@@ -64,15 +70,20 @@ class FluidNavbar extends React.Component {
 	          <NavItem>
 	            <NavLink tag={Link} to="/orders">Orders</NavLink>
 	          </NavItem>
-	          <NavItem>
-	            <NavLink tag={Link} to="/products">Products</NavLink>
-	          </NavItem>
-	          <NavItem>
-	            <NavLink tag={Link} to="/buyer_companies">Buyer Companies</NavLink>
-	          </NavItem>	
-	          <NavItem>
-	            <NavLink tag={Link} to="/buyers">Buyers</NavLink>
-	          </NavItem>												
+						<UncontrolledDropdown nav inNavbar>
+							<DropdownToggle nav caret>Resources</DropdownToggle>
+							<DropdownMenu right>
+								<DropdownItem tag={Link} to="/products">
+									Products
+								</DropdownItem>
+								<DropdownItem tag={Link} to="/buyer_companies">
+									Buyer Companies
+								</DropdownItem>	
+								<DropdownItem tag={Link} to="/buyers">
+								Buyers
+								</DropdownItem>																
+							</DropdownMenu>
+						</UncontrolledDropdown>											
 	          <NavItem>
 	          	{this.loginButton()}
 	          </NavItem>	          
