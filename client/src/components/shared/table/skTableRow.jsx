@@ -17,7 +17,9 @@ class SkTableRow extends React.Component {
 						headerItem={headerItem}
 						apis={this.props.apis}
 						parent_path={this.props.parent_path}
-						handleClickItem={this.props.handleClickItem}
+            handleClickItem={this.props.handleClickItem}
+            handleInputChange={this.props.handleInputChange}
+            editing={this.props.editing}
 						/>
 					)
 				}

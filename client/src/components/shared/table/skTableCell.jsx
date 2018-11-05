@@ -6,13 +6,19 @@ const actions = Pipe.actions;
 class SkTableCell extends React.Component {
 	constructor(props) {
 		super(props);		
-		this.handleViewClick = this.handleViewClick.bind(this);
+    this.handleViewClick = this.handleViewClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
 	}	
 
 	handleViewClick(){
 		const id = this.props.tableCell.id;
 		const action = this.props.tableCell[this.props.headerItem.name];
 		this.props.handleClickItem({shipping_address_id: id, actionType: action});
+	}
+
+	handleChange(event){
+		const id = this.props.tableCell.id;
+		this.props.handleInputChange(id, event);
 	}
 
 	render() {
@@ -33,8 +39,17 @@ class SkTableCell extends React.Component {
 					cell = <div className="btn btn-xs btn-outline-primary" onClick={this.handleViewClick}>{this.props.tableCell[this.props.headerItem.name]}</div>
 				}
         break;
-      default: 
-        cell = actions[format](this.props.tableCell[this.props.headerItem.name]);
+			default:
+				if (this.props.editing && this.props.headerItem.editable) {
+					cell = <input 
+						onChange={this.handleChange}
+						type={this.props.headerItem.input_format} 
+						name={this.props.headerItem.name}
+						value={actions[format](this.props.tableCell[this.props.headerItem.name])}
+					/>
+				} else {
+					cell = actions[format](this.props.tableCell[this.props.headerItem.name]);
+				}        
     }
 
 		return (

@@ -26,10 +26,18 @@ class Product extends React.Component {
 			price_category_3_unit: 0,
 			price: 0,
 			toGoback: false,
-			warehouse_inventories: []
+      warehouse_inventories: [],
+      sudo_warehouse_inventories: [],
+      warehouse_inventories_editing: false
 		}
 		this.get = this.get.bind(this);
-		this.delete = this.delete.bind(this);
+    this.delete = this.delete.bind(this);
+    this.handleInventryEditingClick = this.handleInventryEditingClick.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInventrySaveClick = this.handleInventrySaveClick.bind(this);
+    this.handleCancelInventory = this.handleCancelInventory.bind(this);
+    this.updateInventory = this.updateInventory.bind(this);
+    this.createInventory = this.createInventory.bind(this);    
 	}
 
 	componentDidMount() {
@@ -56,10 +64,12 @@ class Product extends React.Component {
 				const price_category_1_unit = res.data.price_category_1_unit;
 				const price_category_2_unit = res.data.price_category_2_unit;
 				const price_category_3_unit = res.data.price_category_3_unit;
-				const warehouse_inventories = res.data.warehouse_inventories;
+        const warehouse_inventories = res.data.warehouse_inventories;
+        const sudo_warehouse_inventories = JSON.stringify(res.data.warehouse_inventories);
 				_this.setState({id: id, product_code: product_code
 					, name: name, price: price
-					, warehouse_inventories: warehouse_inventories
+          , warehouse_inventories: warehouse_inventories
+          , sudo_warehouse_inventories: sudo_warehouse_inventories
 					, price_category_1_label: price_category_1_label
 					, price_category_2_label: price_category_2_label
 					, price_category_3_label: price_category_3_label
@@ -85,13 +95,88 @@ class Product extends React.Component {
 			.catch((err) => {
 				console.log("err", err);
 			})
-	}
+  }
+  
+  handleInventrySaveClick() {
+    this.handleInventryEditingClick();
+    const warehouse_inventories = this.state.warehouse_inventories;
+    let baseEndpoint = `${base_url + this.props.skState.apis['GET']}/${this.state.id}/warehouse_inventories`;
+    warehouse_inventories.forEach((item) => {
+      if (item.id < 0) {        
+        this.createInventory(item, baseEndpoint+'.json');
+      } else {
+        this.updateInventory(item, baseEndpoint+'/'+item.id+'.json');
+      }
+    });
+    
+  }
 
+  updateInventory(item, baseEndpoint) {
+    axios.put(baseEndpoint, item)
+    .then((res) =>{
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  createInventory(item, baseEndpoint) {
+    axios.post(baseEndpoint, item)
+    .then((res) =>{
+      item['id'] = res.id;
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    }); 
+    // console.log(item, baseEndpoint);
+    // console.log(this.state.warehouse_inventories)
+  }
+
+  handleCancelInventory(){
+    const warehouse_inventories_editing = !this.state.warehouse_inventories_editing; 
+    const warehouse_inventories = JSON.parse(this.state.sudo_warehouse_inventories);
+    this.setState({warehouse_inventories: warehouse_inventories, warehouse_inventories_editing: warehouse_inventories_editing})
+  }
+
+  handleInventryEditingClick() {
+    const warehouse_inventories_editing = !this.state.warehouse_inventories_editing;
+    this.setState({warehouse_inventories_editing: warehouse_inventories_editing});
+  }
+
+  handleInputChange(id, e){
+    let warehouse_inventories = this.state.warehouse_inventories;
+    const name = e.target.name;
+    const value = e.target.value;
+    warehouse_inventories.forEach((item) => {
+      if(item.id === id) {
+        item[name] = Number(value);
+      }
+    });
+    this.setState({warehouse_inventories: warehouse_inventories});
+  }
 
 	render() {
 		if (this.state.toGoback === true) {
 			return <Redirect to='/products' />
-		}		
+    }		
+    
+    let inventoryActionButton;
+    if (this.state.warehouse_inventories_editing) {
+      inventoryActionButton = 
+        <div>
+          <div className="btn btn-outline-success product-btn" onClick={this.handleInventrySaveClick}>
+            Save
+          </div>
+          <div className="btn btn-outline-primary product-btn" onClick={this.handleCancelInventory}>
+            Cancel
+          </div>          
+        </div>
+    } else {
+      inventoryActionButton = <div className="btn btn-outline-primary" onClick={this.handleInventryEditingClick}>Edit</div>
+    }
+
 		return (
 			<div>
 				<Dashheader subtitle={'Overview'} title={'Product Info'}/>
@@ -115,7 +200,10 @@ class Product extends React.Component {
 		    </div>
         <div className="card bg-dark text-white">
           <div className="card-body">
-            <ProductInventroies 
+            {inventoryActionButton}
+            <ProductInventroies
+              handleInputChange={this.handleInputChange}
+              editing={this.state.warehouse_inventories_editing} 
               headerItems={this.props.skState.inventroyTableHeaders}
               items={this.state.warehouse_inventories}
             />

@@ -25,11 +25,13 @@ class SkTable extends React.Component {
 	          		<SkTableRow 
 	          			item={item} 
 									key={this.props.objectName+'tr'+item.id} 
-									parent_path={this.props.parent_path}
+									parent_path={this.props.parent_path}																		
 	          			headerItems={this.props.headerItems} 
 	          			objectName={this.props.objectName}
 	          			apis={this.props.apis}
-	          			handleClickItem={this.props.handleClickItem}
+									handleClickItem={this.props.handleClickItem}
+									handleInputChange={this.props.handleInputChange}
+									editing={this.props.editing}
 	          			/>
 	          	)
 	          }		        
