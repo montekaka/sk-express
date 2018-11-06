@@ -6,8 +6,6 @@ import TablePagination from './../../components/shared/table-pagination/table-pa
 import config from './../../../../resource/config';
 
 const base_url = config.base_url;
-const get_url = '/orders.json';
-
 
 class Orders extends React.Component {
 	constructor(props) {		
@@ -46,8 +44,7 @@ class Orders extends React.Component {
 		    </div>		    
 		    <TablePagination 		 
 		    	handleUpdateTotalItems={this.handleUpdateTotalItems}   	
-		    	base_url={base_url} 
-		    	get_url={get_url} 
+		    	base_url={base_url}
 		    	perPage={this.state.perPage}
 		    	pageItemsCount={this.state.pageItemsCount}
 		    	skState={this.props.skState}/> 		    	
