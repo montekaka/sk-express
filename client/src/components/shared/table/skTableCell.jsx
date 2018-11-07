@@ -38,8 +38,9 @@ class SkTableCell extends React.Component {
 				} else {
 					cell = <div className="btn btn-xs btn-outline-primary" onClick={this.handleViewClick}>{this.props.tableCell[this.props.headerItem.name]}</div>
 				}
+				break;
 			case 'select': 
-				cell = <div className="btn btn-xs btn-primary" onClick={this.handleViewClick}>{this.props.tableCell[this.props.headerItem.name]}</div>
+				cell = <div className="btn btn-xs btn-outline-info" onClick={this.handleViewClick}>{name}</div>
         break;
 			default:
 				if (this.props.editing && this.props.headerItem.editable) {

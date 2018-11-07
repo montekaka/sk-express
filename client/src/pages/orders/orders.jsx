@@ -4,13 +4,13 @@ import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import TablePagination from './../../components/shared/table-pagination/table-pagination.jsx';
 import config from './../../../../resource/config';
-import orderState from './../../../../resource/orderCollection.js';
-import orderClass from './../../../../resource/libs/helpers/OrderClass.js';
+// import orderState from './../../../../resource/orderCollection.js';
+// import orderClass from './../../../../resource/libs/helpers/OrderClass.js';
+// const OrderClass = orderClass.OrderClass;
+// let workingOrder = orderState.workingOrder;
 
 const base_url = config.base_url;
-const OrderClass = orderClass.OrderClass;
-let workingOrder = orderState.workingOrder;
-const new_api_base = 'new/order/buyer_companies'
+const new_api_base = 'new/order/buyers'
 
 class Orders extends React.Component {
 	constructor(props) {		

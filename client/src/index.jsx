@@ -26,24 +26,32 @@ import {
   Product,
   ProductNew,
   ProductEdit,
-  Orders
+  Orders,
+  OrderNewBuyer
 } from './pages'
 
 import orderTable from './../../resource/orderTable';
+import orderBuyerTable from './../../resource/orderBuyerTable';
 import productTable from './../../resource/productTable';
 import buyerCompanyTable from './../../resource/buyerCompanyTable';
 import buyerTable from './../../resource/buyerTable';
 import buyerCompanyShippingAddressTable from './../../resource/buyerCompanyShippingAddressTable';
 import pickProductTable from './../../resource/pickProductTable';
 import buyerCompanyProductTable from './../../resource/buyerCompanyProductTable';
+import orderState from './../../resource/orderCollection';
+import orderClass from './../../resource/libs/helpers/OrderClass';
 
 const orderSkState = orderTable.skState;
+const orderBuyerSkState = orderBuyerTable.skState;
 const productSkState = productTable.skState;
 const buyerComapnySkState = buyerCompanyTable.skState;
 const buyerSkState = buyerTable.skState;
 const buyerCompanyShippingAddressSkState = buyerCompanyShippingAddressTable.skState;
 const pickProductSkState = pickProductTable.skState;
 const buyerCompanyProductSkState = buyerCompanyProductTable.skState;
+const workingOrder = orderState.workingOrder;
+
+const OrderClass = orderClass.OrderClass;
 
 class App extends React.Component {
   constructor(props) {
@@ -90,8 +98,11 @@ class App extends React.Component {
               render= {(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
             />                      
             <Route exact path='/orders' 
-              render= {(props) => <Orders isAuthed={this.state.isAuthed} skState={orderSkState} />} 
-            />             
+              render= {(props) => <Orders isAuthed={this.state.isAuthed} skState={orderSkState} workingOrder={workingOrder} OrderClass={OrderClass}/>} 
+            />  
+            <Route exact path='/new/order/buyers' 
+              render= {(props) => <OrderNewBuyer isAuthed={this.state.isAuthed} skState={orderBuyerSkState} workingOrder={workingOrder} OrderClass={OrderClass}/>} 
+            />                         
             <Route exact path="/products" 
               render= {
                 (props) => <Products skState={productSkState} />
