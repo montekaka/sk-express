@@ -2,7 +2,7 @@ const OrderClass = function() {
   this.init();
 };
 
-Order.prototype.set = function(item) {
+OrderClass.prototype.set = function(item) {
   const keys = Object.keys(item);
   keys.forEach((key) => {
     if(this.form[key]) {
@@ -11,11 +11,11 @@ Order.prototype.set = function(item) {
   });
 };
 
-Order.prototype.reset = function(item) {
+OrderClass.prototype.reset = function(item) {
   this.init();
 };
 
-Order.prototype.init = function() {
+OrderClass.prototype.init = function() {
   this.id = -100;
   this.order_number = 'New Order ##';
   this.company_id = 0;
