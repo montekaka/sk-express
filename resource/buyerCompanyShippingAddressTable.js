@@ -3,7 +3,7 @@ const skState = {
         {'id': 1,'name': "address_1", "format": "string", "label": "Address", "sort_by":"ASC", "sort_on": true},
         {'id': 2,'name': "fax_number", "format": "string", "label": "Fax number", "sort_by":"ASC", "sort_on": true},
         {'id': 3,'name': "phone_number", "format": "string", "label": "Phone number", "sort_by":"ASC", "sort_on": true},
-		    {'id': 5,'name': "View", "format": "action", "label":"","action":"GET"}
+		{'id': 4,'name': "View", "format": "action", "label":"","action":"GET"}
 	], 
 	params: {
 		SEARCH_TERM: '',
