@@ -1,11 +1,16 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import TablePagination from './../../components/shared/table-pagination/table-pagination.jsx';
 import config from './../../../../resource/config';
+import orderState from './../../../../resource/orderCollection.js';
+import orderClass from './../../../../resource/libs/helpers/OrderClass.js';
 
 const base_url = config.base_url;
+const OrderClass = orderClass.OrderClass;
+let workingOrder = orderState.workingOrder;
+const new_api_base = 'new/order/buyer_companies'
 
 class Orders extends React.Component {
 	constructor(props) {		
@@ -30,6 +35,11 @@ class Orders extends React.Component {
 		console.log(id);
 	}
 
+	// handleClickNewOrder() {
+	// 	let order = new OrderClass();
+	// 	workingOrder = order;
+	// }
+
 	render() {
     if (this.props.isAuthed === false) {
       return <Redirect to={'/'} />
@@ -41,7 +51,8 @@ class Orders extends React.Component {
 		      <h3 className="hr-divider-content hr-divider-heading">Orders</h3>		      
 		      <p>Total Orders: {this.state.total}</p>
 		      <p>Total Page: {this.state.totalPage}</p>
-		    </div>		    
+		    </div>		 		    
+		    <Link to={new_api_base} className="btn btn-outline-info product-btn">New order</Link>
 		    <TablePagination 		 
 		    	handleUpdateTotalItems={this.handleUpdateTotalItems}   	
 		    	base_url={base_url}
