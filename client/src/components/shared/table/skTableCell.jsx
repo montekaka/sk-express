@@ -13,7 +13,7 @@ class SkTableCell extends React.Component {
 	handleViewClick(){
 		const id = this.props.tableCell.id;
 		const action = this.props.tableCell[this.props.headerItem.name];
-		this.props.handleClickItem({shipping_address_id: id, actionType: action});
+		this.props.handleClickItem({id: id, actionType: action});
 	}
 
 	handleChange(event){
@@ -38,6 +38,8 @@ class SkTableCell extends React.Component {
 				} else {
 					cell = <div className="btn btn-xs btn-outline-primary" onClick={this.handleViewClick}>{this.props.tableCell[this.props.headerItem.name]}</div>
 				}
+			case 'select': 
+				cell = <div className="btn btn-xs btn-primary" onClick={this.handleViewClick}>{this.props.tableCell[this.props.headerItem.name]}</div>
         break;
 			default:
 				if (this.props.editing && this.props.headerItem.editable) {

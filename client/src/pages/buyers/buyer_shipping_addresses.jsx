@@ -49,7 +49,7 @@ class BuyerShippingAddresses extends React.Component {
   handleClickItem(shipping_address){    
     // console.log(shipping_address_id)
     const actionType = shipping_address.actionType;
-    const endpoint = base_url+this.state.parent_path+skState.apis['GET']+'/'+shipping_address['shipping_address_id']+'.json';
+    const endpoint = base_url+this.state.parent_path+skState.apis['GET']+'/'+shipping_address['id']+'.json';
     switch(actionType) {
       case 'Selected':
         this.delete(endpoint);
