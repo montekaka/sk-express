@@ -5,8 +5,8 @@ const OrderClass = function() {
 OrderClass.prototype.set = function(item) {
   const keys = Object.keys(item);
   keys.forEach((key) => {
-    if(this.form[key]) {
-      this.form[key] = item[key];
+    if(this[key] !== undefined) {
+      this[key] = item[key];
     }    
   });
 };
