@@ -25,8 +25,8 @@ class OrderNew extends React.Component {
       phone_number: '',
       total_price: 0,
       total_unit: 0,
-      order_delivery_date: 0,
-      order_date: 0,
+      order_delivery_date: '',
+      order_date: '',
       billing_address: '',
       is_per_item_delivery_date: false,
       is_delivered: false,
@@ -83,7 +83,7 @@ class OrderNew extends React.Component {
     return (
       <div>
         <Dashheader subtitle={'Order summary'} title={this.state.buyer_name}/>
-        <OrderForm data={this.state}/>
+        <OrderForm data={this.state}/>      
       </div>
     )
   }

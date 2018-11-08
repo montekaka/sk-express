@@ -21,7 +21,7 @@ const OrderForm = (props) => {
           <FormGroup row>
             <Label for="buyerName" sm={2}>Buyer company name</Label>
             <Col sm={10}>
-              <Input type="text" name="buyer_company_name" id="buyerName" placeholder="with a placeholder" onChange={handleInputChange} value={ getInputValue(props.data.buyer_company_name)}/>
+              <Input disabled type="text" name="buyer_company_name" id="buyerName" placeholder="with a placeholder" onChange={handleInputChange} value={ getInputValue(props.data.buyer_company_name)}/>
             </Col>
           </FormGroup>
           <FormGroup row>
@@ -41,7 +41,25 @@ const OrderForm = (props) => {
             <Col sm={10}>
               <Input type="text" name="email" id="buyerEmail" placeholder="with a placeholder" onChange={handleInputChange} value={ getInputValue(props.data.email)}/>
             </Col>
-          </FormGroup>					                           	      	      	
+          </FormGroup>	
+          <FormGroup row>
+            <Label for="exampleDate" sm={2} >Order date</Label>
+            <Col sm={10}>
+              <div className="input-with-icon">
+                <Input type="date" name="order_date" className="form-control" id="exampleDate" placeholder="date placeholder" data-provide="datepicker" value={ props.data.order_date} onChange={handleInputChange}/>
+                <span className="icon icon-calendar"></span>
+              </div>                          
+            </Col>
+          </FormGroup>  
+          <FormGroup row>
+            <Label for="exampleDate" sm={2} >Shipping date</Label>
+            <Col sm={10}>
+              <div className="input-with-icon">
+                <Input type="date" name="order_delivery_date" className="form-control" id="exampleDate" placeholder="date placeholder" data-provide="datepicker" value={ props.data.order_delivery_date} onChange={handleInputChange}/>
+                <span className="icon icon-calendar"></span>
+              </div>                          
+            </Col>
+          </FormGroup>                    
 	      </Form>
 	    </div>
     </div>
