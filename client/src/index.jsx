@@ -27,7 +27,8 @@ import {
   ProductNew,
   ProductEdit,
   Orders,
-  OrderNewBuyer
+  OrderNewBuyer,
+  OrderNew
 } from './pages'
 
 import orderTable from './../../resource/orderTable';
@@ -102,7 +103,13 @@ class App extends React.Component {
             />  
             <Route exact path='/new/order/buyers' 
               render= {(props) => <OrderNewBuyer isAuthed={this.state.isAuthed} skState={orderBuyerSkState} workingOrder={workingOrder} OrderClass={OrderClass}/>} 
-            />                         
+            /> 
+            <Route exact path='/new/order/buyers/:buyer_id' 
+              render= {(props) => <OrderNew isAuthed={this.state.isAuthed} 
+              skState={orderBuyerSkState} 
+              buyerSkState={buyerSkState}
+              workingOrder={workingOrder} OrderClass={OrderClass} params={props.match}/>} 
+            />                                     
             <Route exact path="/products" 
               render= {
                 (props) => <Products skState={productSkState} />
