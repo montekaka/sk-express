@@ -1,3 +1,5 @@
-let workingOrder = null;
+const workingOrder = {
+	order: {}
+};
 
 exports.workingOrder = workingOrder;
