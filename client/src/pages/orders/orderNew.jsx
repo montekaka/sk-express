@@ -6,6 +6,7 @@ import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
 import SkModal from '../../components/shared/modal/skModal.jsx';
+import OrderForm from './orderForm.jsx';
 
 const base_url = config.base_url;
 
@@ -80,7 +81,10 @@ class OrderNew extends React.Component {
 
   render() {
     return (
-      <div>{this.state.buyer_company_name}</div>
+      <div>
+        <Dashheader subtitle={'Order summary'} title={this.state.buyer_name}/>
+        <OrderForm data={this.state}/>
+      </div>
     )
   }
 }
