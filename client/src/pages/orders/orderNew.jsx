@@ -36,6 +36,7 @@ class OrderNew extends React.Component {
     }
     this.fetchBuyer = this.fetchBuyer.bind(this);
     this.setOrder = this.setOrder.bind(this);
+    this.updateState = this.updateState.bind(this);
   }
 
   componentDidMount() {       
@@ -52,6 +53,13 @@ class OrderNew extends React.Component {
     //   const order = this.props.workingOrder.order;
     //   this.setState(order);
     // }     
+  }
+
+  updateState(data){
+    const name = data['name'];
+    const value = data['value'];
+    const newState = {[name]: value};
+    this.setState(newState);
   }
 
   fetchBuyer(buyer_endpoint) {
@@ -83,7 +91,7 @@ class OrderNew extends React.Component {
     return (
       <div>
         <Dashheader subtitle={'Order summary'} title={this.state.buyer_name}/>
-        <OrderForm data={this.state}/>      
+        <OrderForm data={this.state} updateState={this.updateState}/>      
       </div>
     )
   }
