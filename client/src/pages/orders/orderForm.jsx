@@ -1,14 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Col, Row, Button, Form, FormGroup, Label, Input,FormFeedback, FormText } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, Label, Input,FormFeedback, FormText, CustomInput } from 'reactstrap';
 
 const OrderForm = (props) => {	
 
 	function handleInputChange(event) {
 		const name = event.target.name;
-		const value = event.target.value
+		const value = event.target.value;
 		props.updateState({name: name, value: value});
 	}	
+
+  function handleClick(event) {
+    const name = event.target.name;
+    const value = event.target.checked;    
+    props.updateState({name: name, value: value});
+  }
 
 	function getInputValue(val) {
 		return val ? val : '';
@@ -52,14 +58,26 @@ const OrderForm = (props) => {
             </Col>
           </FormGroup>  
           <FormGroup row>
-            <Label for="exampleDate" sm={2} >Shipping date</Label>
-            <Col sm={10}>
-              <div className="input-with-icon">
-                <Input type="date" name="order_delivery_date" className="form-control" id="exampleDate" placeholder="date placeholder" data-provide="datepicker" value={ props.data.order_delivery_date} onChange={handleInputChange}/>
-                <span className="icon icon-calendar"></span>
-              </div>                          
+            <Label for="exampleDate" md={2} >Delivery date</Label> 
+            <Col md={2}>
+              <FormGroup check>
+                <Label check>
+                  <Input name="is_per_item_delivery_date" type="checkbox" id="checkbox2" onClick={handleClick} defaultChecked={props.data.is_per_item_delivery_date} />{' '}
+                  Delivery per item
+                </Label>
+              </FormGroup>                         
             </Col>
-          </FormGroup>                    
+            {
+              props.data.is_per_item_delivery_date === false && 
+              <Col md={4}>
+                <div className="input-with-icon">
+                  <Input type="date" 
+                  name="order_delivery_date" className="form-control" id="exampleDate" placeholder="date placeholder" data-provide="datepicker" value={ props.data.order_delivery_date} onChange={handleInputChange}/>
+                  <span className="icon icon-calendar"></span>
+                </div>                          
+              </Col>                 
+            }                                                      
+          </FormGroup>   
 	      </Form>
 	    </div>
     </div>
