@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button, Form, FormGroup, Label, Input,FormFeedback, FormText, CustomInput } from 'reactstrap';
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
 
 const OrderForm = (props) => {	
 
 	function handleInputChange(event) {
-		const name = event.target.name;
-		const value = event.target.value;
-		props.updateState({name: name, value: value});
+    console.log(event)
+		// const name = event.target.name;
+		// const value = event.target.value;
+		// props.updateState({name: name, value: value});
 	}	
 
   function handleClick(event) {
@@ -50,11 +54,13 @@ const OrderForm = (props) => {
           </FormGroup>	
           <FormGroup row>
             <Label for="exampleDate" sm={2} >Order date</Label>
-            <Col sm={10}>
-              <div className="input-with-icon">
-                <Input type="date" name="order_date" className="form-control" id="exampleDate" placeholder="date placeholder" data-provide="datepicker" value={ props.data.order_date} onChange={handleInputChange}/>
-                <span className="icon icon-calendar"></span>
-              </div>                          
+            <Col sm={10}>   
+              <DatePicker
+                  name="order_date"                  
+                  className="form-control"
+                  selected={props.data.order_date}
+                  onChange={handleInputChange}
+              />                                         
             </Col>
           </FormGroup>  
           <FormGroup row>
