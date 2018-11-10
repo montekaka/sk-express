@@ -2,17 +2,28 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button, Form, FormGroup, Label, Input,FormFeedback, FormText, CustomInput } from 'reactstrap';
 import DatePicker from "react-datepicker";
-import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment';
 
 const OrderForm = (props) => {	
 
 	function handleInputChange(event) {
-    console.log(event)
-		// const name = event.target.name;
-		// const value = event.target.value;
-		// props.updateState({name: name, value: value});
+		const name = event.target.name;
+		const value = event.target.value;
+		props.updateState({name: name, value: value});
 	}	
+
+  function handleOrderDateChange(event) {
+    const name = 'order_date';
+    const value = moment(event._d).format(event._f);
+    props.updateState({name: name, value: value});
+  }
+
+  function handleDeliveryDateChange(event) {
+    const name = 'order_delivery_date';
+    const value = moment(event._d).format(event._f);
+    props.updateState({name: name, value: value});
+  }
 
   function handleClick(event) {
     const name = event.target.name;
@@ -54,13 +65,16 @@ const OrderForm = (props) => {
           </FormGroup>	
           <FormGroup row>
             <Label for="exampleDate" sm={2} >Order date</Label>
-            <Col sm={10}>   
+            <Col sm={10}> 
               <DatePicker
                   name="order_date"                  
                   className="form-control"
-                  selected={props.data.order_date}
-                  onChange={handleInputChange}
-              />                                         
+                  showMonthDropdown
+                  useShortMonthInDropdown
+                  dateFormat="YYYY/MM/DD"
+                  selected={moment(props.data.order_date)}
+                  onChange={handleOrderDateChange}
+              /> 
             </Col>
           </FormGroup>  
           <FormGroup row>
@@ -76,14 +90,18 @@ const OrderForm = (props) => {
             {
               props.data.is_per_item_delivery_date === false && 
               <Col md={4}>
-                <div className="input-with-icon">
-                  <Input type="date" 
-                  name="order_delivery_date" className="form-control" id="exampleDate" placeholder="date placeholder" data-provide="datepicker" value={ props.data.order_delivery_date} onChange={handleInputChange}/>
-                  <span className="icon icon-calendar"></span>
-                </div>                          
+                <DatePicker
+                    name="order_delivery_date"                  
+                    className="form-control"
+                    showMonthDropdown
+                    useShortMonthInDropdown
+                    dateFormat="YYYY/MM/DD"
+                    selected={moment(props.data.order_delivery_date)}
+                    onChange={handleDeliveryDateChange}
+                />                           
               </Col>                 
             }                                                      
-          </FormGroup>   
+          </FormGroup>                      
 	      </Form>
 	    </div>
     </div>

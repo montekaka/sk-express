@@ -7,7 +7,9 @@ import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
 import SkModal from '../../components/shared/modal/skModal.jsx';
 import OrderForm from './orderForm.jsx';
+import moment from 'moment';
 
+const now = moment().format('YYYY-MM-DD');
 const base_url = config.base_url;
 
 class OrderNew extends React.Component {
@@ -25,14 +27,14 @@ class OrderNew extends React.Component {
       phone_number: '',
       total_price: 0,
       total_unit: 0,
-      order_delivery_date: '',
-      order_date: '',
+      order_delivery_date: now,
+      order_date: now,
       billing_address: '',
       is_per_item_delivery_date: false,
       is_delivered: false,
       is_paid: false,
-      invoice_id: 0,
-      order_items: []      
+      invoice_id: 0,      
+      order_items: []   
     }
     this.fetchBuyer = this.fetchBuyer.bind(this);
     this.setOrder = this.setOrder.bind(this);
@@ -91,7 +93,9 @@ class OrderNew extends React.Component {
     return (
       <div>
         <Dashheader subtitle={'Order summary'} title={this.state.buyer_name}/>
-        <OrderForm data={this.state} updateState={this.updateState}/>      
+        <OrderForm 
+        data={this.state} 
+        updateState={this.updateState}/>      
       </div>
     )
   }

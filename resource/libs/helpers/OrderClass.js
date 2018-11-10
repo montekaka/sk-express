@@ -1,4 +1,5 @@
 const moment = require('moment');
+const now = moment().format('YYYY-MM-DD');
 
 const OrderClass = function() {
   this.init();
@@ -27,11 +28,11 @@ OrderClass.prototype.init = function() {
   this.buyer_name = '';
   this.email = '';
   this.phone_number = '';
+  this.billing_address = '';
   this.total_price = 0;
   this.total_unit = 0;
-  this.order_delivery_date = moment().format('YYYY-MM-DD');
-  this.order_date = moment().format('YYYY-MM-DD');
-  this.billing_address = '';
+  this.order_delivery_date = now;
+  this.order_date = now;
   this.is_per_item_delivery_date = false;
   this.is_delivered = false;
   this.is_paid = false;
