@@ -34,12 +34,13 @@ class OrderNew extends React.Component {
       is_per_item_delivery_date: false,
       is_delivered: false,
       is_paid: false,
-      invoice_id: 0,   
+      invoice_id: 0, 
+      shipping_method: '',  
       sales_rep: '',
       terms: '',
       slot: '',
-      shipping_phone_number: '',
-      fax_number: '',
+      shipping_phone_number: '123456',
+      fax_number: '',      
       shipping_addresses: [],
       order_items: []   
     }

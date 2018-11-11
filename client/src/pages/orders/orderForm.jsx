@@ -8,6 +8,9 @@ import moment from 'moment';
 import {Typeahead} from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
+const terms = ['30 Days', '60 Days', '90 Days', '180 Days'];
+const shippingMethods = ['Pick up', '1 Day Delivery', '2 Days Delivery'];
+
 const OrderForm = (props) => {	
 
 	function handleInputChange(event) {
@@ -66,7 +69,7 @@ const OrderForm = (props) => {
           <FormGroup row>
             <Label for="buyerName" sm={2}>Slot</Label>
             <Col sm={10}>
-              <Input type="text" name="slot" id="buyerName" placeholder="with a placeholder" onChange={handleInputChange} value={ getInputValue(props.data.slot)}/>
+              <Input type="text" name="slot" id="buyerName" placeholder="Enter the slot numbers" onChange={handleInputChange} value={ getInputValue(props.data.slot)}/>
             </Col>
           </FormGroup>          
           <FormGroup row>
@@ -132,6 +135,7 @@ const OrderForm = (props) => {
               <Typeahead
                 labelKey="shipping_address"
                 multiple={false}
+                selected={[props.data.shipping_address]}
                 onChange={(e) => {
                   typeaheadChange('shipping_address', e[0]);
                 }}
@@ -155,6 +159,7 @@ const OrderForm = (props) => {
                 onInputChange={(e) => {
                   typeaheadChange('shipping_phone_number', e);
                 }}
+                selected={[props.data.shipping_phone_number]}
                 options={getShippingListInfo(props.data.shipping_addresses, 'phone_number')}
                 placeholder="Choose a phone number..."
               />              
@@ -166,6 +171,7 @@ const OrderForm = (props) => {
               <Typeahead
                 labelKey="fax_number"
                 multiple={false}
+                selected={[props.data.fax_number]}
                 onChange={(e) => {
                   typeaheadChange('fax_number', e[0]);
                 }}
@@ -176,7 +182,43 @@ const OrderForm = (props) => {
                 placeholder="Choose a fax number..."
               />              
             </Col>
-          </FormGroup>                     
+          </FormGroup> 
+          <FormGroup row>
+            <Label for="exampleDate" md={2} >Shipping method</Label> 
+            <Col sm={10}> 
+              <Typeahead
+                labelKey="shipping_method"
+                multiple={false}
+                selected={[props.data.shipping_method]}
+                onChange={(e) => {
+                  typeaheadChange('shipping_method', e[0]);
+                }}
+                onInputChange={(e) => {
+                  typeaheadChange('shipping_method', e);
+                }}
+                options={shippingMethods}
+                placeholder="Choose a shipping method..."
+              />              
+            </Col>
+          </FormGroup>  
+          <FormGroup row>
+            <Label for="exampleDate" md={2} >Term</Label> 
+            <Col sm={10}> 
+              <Typeahead
+                labelKey="terms"                
+                multiple={false}
+                selected={[props.data.terms]}
+                onChange={(e) => {
+                  typeaheadChange('terms', e[0]);
+                }}
+                onInputChange={(e) => {
+                  typeaheadChange('terms', e);
+                }}
+                options={terms}
+                placeholder="Choose a term..."
+              />              
+            </Col>
+          </FormGroup>                                         
 	      </Form>
 	    </div>
     </div>
