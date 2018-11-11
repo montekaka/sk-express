@@ -10,6 +10,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const terms = ['30 Days', '60 Days', '90 Days', '180 Days'];
 const shippingMethods = ['Pick up', '1 Day Delivery', '2 Days Delivery'];
+const saleReps = ['Ed', 'Gordon'];
 
 const OrderForm = (props) => {	
 
@@ -218,7 +219,25 @@ const OrderForm = (props) => {
                 placeholder="Choose a term..."
               />              
             </Col>
-          </FormGroup>                                         
+          </FormGroup>  
+          <FormGroup row>
+            <Label for="exampleDate" md={2} >Sale Rep</Label> 
+            <Col sm={10}> 
+              <Typeahead
+                labelKey="sales_rep"                
+                multiple={false}
+                selected={[props.data.sales_rep]}
+                onChange={(e) => {
+                  typeaheadChange('sales_rep', e[0]);
+                }}
+                onInputChange={(e) => {
+                  typeaheadChange('sales_rep', e);
+                }}
+                options={saleReps}
+                placeholder="Choose a sale rep..."
+              />              
+            </Col>
+          </FormGroup>            
 	      </Form>
 	    </div>
     </div>
