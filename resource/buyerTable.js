@@ -16,7 +16,8 @@ const skState = {
 		NEW: '/buyers',
 		DELETE: '/buyers',
 		UPDATE: '/buyers',
-		PARENT_GET: '/buyer_companies'		
+		PARENT_GET: '/buyer_companies',
+		SHIPPING_ADDRESS_CONNECTIONS_GET: '/shipping_address_connections'					
 	}
 }
 

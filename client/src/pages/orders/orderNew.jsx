@@ -30,20 +30,28 @@ class OrderNew extends React.Component {
       order_delivery_date: now,
       order_date: now,
       billing_address: '',
+      shipping_address: '',
       is_per_item_delivery_date: false,
       is_delivered: false,
       is_paid: false,
-      invoice_id: 0,      
+      invoice_id: 0,   
+      sales_rep: '',
+      terms: '',
+      slot: '',
+      shipping_phone_number: '',
+      shipping_addresses: [],
       order_items: []   
     }
     this.fetchBuyer = this.fetchBuyer.bind(this);
     this.setOrder = this.setOrder.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.getBuyerShippingAddresses = this.getBuyerShippingAddresses.bind(this);
   }
 
   componentDidMount() {       
     const buyer_id = this.props.params.params.buyer_id;
     const buyer_endpoint = base_url + this.props.buyerSkState.apis['GET'] + '/' + buyer_id + '.json';    
+    this.getBuyerShippingAddresses(buyer_id);
     this.setOrder(buyer_endpoint); 
   }
 
@@ -79,10 +87,23 @@ class OrderNew extends React.Component {
           buyer_company_id: data.buyer_company_id,
           buyer_company_name: data.buyer_company_name
         }
-        let order = new this.props.OrderClass();
-        order.set(_order);
-        _this.props.workingOrder.order = order;
-        this.setState(order);
+        // let order = new this.props.OrderClass();
+        // order.set(_order);
+        // _this.props.workingOrder.order = order;
+        this.setState(_order);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  getBuyerShippingAddresses(buyer_id) {
+    const endpoint = base_url + this.props.buyerSkState.apis['GET'] + '/' + buyer_id + '/' + this.props.buyerSkState.apis['SHIPPING_ADDRESS_CONNECTIONS_GET'] + '.json';
+    const _this = this;
+    axios.get(endpoint)
+      .then((res) => {
+        const data = res.data;
+        _this.setState({shipping_addresses: data});
       })
       .catch((err) => {
         console.log(err);

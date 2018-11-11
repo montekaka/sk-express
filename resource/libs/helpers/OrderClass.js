@@ -37,6 +37,7 @@ OrderClass.prototype.init = function() {
   this.is_delivered = false;
   this.is_paid = false;
   this.invoice_id = 0;
+  this.sales_rep = '';
   this.order_items = [];
 };
 

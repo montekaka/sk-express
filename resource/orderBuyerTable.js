@@ -13,7 +13,7 @@ const skState = {
 	apis: {
 		FORMAT: '.json',
 		GET: '/buyers',
-		PARENT_GET: '/orders'		
+		PARENT_GET: '/orders'	
 	}
 }
 
