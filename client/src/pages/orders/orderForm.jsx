@@ -143,6 +143,40 @@ const OrderForm = (props) => {
               />              
             </Col>
           </FormGroup> 
+          <FormGroup row>
+            <Label for="exampleDate" md={2} >Phone number</Label> 
+            <Col sm={10}> 
+              <Typeahead
+                labelKey="shipping_phone_number"
+                multiple={false}
+                onChange={(e) => {
+                  typeaheadChange('shipping_phone_number', e[0]);
+                }}
+                onInputChange={(e) => {
+                  typeaheadChange('shipping_phone_number', e);
+                }}
+                options={getShippingListInfo(props.data.shipping_addresses, 'phone_number')}
+                placeholder="Choose a phone number..."
+              />              
+            </Col>
+          </FormGroup> 
+          <FormGroup row>
+            <Label for="exampleDate" md={2} >Fax number</Label> 
+            <Col sm={10}> 
+              <Typeahead
+                labelKey="fax_number"
+                multiple={false}
+                onChange={(e) => {
+                  typeaheadChange('fax_number', e[0]);
+                }}
+                onInputChange={(e) => {
+                  typeaheadChange('fax_number', e);
+                }}
+                options={getShippingListInfo(props.data.shipping_addresses, 'fax_number')}
+                placeholder="Choose a fax number..."
+              />              
+            </Col>
+          </FormGroup>                     
 	      </Form>
 	    </div>
     </div>

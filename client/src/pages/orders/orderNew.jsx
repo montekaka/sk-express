@@ -24,7 +24,7 @@ class OrderNew extends React.Component {
       buyer_id: 0,
       buyer_name: '',
       email: '',
-      phone_number: '',
+      phone_number: '',      
       total_price: 0,
       total_unit: 0,
       order_delivery_date: now,
@@ -39,6 +39,7 @@ class OrderNew extends React.Component {
       terms: '',
       slot: '',
       shipping_phone_number: '',
+      fax_number: '',
       shipping_addresses: [],
       order_items: []   
     }
