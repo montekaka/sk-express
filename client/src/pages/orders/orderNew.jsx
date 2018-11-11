@@ -7,6 +7,7 @@ import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
 import SkModal from '../../components/shared/modal/skModal.jsx';
 import OrderForm from './orderForm.jsx';
+import OrderControl from './orderControl.jsx';
 import moment from 'moment';
 
 const now = moment().format('YYYY-MM-DD');
@@ -48,6 +49,7 @@ class OrderNew extends React.Component {
     this.setOrder = this.setOrder.bind(this);
     this.updateState = this.updateState.bind(this);
     this.getBuyerShippingAddresses = this.getBuyerShippingAddresses.bind(this);
+    this.handleAddMoreItem = this.handleAddMoreItem.bind(this);
   }
 
   componentDidMount() {       
@@ -112,13 +114,21 @@ class OrderNew extends React.Component {
       })
   }
 
+  handleAddMoreItem() {
+    const n = this.state.order_items.length;
+    let order_items = this.state.order_items;
+    order_items.push(n * -1);
+    this.setState({order_items: order_items});
+  }
+
   render() {
     return (
       <div>
         <Dashheader subtitle={'Order summary'} title={this.state.buyer_name}/>
         <OrderForm 
         data={this.state} 
-        updateState={this.updateState}/>      
+        updateState={this.updateState}/>     
+        <OrderControl addMore={this.handleAddMoreItem}/> 
       </div>
     )
   }
