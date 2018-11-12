@@ -1,8 +1,10 @@
 import React from 'react';
+import _ from 'underscore';
 import { FormGroup, Form, Col, Label, Table, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
+import SkInputSelect from './../../components/shared/input-selection/input-selection.jsx'
 
 class OrderItem extends React.Component {
 	constructor(props) {
@@ -23,19 +25,21 @@ class OrderItem extends React.Component {
 			product_id: 0,
 			product_name: "",
 			total_price: 0,
-			total_unit: 0
+			total_unit: 0,
+			internal_price_category_list: []
 		}
 
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleDeliveryDateChange = this.handleDeliveryDateChange.bind(this);
 		this.calculateSubTotal = this.calculateSubTotal.bind(this);
+		this.handleSelect = this.handleSelect.bind(this);
 	}
 
 	componentDidMount() {
 		const _this = this;
 		this.setState(this.props.item, () => {			
 			let unit_price = 0;
-			this.state.contract_price_category_unit > 0 ? unit_price = this.state.price * this.state.order_price_category_unit / this.state.contract_price_category_unit : unit_price = 0;
+			this.state.contract_price_category_unit > 0 ? unit_price = this.state.price * this.state.order_price_category_unit / this.state.contract_price_category_unit : unit_price = this.state.price;
 			_this.setState({delivery_date: _this.props.order_delivery_date, unit_price: unit_price});
 		});
 	}
@@ -44,6 +48,21 @@ class OrderItem extends React.Component {
 		if (this.props.order_delivery_date !== prevProps.order_delivery_date) {
 			this.setState({delivery_date: this.props.order_delivery_date});
 		}
+	}
+
+	handleSelect(target) {
+		const selectedItem = target.value;
+    const result = _.filter(this.state.internal_price_category_list, (item) => {
+      return item['label'] === selectedItem;
+    });
+    const label = result[0]['label'];
+    const unit = Number(result[0]['unit']);
+    let unit_price = 0;
+    this.state.contract_price_category_unit > 0 ? unit_price = this.state.price * unit / this.state.contract_price_category_unit : unit_price = this.state.price;
+
+    this.setState({unit_price: unit_price, order_price_category_label: label, order_price_category_unit: unit}, () => {
+    	this.calculateSubTotal();
+    });
 	}
 
 	calculateSubTotal() {
@@ -83,6 +102,10 @@ class OrderItem extends React.Component {
 						<thead>
 							<tr>
 								<th>Product code</th>
+								{
+									this.state.internal_price_category_list && this.state.internal_price_category_list.length > 0 &&
+									<th>Order unit</th>
+								}
 								<th>Quantity</th>
 								<th>Cost per item</th>
 								<th>Sub Total</th>
@@ -100,6 +123,18 @@ class OrderItem extends React.Component {
 									value={this.state.product_code} 
 									onChange={this.handleInputChange} />
 								</td>
+								{
+									this.state.internal_price_category_list && this.state.internal_price_category_list.length > 0 &&
+									<td>
+			              <SkInputSelect 			                
+			                handleSelect={this.handleSelect}
+			                selectName={'order_price_category_label'}
+			                selectedValue={this.state.order_price_category_label}
+			                optionsKeyLabel={'label'}
+			                options={this.state.internal_price_category_list}
+			              />
+			            </td>			             										
+								}							
 								<td>
 									<Input type="number" name="total_unit" id="total_unit" placeholder="with a placeholder" 
 									value={this.state.total_unit}

@@ -42,7 +42,8 @@ const BuyerCompanyProductForm = (props) => {
   }
 
   function ExternalBundleUnitInput(props, handleSelect, labelName, unitName, inputLabel, inputUnitLabel) {
-    if(props.data.internal_price_category_list.length > 0) {    
+    if(props.data.internal_price_category_list.length > 0) {
+      console.log(props.data);
       return (
         <Row>
           <Col md={6}>
