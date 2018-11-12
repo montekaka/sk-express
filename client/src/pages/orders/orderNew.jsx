@@ -62,6 +62,7 @@ class OrderNew extends React.Component {
     this.getBuyerShippingAddresses = this.getBuyerShippingAddresses.bind(this);
     this.handleAddMoreItem = this.handleAddMoreItem.bind(this);
     this.handleSelectProduct = this.handleSelectProduct.bind(this);
+    this.getProductPriceCategory = this.getProductPriceCategory.bind(this);
   }
 
   componentDidMount() {       
@@ -86,6 +87,22 @@ class OrderNew extends React.Component {
     const value = data['value'];
     const newState = {[name]: value};
     this.setState(newState);
+  }
+
+  getProductPriceCategory(id, cb) {
+    const _this = this;
+    const endpoint = base_url+'/buyer_companies/'+this.state.buyer_company_id+'/external_product_prices/'+id+'.json';
+    axios.get(endpoint)
+      .then((res) => {
+        const internal_price_category_list = res.data['internal_price_category_list'];
+        let newOrderItem = _this.state.newOrderItem;
+        newOrderItem.set({internal_price_category_list: internal_price_category_list});
+        _this.setState({newOrderItem: newOrderItem});
+        cb();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   fetchBuyer(buyer_endpoint) {
@@ -142,13 +159,15 @@ class OrderNew extends React.Component {
   }
 
   handleSelectProduct() {
-    const _this = this;
-    let order_items = this.state.order_items;
-    order_items.push(this.state.newOrderItem);
-    this.setState({order_items: order_items, newOrderItem: null}, () => {
-      console.log(_this.state.order_items)
-      _this.toggle();
-    } );
+    const _this = this;    
+    this.getProductPriceCategory(this.state.newOrderItem.external_product_id, () => {
+      let order_items = _this.state.order_items;
+      console.log(_this.state.newOrderItem);
+      order_items.push(_this.state.newOrderItem);
+      _this.setState({order_items: order_items, newOrderItem: null}, () => {
+        _this.toggle();
+      });
+    })
     // console.log(this.state.newOrderItem);
   }
 

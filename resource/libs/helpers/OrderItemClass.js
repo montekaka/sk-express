@@ -21,6 +21,7 @@ OrderItemClass.prototype.reset = function(item) {
 OrderItemClass.prototype.init = function() {
   this.id = -100;
   this.order_id = 0;
+  this.external_product_id = 0;
   this.product_id = 0;
   this.product_code = '';
   this.product_name = '';
@@ -34,7 +35,8 @@ OrderItemClass.prototype.init = function() {
   this.order_price_category_label = '';
   this.order_price_category_unit = 0;
   this.contract_price_category_label = '';
-  this.contract_price_category_unit = 0;  
+  this.contract_price_category_unit = 0; 
+  this.internal_price_category_list = [];
 };
 
 
