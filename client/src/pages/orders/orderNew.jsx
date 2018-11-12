@@ -166,7 +166,10 @@ class OrderNew extends React.Component {
         updateState={this.updateState}/>
         {
           this.state.order_items.map((order_item) => 
-            <OrderItem key={order_item.id} item={order_item}/>
+            <OrderItem key={order_item.id} 
+              order_delivery_date={this.state.order_delivery_date} 
+              is_per_item_delivery_date={this.state.is_per_item_delivery_date}             
+              item={order_item}/>
           )
         }
         <OrderControl addMore={this.handleAddMoreItem}/>
@@ -175,7 +178,7 @@ class OrderNew extends React.Component {
           <ModalBody>
             <OrderProducts
               base_url={base_url+'/buyer_companies/'+this.state.buyer_company_id} 
-              handleOnClick={this.handleSelectProduct} 
+              handleOnClick={this.handleSelectProduct}
               newOrderItem={this.state.newOrderItem} />
           </ModalBody>
           <ModalFooter>

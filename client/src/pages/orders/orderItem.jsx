@@ -1,5 +1,8 @@
 import React from 'react';
 import { FormGroup, Form, Col, Label, Table, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment';
 
 class OrderItem extends React.Component {
 	constructor(props) {
@@ -23,15 +26,31 @@ class OrderItem extends React.Component {
 		}
 
 		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleDeliveryDateChange = this.handleDeliveryDateChange.bind(this);
+	}
+
+	componentDidMount() {
+		const _this = this;
+		this.setState(this.props.item, () => {
+			_this.setState({delivery_date: _this.props.order_delivery_date});
+		});
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.order_delivery_date !== prevProps.order_delivery_date) {
+			this.setState({delivery_date: this.props.order_delivery_date});
+		}
 	}
 
 	handleInputChange(){
 		console.log('hi')
 	}
 
-	componentDidMount() {
-		this.setState(this.props.item);
-	}
+
+  handleDeliveryDateChange(event) {
+    const value = moment(event._d).format(event._f);
+    this.setState({delivery_date: value});
+  }	
 
 	render() {
 		return (
@@ -44,6 +63,7 @@ class OrderItem extends React.Component {
 								<th>Quantity</th>
 								<th>Cost per item</th>
 								<th>Sub Total</th>
+								<th>Delivery date</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -69,7 +89,18 @@ class OrderItem extends React.Component {
 									disabled
 									value={this.state.total_price}
 									onChange={this.handleInputChange}/>
-								</td>																								
+								</td>
+								<td>
+	                <DatePicker
+	                    name="delivery_date"                  
+	                    className="form-control"
+	                    showMonthDropdown
+	                    useShortMonthInDropdown
+	                    dateFormat="YYYY/MM/DD"
+	                    selected={moment(this.state.delivery_date)}
+	                    onChange={this.handleDeliveryDateChange}
+	                />  									
+								</td>
 							</tr>
 						</tbody>
 					</Table>
