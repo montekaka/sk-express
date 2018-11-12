@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
-import SkModal from '../../components/shared/modal/skModal.jsx';
 import OrderForm from './orderForm.jsx';
 import OrderControl from './orderControl.jsx';
 import OrderItem from './orderItem.jsx';
@@ -65,6 +64,7 @@ class OrderNew extends React.Component {
     this.getProductPriceCategory = this.getProductPriceCategory.bind(this);
     this.calculateTotal = this.calculateTotal.bind(this);
     this.updateOrderItemState = this.updateOrderItemState.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   componentDidMount() {       
@@ -82,6 +82,10 @@ class OrderNew extends React.Component {
     //   const order = this.props.workingOrder.order;
     //   this.setState(order);
     // }     
+  }
+
+  submit() {
+    console.log('hi')
   }
 
   updateState(data){
@@ -215,9 +219,13 @@ class OrderNew extends React.Component {
               />
           )
         }
-        <OrderControl addMore={this.handleAddMoreItem}/>
+        <OrderControl 
+          addMore={this.handleAddMoreItem}
+          backToPage={this.props.orderSkState.apis['GET']}
+          submit={this.submit}
+        />
         <Modal isOpen={this.state.modal} toggle={this.handleModalCancel} className={'modal-dialog modal-lg'}>
-          <ModalHeader toggle={this.handleModalCancel}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.handleModalCancel}>Products</ModalHeader>
           <ModalBody>
             <OrderProducts
               base_url={base_url+'/buyer_companies/'+this.state.buyer_company_id} 

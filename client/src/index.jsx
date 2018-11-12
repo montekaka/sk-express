@@ -108,6 +108,7 @@ class App extends React.Component {
               render= {(props) => <OrderNew isAuthed={this.state.isAuthed} 
               skState={orderBuyerSkState} 
               buyerSkState={buyerSkState}
+              orderSkState={orderSkState}
               workingOrder={workingOrder} OrderClass={OrderClass} params={props.match}/>} 
             />                                     
             <Route exact path="/products" 
