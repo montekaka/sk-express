@@ -27,6 +27,7 @@ OrderItemClass.prototype.init = function() {
   this.product_name = '';
   this.is_delivered = false;
   this.price = 0;
+  this.unit_price = 0;
   this.delivery_date = now;
   this.total_unit = 0;
   this.total_price = 0;  

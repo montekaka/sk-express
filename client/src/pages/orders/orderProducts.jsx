@@ -17,6 +17,7 @@ const OrderProducts = (props) => {
 			product_code: selectedItem['external_code'] ? selectedItem['external_code'] : '',
 			product_name: selectedItem['external_name'] ? selectedItem['external_name'] : '',
 			price: selectedItem['external_price'] ? selectedItem['external_price'] : 0,
+			unit_price: selectedItem['external_price'] ? selectedItem['external_price'] : 0,
 			product_id: selectedItem['product_id'],
 			external_product_id: selectedItem['id'],
 			order_price_category_label: selectedItem['external_purchase_price_category_label'] ? selectedItem['external_purchase_price_category_label'] : '',

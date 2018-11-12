@@ -19,8 +19,8 @@ class OrderItem extends React.Component {
 			order_id: 0,
 			order_price_category_label: "",
 			order_price_category_unit: 0,
-			price: 0, // contract_price
-			unit_price: 0, // order price
+			price: 0, // order price
+			unit_price: 0, // contract_price
 			product_code: "",
 			product_id: 0,
 			product_name: "",
@@ -38,9 +38,11 @@ class OrderItem extends React.Component {
 	componentDidMount() {
 		const _this = this;
 		this.setState(this.props.item, () => {			
-			let unit_price = 0;
-			this.state.contract_price_category_unit > 0 ? unit_price = this.state.price * this.state.order_price_category_unit / this.state.contract_price_category_unit : unit_price = this.state.price;
-			_this.setState({delivery_date: _this.props.order_delivery_date, unit_price: unit_price});
+			let price = 0;
+			this.state.contract_price_category_unit > 0 ? price = this.state.unit_price * this.state.order_price_category_unit / this.state.contract_price_category_unit : price = this.state.unit_price;
+			_this.setState({delivery_date: _this.props.order_delivery_date, price: price}, () => {
+				this.props.updateOrderItemState(this.state.id, {price: price})
+			});
 		});
 	}
 
@@ -57,36 +59,43 @@ class OrderItem extends React.Component {
     });
     const label = result[0]['label'];
     const unit = Number(result[0]['unit']);
-    let unit_price = 0;
-    this.state.contract_price_category_unit > 0 ? unit_price = this.state.price * unit / this.state.contract_price_category_unit : unit_price = this.state.price;
-
-    this.setState({unit_price: unit_price, order_price_category_label: label, order_price_category_unit: unit}, () => {
+    let price = 0;
+    this.state.contract_price_category_unit > 0 ? price = this.state.unit_price * unit / this.state.contract_price_category_unit : price = this.state.unit_price;
+    this.setState({price: price, order_price_category_label: label, order_price_category_unit: unit}, () => {
+    	this.props.updateOrderItemState(this.state.id, {price: price, order_price_category_label: label, order_price_category_unit: unit})
     	this.calculateSubTotal();
     });
 	}
 
 	calculateSubTotal() {
-		let total_price = this.state.unit_price * this.state.total_unit;		
-		// this.state.contract_price_category_unit > 0 ? total_price = this.state.unit_price * this.state.total_unit * this.state.order_price_category_unit / this.state.contract_price_category_unit : total_price = 0;
+		let total_price = this.state.price * this.state.total_unit;		
+		const _this = this;
 		this.setState({total_price: total_price});
 	}
 
 	handleInputChange(event){
 		const name = event.target.name;
-		const value = Number(event.target.value);
-		if(name === 'total_unit' || name === 'unit_price') {
-			this.setState({[name]: value}, () => {
+		const value = event.target.value;
+		if(name === 'total_unit' || name === 'price') {
+			const val = Number(value);
+			this.setState({[name]: val}, () => {
 				this.calculateSubTotal();
+				let total_price = this.state.price * this.state.total_unit;
+				this.props.updateOrderItemState(this.state.id, {[name]: val, total_price: total_price})
 			})
 		} else {
-			this.setState({[name]: value});
+			this.setState({[name]: value}, () => {
+				this.props.updateOrderItemState(this.state.id, {[name]: value})
+			});
 		}
 	}
 
 
   handleDeliveryDateChange(event) {
     const value = moment(event._d).format(event._f);
-    this.setState({delivery_date: value});
+    this.setState({delivery_date: value}, () => {
+    	this.props.updateOrderItemState(this.state.id, {delivery_date: value})
+    });
   }	
 
 	render() {
@@ -141,8 +150,8 @@ class OrderItem extends React.Component {
 									onChange={this.handleInputChange}/>
 								</td>
 								<td>
-									<Input type="number" name="unit_price" id="price" placeholder="with a placeholder"
-									value={this.state.unit_price}
+									<Input type="number" name="price" id="price" placeholder="with a placeholder"
+									value={this.state.price}
 									onChange={this.handleInputChange}/>
 								</td>
 								<td>

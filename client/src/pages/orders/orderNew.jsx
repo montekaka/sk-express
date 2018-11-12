@@ -63,6 +63,8 @@ class OrderNew extends React.Component {
     this.handleAddMoreItem = this.handleAddMoreItem.bind(this);
     this.handleSelectProduct = this.handleSelectProduct.bind(this);
     this.getProductPriceCategory = this.getProductPriceCategory.bind(this);
+    this.calculateTotal = this.calculateTotal.bind(this);
+    this.updateOrderItemState = this.updateOrderItemState.bind(this);
   }
 
   componentDidMount() {       
@@ -87,6 +89,19 @@ class OrderNew extends React.Component {
     const value = data['value'];
     const newState = {[name]: value};
     this.setState(newState);
+  }
+
+  calculateTotal() {
+    console.log(this.state.order_items);
+  }
+
+  updateOrderItemState(id, updateStatus){
+    // console.log(updateStatus);
+    let orderItem = _.filter(this.state.order_items, (item) => {
+      return item['id'] === id;
+    });
+    orderItem[0].set(updateStatus);
+    console.log(this.state.order_items)
   }
 
   getProductPriceCategory(id, cb) {
@@ -162,7 +177,6 @@ class OrderNew extends React.Component {
     const _this = this;    
     this.getProductPriceCategory(this.state.newOrderItem.external_product_id, () => {
       let order_items = _this.state.order_items;
-      console.log(_this.state.newOrderItem);
       order_items.push(_this.state.newOrderItem);
       _this.setState({order_items: order_items, newOrderItem: null}, () => {
         _this.toggle();
@@ -188,7 +202,10 @@ class OrderNew extends React.Component {
             <OrderItem key={order_item.id} 
               order_delivery_date={this.state.order_delivery_date} 
               is_per_item_delivery_date={this.state.is_per_item_delivery_date}             
-              item={order_item}/>
+              item={order_item}
+              updateOrderItemState={this.updateOrderItemState}
+              calculateTotal={this.calculateTotal}
+              />
           )
         }
         <OrderControl addMore={this.handleAddMoreItem}/>
