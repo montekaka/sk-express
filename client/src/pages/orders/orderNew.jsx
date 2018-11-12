@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import _ from 'underscore';
@@ -8,7 +9,12 @@ import config from '../../../../resource/config';
 import SkModal from '../../components/shared/modal/skModal.jsx';
 import OrderForm from './orderForm.jsx';
 import OrderControl from './orderControl.jsx';
+import OrderItem from './orderItem.jsx';
+import OrderProducts   from './orderProducts.jsx';
 import moment from 'moment';
+import skOrderItem from '../../../../resource/libs/helpers/OrderItemClass.js';
+
+const OrderItemClass = skOrderItem.OrderItemClass;
 
 const now = moment().format('YYYY-MM-DD');
 const base_url = config.base_url;
@@ -43,13 +49,19 @@ class OrderNew extends React.Component {
       shipping_phone_number: '123456',
       fax_number: '',      
       shipping_addresses: [],
-      order_items: []   
+      order_items: [],
+      modal: false,
+      newOrderItem: null,
     }
+
+    this.toggle = this.toggle.bind(this);
+    this.handleModalCancel = this.handleModalCancel.bind(this);
     this.fetchBuyer = this.fetchBuyer.bind(this);
     this.setOrder = this.setOrder.bind(this);
     this.updateState = this.updateState.bind(this);
     this.getBuyerShippingAddresses = this.getBuyerShippingAddresses.bind(this);
     this.handleAddMoreItem = this.handleAddMoreItem.bind(this);
+    this.handleSelectProduct = this.handleSelectProduct.bind(this);
   }
 
   componentDidMount() {       
@@ -115,10 +127,34 @@ class OrderNew extends React.Component {
   }
 
   handleAddMoreItem() {
+    const _this = this;
     const n = this.state.order_items.length;
     let order_items = this.state.order_items;
-    order_items.push(n * -1);
-    this.setState({order_items: order_items});
+    let orderItem = new OrderItemClass();    
+    orderItem.set({id: n * -1});
+    this.setState({newOrderItem: orderItem}, () => {
+      _this.toggle();
+    });
+  }
+
+  toggle() {
+    this.setState({modal: !this.state.modal});
+  }
+
+  handleSelectProduct() {
+    const _this = this;
+    let order_items = this.state.order_items;
+    order_items.push(this.state.newOrderItem);
+    this.setState({order_items: order_items, newOrderItem: null}, () => {
+      console.log(_this.state.order_items)
+      _this.toggle();
+    } );
+    // console.log(this.state.newOrderItem);
+  }
+
+  handleModalCancel() {
+    this.toggle();
+    this.setState({newOrderItem: null});
   }
 
   render() {
@@ -127,8 +163,25 @@ class OrderNew extends React.Component {
         <Dashheader subtitle={'Order summary'} title={this.state.buyer_name}/>
         <OrderForm 
         data={this.state} 
-        updateState={this.updateState}/>     
-        <OrderControl addMore={this.handleAddMoreItem}/> 
+        updateState={this.updateState}/>
+        {
+          this.state.order_items.map((order_item) => 
+            <OrderItem key={order_item.id} item={order_item}/>
+          )
+        }
+        <OrderControl addMore={this.handleAddMoreItem}/>
+        <Modal isOpen={this.state.modal} toggle={this.handleModalCancel} className={'modal-dialog modal-lg'}>
+          <ModalHeader toggle={this.handleModalCancel}>Modal title</ModalHeader>
+          <ModalBody>
+            <OrderProducts
+              base_url={base_url+'/buyer_companies/'+this.state.buyer_company_id} 
+              handleOnClick={this.handleSelectProduct} 
+              newOrderItem={this.state.newOrderItem} />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.handleModalCancel}>Cancel</Button>
+          </ModalFooter>
+        </Modal>         
       </div>
     )
   }

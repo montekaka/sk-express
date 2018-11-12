@@ -13,7 +13,8 @@ class SkTableCell extends React.Component {
 	handleViewClick(){
 		const id = this.props.tableCell.id;
 		const action = this.props.tableCell[this.props.headerItem.name];
-		this.props.handleClickItem({id: id, actionType: action});
+		const selectedItem = this.props.tableCell;
+		this.props.handleClickItem({id: id, actionType: action, selectedItem: selectedItem});
 	}
 
 	handleChange(event){
