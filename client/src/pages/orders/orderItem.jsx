@@ -70,7 +70,9 @@ class OrderItem extends React.Component {
 	calculateSubTotal() {
 		let total_price = this.state.price * this.state.total_unit;		
 		const _this = this;
-		this.setState({total_price: total_price});
+		this.setState({total_price: total_price}, () => {
+			this.props.updateOrderItemState(this.state.id, {total_price: total_price})
+		});
 	}
 
 	handleInputChange(event){
@@ -80,8 +82,7 @@ class OrderItem extends React.Component {
 			const val = Number(value);
 			this.setState({[name]: val}, () => {
 				this.calculateSubTotal();
-				let total_price = this.state.price * this.state.total_unit;
-				this.props.updateOrderItemState(this.state.id, {[name]: val, total_price: total_price})
+				this.props.updateOrderItemState(this.state.id, {[name]: val})
 			})
 		} else {
 			this.setState({[name]: value}, () => {

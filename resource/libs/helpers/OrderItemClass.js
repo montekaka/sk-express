@@ -14,6 +14,10 @@ OrderItemClass.prototype.set = function(item) {
   });
 };
 
+OrderItemClass.prototype.updateTotalPrice = function() {
+  this.total_price = this.price * this.total_price;
+}
+
 OrderItemClass.prototype.reset = function(item) {
   this.init();
 };

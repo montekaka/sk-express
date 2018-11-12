@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 import { Link } from 'react-router-dom';
-import { Col, Row, Button, Form, FormGroup, Label, Input,FormFeedback, FormText, CustomInput } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, Label, Input,FormFeedback, FormText, CustomInput, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
@@ -237,7 +237,16 @@ const OrderForm = (props) => {
                 placeholder="Choose a sale rep..."
               />              
             </Col>
-          </FormGroup>            
+          </FormGroup>           
+          <FormGroup row>
+            <Label for="exampleDate" md={2} >Total price</Label> 
+            <Col sm={10}>
+              <InputGroup>
+                <InputGroupAddon addonType="prepend"><InputGroupText className="text-white">$</InputGroupText></InputGroupAddon>
+                <Input disabled type="number" name="total_price" id="totalPrice" placeholder="Amount" value={ getInputValue(props.data.total_price) } onChange={handleInputChange}/>
+              </InputGroup>              
+            </Col>
+          </FormGroup>                          
 	      </Form>
 	    </div>
     </div>

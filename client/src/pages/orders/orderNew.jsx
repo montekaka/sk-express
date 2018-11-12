@@ -92,16 +92,22 @@ class OrderNew extends React.Component {
   }
 
   calculateTotal() {
-    console.log(this.state.order_items);
+    let total_price = 0;
+    _.each(this.state.order_items, (item) => {
+      total_price += item['total_price'];
+    });
+    this.setState({total_price: total_price});
   }
 
   updateOrderItemState(id, updateStatus){
-    // console.log(updateStatus);
     let orderItem = _.filter(this.state.order_items, (item) => {
       return item['id'] === id;
     });
-    orderItem[0].set(updateStatus);
-    console.log(this.state.order_items)
+    let order_item = orderItem[0];        
+    order_item.set(updateStatus);  
+    if(updateStatus['total_price']) {
+      this.calculateTotal();
+    }  
   }
 
   getProductPriceCategory(id, cb) {
@@ -195,8 +201,9 @@ class OrderNew extends React.Component {
       <div>
         <Dashheader subtitle={'Order summary'} title={this.state.buyer_name}/>
         <OrderForm 
-        data={this.state} 
-        updateState={this.updateState}/>
+          data={this.state} 
+          updateState={this.updateState}
+        />
         {
           this.state.order_items.map((order_item) => 
             <OrderItem key={order_item.id} 
