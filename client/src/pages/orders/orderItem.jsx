@@ -53,6 +53,11 @@ class OrderItem extends React.Component {
   }	
 
 	render() {
+		let th = null;
+		if (this.props.is_per_item_delivery_date) {
+			th = <th>Delivery date</th>;
+		}
+
 		return (
 			<div className="card bg-dark text-white">
 				<div className="card-body">
@@ -63,7 +68,10 @@ class OrderItem extends React.Component {
 								<th>Quantity</th>
 								<th>Cost per item</th>
 								<th>Sub Total</th>
-								<th>Delivery date</th>
+								{
+									this.props.is_per_item_delivery_date &&
+									<th>Delivery date</th>
+								}
 							</tr>
 						</thead>
 						<tbody>
@@ -90,17 +98,20 @@ class OrderItem extends React.Component {
 									value={this.state.total_price}
 									onChange={this.handleInputChange}/>
 								</td>
-								<td>
-	                <DatePicker
-	                    name="delivery_date"                  
-	                    className="form-control"
-	                    showMonthDropdown
-	                    useShortMonthInDropdown
-	                    dateFormat="YYYY/MM/DD"
-	                    selected={moment(this.state.delivery_date)}
-	                    onChange={this.handleDeliveryDateChange}
-	                />  									
-								</td>
+								{
+									this.props.is_per_item_delivery_date &&
+									<td>
+		                <DatePicker
+		                    name="delivery_date"                  
+		                    className="form-control"
+		                    showMonthDropdown
+		                    useShortMonthInDropdown
+		                    dateFormat="YYYY/MM/DD"
+		                    selected={moment(this.state.delivery_date)}
+		                    onChange={this.handleDeliveryDateChange}
+		                />  									
+									</td>									
+								}
 							</tr>
 						</tbody>
 					</Table>
