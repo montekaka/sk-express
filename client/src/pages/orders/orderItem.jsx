@@ -18,6 +18,7 @@ class OrderItem extends React.Component {
 			order_price_category_label: "",
 			order_price_category_unit: 0,
 			price: 0, // contract_price
+			unit_price: 0, // order price
 			product_code: "",
 			product_id: 0,
 			product_name: "",
@@ -27,12 +28,15 @@ class OrderItem extends React.Component {
 
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleDeliveryDateChange = this.handleDeliveryDateChange.bind(this);
+		this.calculateSubTotal = this.calculateSubTotal.bind(this);
 	}
 
 	componentDidMount() {
 		const _this = this;
-		this.setState(this.props.item, () => {
-			_this.setState({delivery_date: _this.props.order_delivery_date});
+		this.setState(this.props.item, () => {			
+			let unit_price = 0;
+			this.state.contract_price_category_unit > 0 ? unit_price = this.state.price * this.state.order_price_category_unit / this.state.contract_price_category_unit : unit_price = 0;
+			_this.setState({delivery_date: _this.props.order_delivery_date, unit_price: unit_price});
 		});
 	}
 
@@ -42,8 +46,22 @@ class OrderItem extends React.Component {
 		}
 	}
 
-	handleInputChange(){
-		console.log('hi')
+	calculateSubTotal() {
+		let total_price = this.state.unit_price * this.state.total_unit;		
+		// this.state.contract_price_category_unit > 0 ? total_price = this.state.unit_price * this.state.total_unit * this.state.order_price_category_unit / this.state.contract_price_category_unit : total_price = 0;
+		this.setState({total_price: total_price});
+	}
+
+	handleInputChange(event){
+		const name = event.target.name;
+		const value = Number(event.target.value);
+		if(name === 'total_unit' || name === 'unit_price') {
+			this.setState({[name]: value}, () => {
+				this.calculateSubTotal();
+			})
+		} else {
+			this.setState({[name]: value});
+		}
 	}
 
 
@@ -88,8 +106,8 @@ class OrderItem extends React.Component {
 									onChange={this.handleInputChange}/>
 								</td>
 								<td>
-									<Input type="number" name="price" id="price" placeholder="with a placeholder"
-									value={this.state.price}
+									<Input type="number" name="unit_price" id="price" placeholder="with a placeholder"
+									value={this.state.unit_price}
 									onChange={this.handleInputChange}/>
 								</td>
 								<td>
