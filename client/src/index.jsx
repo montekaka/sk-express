@@ -27,6 +27,7 @@ import {
   ProductNew,
   ProductEdit,
   Orders,
+  Order,
   OrderNewBuyer,
   OrderNew
 } from './pages'
@@ -98,6 +99,9 @@ class App extends React.Component {
             <Route exact path='/login' 
               render= {(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
             />                      
+            <Route exact path='/orders/:id' 
+              render= {(props) => <Order isAuthed={this.state.isAuthed} skState={orderSkState} params={props.match}/>} 
+            />              
             <Route exact path='/orders' 
               render= {(props) => <Orders isAuthed={this.state.isAuthed} skState={orderSkState} workingOrder={workingOrder} OrderClass={OrderClass}/>} 
             />  

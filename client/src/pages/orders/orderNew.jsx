@@ -46,7 +46,7 @@ class OrderNew extends React.Component {
       sales_rep: '',
       terms: '',
       slot: '',
-      shipping_phone_number: '123456',
+      shipping_phone_number: '',
       fax_number: '',      
       shipping_addresses: [],
       order_items: [],
