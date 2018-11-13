@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
+import SkModal from './../../components/shared/modal/skModal.jsx';
 import OrderForm from './orderForm.jsx';
 import OrderControl from './orderControl.jsx';
 import OrderItem from './orderItem.jsx';
@@ -51,6 +52,8 @@ class OrderNew extends React.Component {
       order_items: [],
       modal: false,
       newOrderItem: null,
+      errorModal: false,
+      errorMessage: 'Please make sure you you fill up order item price'
     }
 
     this.toggle = this.toggle.bind(this);
@@ -65,6 +68,7 @@ class OrderNew extends React.Component {
     this.calculateTotal = this.calculateTotal.bind(this);
     this.updateOrderItemState = this.updateOrderItemState.bind(this);
     this.submit = this.submit.bind(this);
+    this.errorModalToggle = this.errorModalToggle.bind(this);
   }
 
   componentDidMount() {       
@@ -85,7 +89,12 @@ class OrderNew extends React.Component {
   }
 
   submit() {
-    console.log('hi')
+    // console.log('hi')
+    if(this.state.total_price > 0) {
+      // post to endpoint
+    } else {
+      this.setState({errorModal: true});
+    }
   }
 
   updateState(data){
@@ -200,6 +209,11 @@ class OrderNew extends React.Component {
     this.setState({newOrderItem: null});
   }
 
+  errorModalToggle(){
+    const errorModal = !this.state.errorModal;
+    this.setState({errorModal: errorModal});
+  }  
+
   render() {
     return (
       <div>
@@ -235,7 +249,14 @@ class OrderNew extends React.Component {
           <ModalFooter>
             <Button color="secondary" onClick={this.handleModalCancel}>Cancel</Button>
           </ModalFooter>
-        </Modal>         
+        </Modal>
+        <SkModal 
+          modal={this.state.errorModal} 
+          className={'error'} 
+          toggle={this.errorModalToggle}
+          modalTitle={'Error'}
+          message={this.state.errorMessage}
+          closeBtnLabel={'OK'}/>                 
       </div>
     )
   }
