@@ -2,7 +2,7 @@ const skState = {
 	tableHeaders: [
 		{'id': 1,'name': "order_number", "format": "string", "label": "Order number", "sort_by":"ASC", "sort_on": true},
 		{'id': 2,'name': "slot", "format": "string", "label":"Slot", "sort_by":"ASC", "sort_on": true},
-		{'id': 3,'name': "buyer_name", "format": "string", "label":"Buyer company name", "sort_by":"ASC", "sort_on": true},
+		{'id': 3,'name': "buyer_company_name", "format": "string", "label":"Buyer company name", "sort_by":"ASC", "sort_on": true},
 		{'id': 4,'name': "buyer_name", "format": "string", "label":"Buyer name", "sort_by":"ASC", "sort_on": true},
 		{'id': 5,'name': "order_date", "format": "date", "label":"Order date", "sort_by":"ASC", "sort_on": true},
 		{'id': 6,'name': "order_delivery_date", "format": "date", "label":"Delivery Date", "sort_by":"ASC", "sort_on": true},

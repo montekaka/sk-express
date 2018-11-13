@@ -68,6 +68,7 @@ class OrderNew extends React.Component {
     this.calculateTotal = this.calculateTotal.bind(this);
     this.updateOrderItemState = this.updateOrderItemState.bind(this);
     this.submit = this.submit.bind(this);
+    this.create = this.create.bind(this);
     this.errorModalToggle = this.errorModalToggle.bind(this);
   }
 
@@ -91,10 +92,22 @@ class OrderNew extends React.Component {
   submit() {
     // console.log('hi')
     if(this.state.total_price > 0) {
-      // post to endpoint
+      this.create();
     } else {
       this.setState({errorModal: true});
     }
+  }
+
+  create() {
+    const endpoint = base_url+this.props.orderSkState.apis['NEW']+'.json';
+    const data = this.state;
+    axios.post(endpoint, data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   updateState(data){
