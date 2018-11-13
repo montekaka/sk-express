@@ -53,7 +53,8 @@ class OrderNew extends React.Component {
       modal: false,
       newOrderItem: null,
       errorModal: false,
-      errorMessage: 'Please make sure you you fill up order item price'
+      errorMessage: 'Please make sure you you fill up order item price',
+      toGoback: false
     }
 
     this.toggle = this.toggle.bind(this);
@@ -101,8 +102,10 @@ class OrderNew extends React.Component {
   create() {
     const endpoint = base_url+this.props.orderSkState.apis['NEW']+'.json';
     const data = this.state;
+    const _this = this;
     axios.post(endpoint, data)
       .then((res) => {
+        _this.setState({toGoback: true});
         console.log(res);
       })
       .catch((err) => {
@@ -228,6 +231,9 @@ class OrderNew extends React.Component {
   }  
 
   render() {
+    if (this.state.toGoback === true) {
+      return <Redirect to='/orders' />
+    }     
     return (
       <div>
         <Dashheader subtitle={'Order summary'} title={this.state.buyer_name}/>
