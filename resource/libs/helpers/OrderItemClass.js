@@ -39,8 +39,8 @@ OrderItemClass.prototype.init = function() {
   this.quantity_per_bundle = 0;
   this.order_price_category_label = '';
   this.order_price_category_unit = 0;
-  this.contract_price_category_label = '';
-  this.contract_price_category_unit = 0; 
+  this.contracted_price_category_label = '';
+  this.contracted_price_category_unit = 0; 
   this.internal_price_category_list = [];
 };
 

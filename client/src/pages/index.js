@@ -2,6 +2,7 @@ import Orders from './orders/orders.jsx'
 import Order from './orders/order.jsx'
 import OrderNewBuyer from './orders/orderNew_buyer.jsx'
 import OrderNew from './orders/orderNew.jsx'
+import OrderEdit from './orders/orderEdit.jsx'
 
 import Products from './products/products.jsx'
 import Product from './products/product.jsx'
@@ -41,6 +42,7 @@ module.exports.Orders = Orders
 module.exports.Order = Order
 module.exports.OrderNewBuyer = OrderNewBuyer
 module.exports.OrderNew = OrderNew
+module.exports.OrderEdit = OrderEdit
 module.exports.Buyers = Buyers
 module.exports.Buyer = Buyer
 module.exports.BuyerEdit = BuyerEdit

@@ -1,17 +1,19 @@
 import React from 'react';
 import _ from 'underscore';
+import axios from 'axios';
 import { FormGroup, Form, Col, Label, Table, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
 import SkInputSelect from './../../components/shared/input-selection/input-selection.jsx'
+// const base_url = config.base_url;
 
 class OrderItem extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			contract_price_category_label: "",
-			contract_price_category_unit: 0,
+			contracted_price_category_label: "",
+			contracted_price_category_unit: 0,
 			delivery_date: 0,
 			delivery_note_id: "",
 			id: 0,
@@ -39,7 +41,12 @@ class OrderItem extends React.Component {
 		const _this = this;
 		this.setState(this.props.item, () => {			
 			let price = 0;
-			this.state.contract_price_category_unit > 0 ? price = this.state.unit_price * this.state.order_price_category_unit / this.state.contract_price_category_unit : price = this.state.unit_price;
+			if(this.state.total_price > 0 && this.state.total_unit > 0) {
+				price = this.state.total_price / this.state.total_unit;
+			} else {
+				this.state.contracted_price_category_unit > 0 ? price = this.state.unit_price * this.state.order_price_category_unit / this.state.contracted_price_category_unit : price = this.state.unit_price;
+			}
+
 			_this.setState({delivery_date: _this.props.order_delivery_date, price: price}, () => {
 				this.props.updateOrderItemState(this.state.id, {price: price})
 			});
@@ -60,7 +67,7 @@ class OrderItem extends React.Component {
     const label = result[0]['label'];
     const unit = Number(result[0]['unit']);
     let price = 0;
-    this.state.contract_price_category_unit > 0 ? price = this.state.unit_price * unit / this.state.contract_price_category_unit : price = this.state.unit_price;
+    this.state.contracted_price_category_unit > 0 ? price = this.state.unit_price * unit / this.state.contracted_price_category_unit : price = this.state.unit_price;
     this.setState({price: price, order_price_category_label: label, order_price_category_unit: unit}, () => {
     	this.props.updateOrderItemState(this.state.id, {price: price, order_price_category_label: label, order_price_category_unit: unit})
     	this.calculateSubTotal();

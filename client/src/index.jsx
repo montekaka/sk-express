@@ -29,7 +29,8 @@ import {
   Orders,
   Order,
   OrderNewBuyer,
-  OrderNew
+  OrderNew,
+  OrderEdit
 } from './pages'
 
 import orderTable from './../../resource/orderTable';
@@ -108,6 +109,16 @@ class App extends React.Component {
             <Route exact path='/new/order/buyers' 
               render= {(props) => <OrderNewBuyer isAuthed={this.state.isAuthed} skState={orderBuyerSkState} workingOrder={workingOrder} OrderClass={OrderClass} orderSkState={orderSkState}/>} 
             /> 
+            <Route exact path='/edit/orders/:id' 
+              render= {(props) => <OrderEdit 
+                isAuthed={this.state.isAuthed} 
+                skState={orderBuyerSkState} 
+                workingOrder={workingOrder} 
+                OrderClass={OrderClass}
+                buyerSkState={buyerSkState} 
+                orderSkState={orderSkState} 
+                params={props.match}/>} 
+            />             
             <Route exact path='/new/order/buyers/:buyer_id' 
               render= {(props) => <OrderNew isAuthed={this.state.isAuthed} 
               skState={orderBuyerSkState} 
@@ -123,7 +134,7 @@ class App extends React.Component {
             <Route path="/new/products" 
               render= {
                 (props) => <ProductNew skState={productSkState} /> }
-            />                                 
+            />                            
             <Route exact path="/products/:id" 
               render= {
                 (props) => <Product skState={productSkState} params={props.match}/> }

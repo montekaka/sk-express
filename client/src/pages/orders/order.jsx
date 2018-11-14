@@ -15,6 +15,7 @@ class Order extends React.Component {
 		this.state = {
       isAuthed: false,
 			hasPermission: false,
+			editPage: '',
       id: '',
       order_number: '',
       company_id: 0,
@@ -59,18 +60,20 @@ class Order extends React.Component {
   	const _this = this;
   	const api_base = `${this.props.skState.apis['GET']}`
   	const api_url = `${base_url+api_base}/${id}.json`;
+  	let editPage = `/edit${this.props.skState.apis['GET']}/${id}`;
+  	console.log(editPage);
   	axios.get(api_url)
   		.then((res) => {
   			const data = res.data;
   			let shipping_address = '';
   			let fax_number = '';
   			let shipping_phone_number = '';
-
   			data.shipping_address ? shipping_address = data.shipping_address : shipping_address = "";
   			data.fax_number ? fax_number = data.fax_number : fax_number = "";
   			data.shipping_phone_number ? shipping_phone_number = data.shipping_phone_number : shipping_phone_number = "";
 
   			_this.setState({  
+  				editPage: editPage,
 					id: data.id,
 					order_number: data.order_number,
 					company_id: data.company_id,
@@ -113,7 +116,11 @@ class Order extends React.Component {
       return <Redirect to={'/'} />
     }	    
 		return (
-			<div>				
+			<div>
+				<div className="simple-header text-right">
+					<Link to={this.state.editPage} className="btn btn-primary">Edit</Link>			
+					<div className="btn btn-outline-danger">Delete</div>
+				</div>				
 				<SimpleHeader pageTitle={this.state.buyer_company_name} pageName={'Order # '+this.state.order_number}/>				
 				<div className="simple-header">
 					<Row>

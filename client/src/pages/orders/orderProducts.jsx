@@ -11,7 +11,7 @@ const OrderProducts = (props) => {
 		console.log('hi', totalPage, total);
 	}
 
-	function handleClickItem(e) {
+	function handleClickItem(e) {		
 		const selectedItem = e['selectedItem'];
 		const _newOrderItem = {
 			product_code: selectedItem['external_code'] ? selectedItem['external_code'] : '',
@@ -22,8 +22,8 @@ const OrderProducts = (props) => {
 			external_product_id: selectedItem['id'],
 			order_price_category_label: selectedItem['external_purchase_price_category_label'] ? selectedItem['external_purchase_price_category_label'] : '',
 			order_price_category_unit: selectedItem['external_purchase_price_category_unit'] ? selectedItem['external_purchase_price_category_unit']: 0,
-			contract_price_category_label: selectedItem['external_contract_price_category_label'] ? selectedItem['external_contract_price_category_label'] : '',
-			contract_price_category_unit: selectedItem['external_contract_price_category_unit'] ? selectedItem['external_contract_price_category_unit'] : 0,
+			contracted_price_category_label: selectedItem['external_contract_price_category_label'] ? selectedItem['external_contract_price_category_label'] : '',
+			contracted_price_category_unit: selectedItem['external_contract_price_category_unit'] ? selectedItem['external_contract_price_category_unit'] : 0,
 		}
 		props.newOrderItem.set(_newOrderItem);
 		props.handleOnClick();
