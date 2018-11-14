@@ -47,7 +47,11 @@ class OrderItem extends React.Component {
 				this.state.contracted_price_category_unit > 0 ? price = this.state.unit_price * this.state.order_price_category_unit / this.state.contracted_price_category_unit : price = this.state.unit_price;
 			}
 
-			_this.setState({delivery_date: _this.props.order_delivery_date, price: price}, () => {
+			const _internal_price_category_list = _.filter(this.state.internal_price_category_list, (x) => {
+				return x['unit'] > 0;
+			})
+
+			_this.setState({delivery_date: _this.props.order_delivery_date, price: price, internal_price_category_list: _internal_price_category_list}, () => {
 				this.props.updateOrderItemState(this.state.id, {price: price})
 			});
 		});
@@ -143,7 +147,7 @@ class OrderItem extends React.Component {
 								{
 									this.state.internal_price_category_list && this.state.internal_price_category_list.length > 0 &&
 									<td>
-			              <SkInputSelect 			                
+			              <SkInputSelect              
 			                handleSelect={this.handleSelect}
 			                selectName={'order_price_category_label'}
 			                selectedValue={this.state.order_price_category_label}

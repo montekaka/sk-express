@@ -69,7 +69,7 @@ class OrderEdit extends React.Component {
     this.calculateTotal = this.calculateTotal.bind(this);
     this.updateOrderItemState = this.updateOrderItemState.bind(this);
     this.submit = this.submit.bind(this);
-    this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
     this.errorModalToggle = this.errorModalToggle.bind(this);
   }
 
@@ -86,17 +86,17 @@ class OrderEdit extends React.Component {
   submit() {
     // console.log('hi')
     if(this.state.total_price > 0) {
-      this.create();
+      this.update();
     } else {
       this.setState({errorModal: true});
     }
   }
 
-  create() {
-    const endpoint = base_url+this.props.orderSkState.apis['NEW']+'.json';
+  update() {
+    const endpoint = base_url+this.props.orderSkState.apis['NEW']+'/'+this.state.id+'.json';
     const data = this.state;
     const _this = this;
-    axios.post(endpoint, data)
+    axios.put(endpoint, data)
       .then((res) => {
         _this.setState({toGoback: true});
         console.log(res);
@@ -221,7 +221,7 @@ class OrderEdit extends React.Component {
     const n = this.state.order_items.length;
     let order_items = this.state.order_items;
     let orderItem = new OrderItemClass();    
-    orderItem.set({id: n * -1});
+    orderItem.set({id: n * -1, order_id: this.state.id});
     this.setState({newOrderItem: orderItem}, () => {
       _this.toggle();
     });

@@ -8,7 +8,7 @@ const skState = OrderProductTable.skState;
 const OrderProducts = (props) => {
 
 	function handleUpdateTotalItems(totalPage, total) {
-		console.log('hi', totalPage, total);
+		console.log('hi please add the total item for products, @orderProduct.jsx', totalPage, total);
 	}
 
 	function handleClickItem(e) {		
