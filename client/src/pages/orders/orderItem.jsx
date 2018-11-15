@@ -112,7 +112,7 @@ class OrderItem extends React.Component {
   }	
 
   handleDeleteClick() {
-  	console.log('hi', this.state.id)
+  	this.props.handleRemoveOrderItem(this.state.id);
   }
 
 	render() {
