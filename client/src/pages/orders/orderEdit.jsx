@@ -71,6 +71,7 @@ class OrderEdit extends React.Component {
     this.submit = this.submit.bind(this);
     this.update = this.update.bind(this);
     this.errorModalToggle = this.errorModalToggle.bind(this);
+    this.handleRemoveOrderItem = this.handleRemoveOrderItem.bind(this);
   }
 
   componentDidMount() {       
@@ -83,7 +84,58 @@ class OrderEdit extends React.Component {
     this.fetchOrder(order_endpoint);   
   }
 
-  submit() {
+  fetchOrder(order_endpoint) {
+    const _this = this;
+    axios.get(order_endpoint)
+      .then((res) => {
+        const data = res.data;
+        const _order_items = res.data.order_items;
+        let order_items = [];
+        _.each(_order_items, (x) => {
+          let order_item = new OrderItemClass();
+          order_item.set(x);
+          order_items.push(order_item);
+        });
+
+
+        let _order = {
+          id: data.id,
+          order_number: data.order_number,
+          company_id: data.company_id,
+          buyer_company_id: data.buyer_company_id,
+          buyer_company_name: data.buyer_company_name,
+          buyer_id: data.buyer_id,
+          buyer_name: data.buyer_name,
+          email: data.email,
+          phone_number: data.phone_number, 
+          total_price: data.total_price, 
+          total_unit: data.total_unit, 
+          order_delivery_date: data.order_delivery_date, 
+          order_date: data.order_date,
+          billing_address: data.billing_address,
+          shipping_address: data.shipping_address,
+          is_per_item_delivery_date: data.is_per_item_delivery_date,
+          is_delivered: data.is_delivered,
+          is_paid: data.is_paid,
+          invoice_id: data.invoice_id,
+          shipping_method: data.shipping_method,
+          sales_rep: data.sales_rep,
+          terms: data.terms,
+          slot: data.slot,
+          shipping_phone_number: data.shipping_phone_number,
+          fax_number: data.fax_number,  
+          order_items: order_items    
+        }
+        this.setState(_order, () => {
+          _this.getBuyerShippingAddresses(_this.state.buyer_id);
+        });       
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+ submit() {
     // console.log('hi')
     if(this.state.total_price > 0) {
       this.update();
@@ -150,58 +202,6 @@ class OrderEdit extends React.Component {
       })
   }
 
-  fetchOrder(order_endpoint) {
-    const _this = this;
-    console.log(order_endpoint)
-    axios.get(order_endpoint)
-      .then((res) => {
-        const data = res.data;
-        const _order_items = res.data.order_items;
-        let order_items = [];
-        _.each(_order_items, (x) => {
-          let order_item = new OrderItemClass();
-          order_item.set(x);
-          order_items.push(order_item);
-        });
-
-
-        let _order = {
-          id: data.id,
-          order_number: data.order_number,
-          company_id: data.company_id,
-          buyer_company_id: data.buyer_company_id,
-          buyer_company_name: data.buyer_company_name,
-          buyer_id: data.buyer_id,
-          buyer_name: data.buyer_name,
-          email: data.email,
-          phone_number: data.phone_number, 
-          total_price: data.total_price, 
-          total_unit: data.total_unit, 
-          order_delivery_date: data.order_delivery_date, 
-          order_date: data.order_date,
-          billing_address: data.billing_address,
-          shipping_address: data.shipping_address,
-          is_per_item_delivery_date: data.is_per_item_delivery_date,
-          is_delivered: data.is_delivered,
-          is_paid: data.is_paid,
-          invoice_id: data.invoice_id,
-          shipping_method: data.shipping_method,
-          sales_rep: data.sales_rep,
-          terms: data.terms,
-          slot: data.slot,
-          shipping_phone_number: data.shipping_phone_number,
-          fax_number: data.fax_number,  
-          order_items: order_items    
-        }
-        this.setState(_order, () => {
-          _this.getBuyerShippingAddresses(_this.state.buyer_id);
-        });       
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
 
   getBuyerShippingAddresses(buyer_id) {
     const _this = this;
@@ -243,6 +243,15 @@ class OrderEdit extends React.Component {
     // console.log(this.state.newOrderItem);
   }
 
+  handleRemoveOrderItem(id) {
+    const order_items = _.reject(this.state.order_items, (x) => {
+      return x.id === id;
+    });
+    this.setState({order_items: order_items}, () => {
+      this.calculateTotal();
+    });
+  }
+
   handleModalCancel() {
     this.toggle();
     this.setState({newOrderItem: null});
@@ -273,6 +282,7 @@ class OrderEdit extends React.Component {
               buyer_company_id={this.state.buyer_company_id}
               updateOrderItemState={this.updateOrderItemState}
               calculateTotal={this.calculateTotal}
+              handleRemoveOrderItem={this.handleRemoveOrderItem}
               />
           )
         }
