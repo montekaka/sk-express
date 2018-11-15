@@ -117,9 +117,10 @@ class Order extends React.Component {
     }	    
 		return (
 			<div>
-				<div className="simple-header text-right">
-					<Link to={this.state.editPage} className="btn btn-primary">Edit</Link>			
-					<div className="btn btn-outline-danger">Delete</div>
+				<div className="simple-header">       
+          <Link to={this.props.skState.apis['GET']} className="btn btn-primary">Back</Link>
+					<Link to={this.state.editPage} className="btn btn-primary float-right">Edit</Link>
+					<div className="btn btn-outline-danger float-right">Delete</div>
 				</div>				
 				<SimpleHeader pageTitle={this.state.buyer_company_name} pageName={'Order # '+this.state.order_number}/>				
 				<div className="simple-header">
