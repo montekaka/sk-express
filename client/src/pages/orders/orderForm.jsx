@@ -14,6 +14,13 @@ const saleReps = ['Ed', 'Gordon'];
 
 const OrderForm = (props) => {	
 
+  const shipping_address = props.data.shipping_address ? props.data.shipping_address : '';
+  const shipping_phone_number = props.data.shipping_phone_number ? props.data.shipping_phone_number : ""
+  const fax_number = props.data.fax_number ? props.data.fax_number : "";
+  const shipping_method = props.data.shipping_method ? props.data.shipping_method : "";
+  const term = props.data.terms ? props.data.terms : "";
+  const sales_rep = props.data.sales_rep ? props.data.sales_rep : "";
+
 	function handleInputChange(event) {
 		const name = event.target.name;
 		const value = event.target.value;
@@ -136,7 +143,7 @@ const OrderForm = (props) => {
               <Typeahead
                 labelKey="shipping_address"
                 multiple={false}
-                selected={[props.data.shipping_address]}
+                selected={[shipping_address]}
                 onChange={(e) => {
                   typeaheadChange('shipping_address', e[0]);
                 }}
@@ -160,7 +167,7 @@ const OrderForm = (props) => {
                 onInputChange={(e) => {
                   typeaheadChange('shipping_phone_number', e);
                 }}
-                selected={[props.data.shipping_phone_number]}
+                selected={[shipping_phone_number]}
                 options={getShippingListInfo(props.data.shipping_addresses, 'phone_number')}
                 placeholder="Choose a phone number..."
               />              
@@ -172,7 +179,7 @@ const OrderForm = (props) => {
               <Typeahead
                 labelKey="fax_number"
                 multiple={false}
-                selected={[props.data.fax_number]}
+                selected={[fax_number]}
                 onChange={(e) => {
                   typeaheadChange('fax_number', e[0]);
                 }}
@@ -190,7 +197,7 @@ const OrderForm = (props) => {
               <Typeahead
                 labelKey="shipping_method"
                 multiple={false}
-                selected={[props.data.shipping_method]}
+                selected={[shipping_method]}
                 onChange={(e) => {
                   typeaheadChange('shipping_method', e[0]);
                 }}
@@ -208,7 +215,7 @@ const OrderForm = (props) => {
               <Typeahead
                 labelKey="terms"                
                 multiple={false}
-                selected={[props.data.terms]}
+                selected={[term]}
                 onChange={(e) => {
                   typeaheadChange('terms', e[0]);
                 }}
@@ -219,14 +226,14 @@ const OrderForm = (props) => {
                 placeholder="Choose a term..."
               />              
             </Col>
-          </FormGroup>  
+          </FormGroup> 
           <FormGroup row>
             <Label for="exampleDate" md={2} >Sale Rep</Label> 
             <Col sm={10}> 
               <Typeahead
                 labelKey="sales_rep"                
                 multiple={false}
-                selected={[props.data.sales_rep]}
+                selected={[sales_rep]}
                 onChange={(e) => {
                   typeaheadChange('sales_rep', e[0]);
                 }}
@@ -237,7 +244,7 @@ const OrderForm = (props) => {
                 placeholder="Choose a sale rep..."
               />              
             </Col>
-          </FormGroup>           
+          </FormGroup>                      
           <FormGroup row>
             <Label for="exampleDate" md={2} >Total price</Label> 
             <Col sm={10}>
