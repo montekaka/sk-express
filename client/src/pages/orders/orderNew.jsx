@@ -71,6 +71,7 @@ class OrderNew extends React.Component {
     this.submit = this.submit.bind(this);
     this.create = this.create.bind(this);
     this.errorModalToggle = this.errorModalToggle.bind(this);
+    this.handleRemoveOrderItem = this.handleRemoveOrderItem.bind(this);
   }
 
   componentDidMount() {       
@@ -81,14 +82,33 @@ class OrderNew extends React.Component {
   }
 
   setOrder(buyer_endpoint) {  
-    this.fetchBuyer(buyer_endpoint);
-    // if(this.props.workingOrder.order.id === undefined) {
-    //   this.fetchBuyer(buyer_endpoint);
-    // } else {
-    //   const order = this.props.workingOrder.order;
-    //   this.setState(order);
-    // }     
+    this.fetchBuyer(buyer_endpoint);   
   }
+
+  fetchBuyer(buyer_endpoint) {
+    const _this = this;
+    axios.get(buyer_endpoint)
+      .then((res) => {
+        const data = res.data;
+        let _order = {
+          id: -100,
+          buyer_id: data.id,
+          buyer_name: data.name,
+          email: data.email,
+          phone_number: data.phone_number,
+          billing_address: data.billing_address,
+          buyer_company_id: data.buyer_company_id,
+          buyer_company_name: data.buyer_company_name
+        }
+        // let order = new this.props.OrderClass();
+        // order.set(_order);
+        // _this.props.workingOrder.order = order;
+        this.setState(_order);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }  
 
   submit() {
     // console.log('hi')
@@ -128,6 +148,15 @@ class OrderNew extends React.Component {
     this.setState({total_price: total_price});
   }
 
+  handleRemoveOrderItem(id) {
+    const order_items = _.reject(this.state.order_items, (x) => {
+      return x.id === id;
+    });
+    this.setState({order_items: order_items}, () => {
+      this.calculateTotal();
+    });
+  }
+
   updateOrderItemState(id, updateStatus){
     let orderItem = _.filter(this.state.order_items, (item) => {
       return item['id'] === id;
@@ -149,31 +178,6 @@ class OrderNew extends React.Component {
         newOrderItem.set({internal_price_category_list: internal_price_category_list});
         _this.setState({newOrderItem: newOrderItem});
         cb();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  fetchBuyer(buyer_endpoint) {
-    const _this = this;
-    axios.get(buyer_endpoint)
-      .then((res) => {
-        const data = res.data;
-        let _order = {
-          id: -100,
-          buyer_id: data.id,
-          buyer_name: data.name,
-          email: data.email,
-          phone_number: data.phone_number,
-          billing_address: data.billing_address,
-          buyer_company_id: data.buyer_company_id,
-          buyer_company_name: data.buyer_company_name
-        }
-        // let order = new this.props.OrderClass();
-        // order.set(_order);
-        // _this.props.workingOrder.order = order;
-        this.setState(_order);
       })
       .catch((err) => {
         console.log(err);
@@ -249,6 +253,7 @@ class OrderNew extends React.Component {
               item={order_item}
               updateOrderItemState={this.updateOrderItemState}
               calculateTotal={this.calculateTotal}
+              handleRemoveOrderItem={this.handleRemoveOrderItem}
               />
           )
         }
