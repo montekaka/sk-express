@@ -7,6 +7,8 @@ import Dashheader from './../../components/dashheader/dashheader.jsx';
 import config from './../../../../resource/config';
 import SimpleHeader from './../../components/shared/utils/simpleHeader.jsx';
 import SimpleTable from './../../components/shared/utils/simpleTable.jsx';
+import SimpleList from './../../components/shared/simple-list/simpleList.jsx';
+
 const base_url = config.base_url;
 
 class Order extends React.Component {
@@ -65,12 +67,12 @@ class Order extends React.Component {
   	axios.get(api_url)
   		.then((res) => {
   			const data = res.data;
-  			let shipping_address = '';
-  			let fax_number = '';
-  			let shipping_phone_number = '';
-  			data.shipping_address ? shipping_address = data.shipping_address : shipping_address = "";
-  			data.fax_number ? fax_number = data.fax_number : fax_number = "";
-  			data.shipping_phone_number ? shipping_phone_number = data.shipping_phone_number : shipping_phone_number = "";
+  			// let shipping_address = '';
+  			// let fax_number = '';
+  			// let shipping_phone_number = '';
+  			let shipping_address = data.shipping_address ? shipping_address = data.shipping_address : shipping_address = "";
+  			let fax_number = data.fax_number ? fax_number = data.fax_number : fax_number = "";
+  			let shipping_phone_number = data.shipping_phone_number ? shipping_phone_number = data.shipping_phone_number : shipping_phone_number = "";
 
   			_this.setState({  
   				editPage: editPage,
@@ -100,8 +102,8 @@ class Order extends React.Component {
 					shipping_phone_number: data.shipping_phone_number,
 					fax_number: data.fax_number,      
 					order_items: data.order_items,
-					billing_headers: ['label','value'],
-					billing_infos: [{id: 1,label: 'Buyer name' , value: data.buyer_name}, {id: 2, label: 'Billing address', value: data.billing_address}, {id: 3, label: 'Order date', value: data.order_date}, {id: 4, label: 'Phone number', value: data.phone_number}, {id: 5, label: 'Email', value: data.email}],
+					billing_headers:  ['label','value'],
+					billing_infos: [{id: 1, label: 'Buyer name' , value: data.buyer_name, format: 'string'}, {id: 2, label: 'Billing address', value: data.billing_address, format: 'string'}, {id: 3, label: 'Order date', value: data.order_date, format: 'date'}, {id: 4, label: 'Phone number', value: data.phone_number, format: 'string'}, {id: 5, label: 'Email', value: data.email, format: 'string'}],
 					shipping_headers: ['label','value'],
 					shipping_infos: [{id: 1,label: 'Buyer name' , value: data.buyer_name}, {id: 2, label: 'Shipping address', value: shipping_address}, {id: 4, label: 'Phone number', value: shipping_phone_number}, {id: 5, label: 'Fax number', value: fax_number}]
   			})
@@ -127,14 +129,17 @@ class Order extends React.Component {
 					<Row>
 						<Col xs="6">
 							<h6>Bill to</h6>
-							<SimpleTable headers={this.state.billing_headers} data={this.state.billing_infos} cssClass={'text-left'}/>
+							<SimpleList headers={this.state.billing_headers} data={this.state.billing_infos}/>
 						</Col>
 						<Col xs="6">
 							<h6 className="text-right">Ship to</h6>
-							<SimpleTable headers={this.state.shipping_headers} data={this.state.shipping_infos} cssClass={'text-right'}/>
+              <SimpleList headers={this.state.shipping_headers} data={this.state.shipping_infos} cssClass={'text-right'}/>
 						</Col>						
 					</Row>
 				</div>
+        <div className="simple-header">
+
+        </div>
 	    </div>				
 		)
 	}
