@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 import axios from 'axios';
-import { FormGroup, Form, Col, Label, Table, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import { FormGroup, Button, Form, Col, Label, Table, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment';
@@ -35,6 +35,7 @@ class OrderItem extends React.Component {
 		this.handleDeliveryDateChange = this.handleDeliveryDateChange.bind(this);
 		this.calculateSubTotal = this.calculateSubTotal.bind(this);
 		this.handleSelect = this.handleSelect.bind(this);
+		this.handleDeleteClick = this.handleDeleteClick.bind(this);
 	}
 
 	componentDidMount() {
@@ -109,6 +110,10 @@ class OrderItem extends React.Component {
     	this.props.updateOrderItemState(this.state.id, {delivery_date: value})
     });
   }	
+
+  handleDeleteClick() {
+  	console.log('hi', this.state.id)
+  }
 
 	render() {
 		let th = null;
@@ -196,6 +201,7 @@ class OrderItem extends React.Component {
 								<Input type="text" name="product_name" id="buyerName" placeholder="with a placeholder" onChange={this.handleInputChange} value={ this.state.product_name}/>
 							</Col>
 						</FormGroup>
+						<div className="btn btn-sm btn-danger float-right" onClick={this.handleDeleteClick}>Delete</div>
 					</Form>
 				</div>
 			</div>
