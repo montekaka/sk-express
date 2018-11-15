@@ -278,7 +278,7 @@ class OrderEdit extends React.Component {
         }
         <OrderControl 
           addMore={this.handleAddMoreItem}
-          backToPage={this.props.orderSkState.apis['GET']}
+          backToPage={this.props.orderSkState.apis['GET']+"/"+this.state.id}
           submit={this.submit}
         />
         <Modal isOpen={this.state.modal} toggle={this.handleModalCancel} className={'modal-dialog modal-lg'}>
