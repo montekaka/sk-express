@@ -12,7 +12,8 @@ const SkInputSelect = (props) => {
     let result = _.filter(options, (item) => {
       return item[keyLabel] === selectedValue;
     });
-    result.splice(0,2); // to remove duplicated records
+    result = _.uniq(result);
+    // result.splice(0,2); // to remove duplicated records
     
     _.each(options, (item) => {
       if (item[keyLabel] != selectedValue) {
