@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import TablePagination from '../../components/shared/table-pagination/table-pagination.jsx';
@@ -35,6 +35,9 @@ class BuyerCompanyProducts extends React.Component {
 
 	render() {
 		const new_api_base = `${this.props.parent_id}/new${this.props.skState.apis['NEW']}`;
+    if (this.state.toGoback === true) {
+        return <Redirect to={this.state.parent_page_url} />
+    }     
 		return (
 			<div className="nn">				
         <Link to={new_api_base} className="btn btn-sm btn-outline-info product-btn">Add product</Link>			

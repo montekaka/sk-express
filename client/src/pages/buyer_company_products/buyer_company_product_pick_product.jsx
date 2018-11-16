@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import TablePagination from '../../components/shared/table-pagination/table-pagination.jsx';
@@ -35,9 +35,14 @@ class BuyerCompanyProductPickProduct extends React.Component {
 	}
 
 	render() {
+    if (this.state.toGoback === true) {
+        return <Redirect to={this.state.parent_page_url} />
+    } 		
+    if (this.state.toGoback === true) {
+      return <Redirect to={this.state.parent_page_url} />
+    }     
 		const buyer_company_id = this.props.params.params.buyer_company_id;        
 		const parent_path = `${this.props.skState.apis['PARENT_PATH']}/${buyer_company_id}/new/external_product_prices`;
-		console.log(parent_path);
 		return (
 			<div>
 				<Dashheader subtitle={'Overview'} title={'Products'}/>
