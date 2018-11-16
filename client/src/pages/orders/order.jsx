@@ -5,10 +5,12 @@ import axios from 'axios';
 import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import config from './../../../../resource/config';
+import orderSummaryState from './../../../../resource/orderSummary';
 import SimpleHeader from './../../components/shared/utils/simpleHeader.jsx';
-import SimpleTable from './../../components/shared/utils/simpleTable.jsx';
+import SimpleTable from './../../components/shared/simple-table/simpleTable.jsx';
 import SimpleList from './../../components/shared/simple-list/simpleList.jsx';
 
+const orderSummaryHeaders = orderSummaryState.skState.orderSummaryHeaders;
 const base_url = config.base_url;
 
 class Order extends React.Component {
@@ -47,7 +49,7 @@ class Order extends React.Component {
       billing_headers: [],
       billing_infos: [],
       shipping_headers: [],
-      shipping_infos: []
+      shipping_infos: [],
 		}
 
 		this.get = this.get.bind(this);
@@ -63,7 +65,6 @@ class Order extends React.Component {
   	const api_base = `${this.props.skState.apis['GET']}`
   	const api_url = `${base_url+api_base}/${id}.json`;
   	let editPage = `/edit${this.props.skState.apis['GET']}/${id}`;
-  	console.log(editPage);
   	axios.get(api_url)
   		.then((res) => {
   			const data = res.data;
@@ -138,7 +139,7 @@ class Order extends React.Component {
 					</Row>
 				</div>
         <div className="simple-header">
-
+          <SimpleTable headers={orderSummaryHeaders} data={this.state}/>
         </div>
 	    </div>				
 		)
