@@ -44,5 +44,4 @@ OrderItemClass.prototype.init = function() {
   this.internal_price_category_list = [];
 };
 
-
 exports.OrderItemClass = OrderItemClass;

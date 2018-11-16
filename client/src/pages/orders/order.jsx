@@ -11,6 +11,7 @@ import SimpleTable from './../../components/shared/simple-table/simpleTable.jsx'
 import SimpleList from './../../components/shared/simple-list/simpleList.jsx';
 
 const orderSummaryHeaders = orderSummaryState.skState.orderSummaryHeaders;
+const orderItemHeaders = orderSummaryState.skState.orderItemHeaders;
 const base_url = config.base_url;
 
 class Order extends React.Component {
@@ -143,6 +144,9 @@ class Order extends React.Component {
         <div className="simple-header">
           <SimpleTable headers={orderSummaryHeaders} data={this.state.order_summary}/>
         </div>
+        <div className="simple-header">
+          <SimpleTable headers={orderItemHeaders} data={this.state.order_items}/>
+        </div>        
 	    </div>				
 		)
 	}

@@ -6,7 +6,7 @@ const SimpleTableHeader = (props) => {
     <thead>
       <tr>
         {
-          props.headers.map((header) => <th key={header['id']}>{header['label']}</th>)
+          props.headers.map((header) => <th key={header['id']} className={'text-center'}>{header['label']}</th>)
         }
       </tr>
     </thead>

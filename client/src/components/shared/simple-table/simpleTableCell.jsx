@@ -15,7 +15,7 @@ const SimpleTableCell = (props) => {
   }
 
   return (
-    <td>
+    <td className={'text-center'}>
       {cellValue(props)}
     </td>
   );	
