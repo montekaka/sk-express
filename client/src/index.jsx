@@ -128,76 +128,76 @@ class App extends React.Component {
             />                                     
             <Route exact path="/products" 
               render= {
-                (props) => <Products skState={productSkState} />
+                (props) => <Products skState={productSkState} isAuthed={this.state.isAuthed}/>
               }
             />     
             <Route path="/new/products" 
               render= {
-                (props) => <ProductNew skState={productSkState} /> }
+                (props) => <ProductNew skState={productSkState} isAuthed={this.state.isAuthed} /> }
             />                            
             <Route exact path="/products/:id" 
               render= {
-                (props) => <Product skState={productSkState} params={props.match}/> }
+                (props) => <Product skState={productSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             /> 
             <Route exact path="/edit/products/:id" 
               render= {
-                (props) => <ProductEdit skState={productSkState} params={props.match}/> }
+                (props) => <ProductEdit skState={productSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             />            
             <Route exact path="/buyer_companies" 
               render= {
-                (props) => <BuyerCompanies skState={buyerComapnySkState} /> }
+                (props) => <BuyerCompanies skState={buyerComapnySkState} isAuthed={this.state.isAuthed}/> }
             />                               
             <Route exact path="/buyer_companies/:id" 
               render= {
-                (props) => <BuyerCompany skState={buyerComapnySkState} params={props.match}/> }
+                (props) => <BuyerCompany skState={buyerComapnySkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             /> 
             <Route exact exact path="/new/buyer_companies" 
               render= {
-                (props) => <BuyerCompanyNew skState={buyerComapnySkState} /> }
+                (props) => <BuyerCompanyNew skState={buyerComapnySkState} isAuthed={this.state.isAuthed}/> }
             />      
             <Route exact path="/edit/buyer_companies/:id" 
               render= {
-                (props) => <BuyerCompanyEdit skState={buyerComapnySkState} params={props.match}/> }
+                (props) => <BuyerCompanyEdit skState={buyerComapnySkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             /> 
             <Route exact path="/buyers" 
               render= {
-                (props) => <Buyers skState={buyerSkState} /> }
+                (props) => <Buyers skState={buyerSkState} isAuthed={this.state.isAuthed}/> }
             />  
             <Route exact path="/buyers/:id" 
               render= {
-                (props) => <Buyer skState={buyerSkState} params={props.match}/> }
+                (props) => <Buyer skState={buyerSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             />   
             <Route exact path="/edit/buyers/:id" 
               render= {
-                (props) => <BuyerEdit skState={buyerSkState} params={props.match}/> }
+                (props) => <BuyerEdit skState={buyerSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             />         
             <Route exact path="/new/buyer_companies/:buyer_company_id/buyers" 
               render= {
-                (props) => <BuyerNew skState={buyerSkState} params={props.match}/> }
+                (props) => <BuyerNew skState={buyerSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             /> 
             <Route exact path="/buyer_companies/:buyer_company_id/shipping_addresses/:id" 
               render= {
-                (props) => <BuyerCompanyShippingAddress skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
+                (props) => <BuyerCompanyShippingAddress skState={buyerCompanyShippingAddressSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             />             
             <Route exact path="/buyer_companies/:buyer_company_id/new/shipping_addresses" 
               render= {
-                (props) => <BuyerCompanyShippingAddressNew skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
+                (props) => <BuyerCompanyShippingAddressNew skState={buyerCompanyShippingAddressSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             /> 
             <Route exact path="/buyer_companies/:buyer_company_id/shipping_addresses/edit/:id" 
               render= {
-                (props) => <BuyerCompanyShippingAddressEdit skState={buyerCompanyShippingAddressSkState} params={props.match}/> }
+                (props) => <BuyerCompanyShippingAddressEdit skState={buyerCompanyShippingAddressSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             />    
             <Route exact path="/buyer_companies/:buyer_company_id/external_product_prices/:id" 
               render= {
-                (props) => <BuyerCompanyProduct skState={buyerCompanyProductSkState} params={props.match}/> }
+                (props) => <BuyerCompanyProduct skState={buyerCompanyProductSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             />  
             <Route exact path="/buyer_companies/:buyer_company_id/new/external_product_prices" 
               render= {
-                (props) => <BuyerCompanyProductPickProduct skState={pickProductSkState} params={props.match}/> }
+                (props) => <BuyerCompanyProductPickProduct skState={pickProductSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             />  
             <Route exact path="/buyer_companies/:buyer_company_id/new/external_product_prices/products/:product_id" 
               render= {
-                (props) => <BuyerCompanyProductNew skState={buyerCompanyProductSkState} params={props.match}/> }
+                (props) => <BuyerCompanyProductNew skState={buyerCompanyProductSkState} params={props.match} isAuthed={this.state.isAuthed}/> }
             />                                                                                                                                                                                              
           </div>        
         </span>
