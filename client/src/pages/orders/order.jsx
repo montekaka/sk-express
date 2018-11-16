@@ -141,12 +141,18 @@ class Order extends React.Component {
 						</Col>						
 					</Row>
 				</div>
-        <div className="simple-header">
-          <SimpleTable headers={orderSummaryHeaders} data={this.state.order_summary}/>
+        <div className="card text-white bg-dark">
+          <h5 className="card-header">Order summary</h5>
+          <div className="card-body">
+            <SimpleTable headers={orderSummaryHeaders} data={this.state.order_summary}/>
+          </div>          
         </div>
-        <div className="simple-header">
-          <SimpleTable headers={orderItemHeaders} data={this.state.order_items}/>
-        </div>        
+        <div className="card text-white bg-dark">
+          <h5 className="card-header">Order items</h5>
+          <div className="card-body">
+            <SimpleTable headers={orderItemHeaders} data={this.state.order_items}/>
+          </div>          
+        </div>               
 	    </div>				
 		)
 	}
