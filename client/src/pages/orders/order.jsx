@@ -50,6 +50,7 @@ class Order extends React.Component {
       billing_infos: [],
       shipping_headers: [],
       shipping_infos: [],
+      order_summary: []
 		}
 
 		this.get = this.get.bind(this);
@@ -106,7 +107,8 @@ class Order extends React.Component {
 					billing_headers:  ['label','value'],
 					billing_infos: [{id: 1, label: 'Buyer name' , value: data.buyer_name, format: 'string'}, {id: 2, label: 'Billing address', value: data.billing_address, format: 'string'}, {id: 3, label: 'Order date', value: data.order_date, format: 'date'}, {id: 4, label: 'Phone number', value: data.phone_number, format: 'string'}, {id: 5, label: 'Email', value: data.email, format: 'string'}],
 					shipping_headers: ['label','value'],
-					shipping_infos: [{id: 1,label: 'Buyer name' , value: data.buyer_name}, {id: 2, label: 'Shipping address', value: shipping_address}, {id: 4, label: 'Phone number', value: shipping_phone_number}, {id: 5, label: 'Fax number', value: fax_number}]
+					shipping_infos: [{id: 1,label: 'Buyer name' , value: data.buyer_name}, {id: 2, label: 'Shipping address', value: shipping_address}, {id: 4, label: 'Phone number', value: shipping_phone_number}, {id: 5, label: 'Fax number', value: fax_number}],
+          order_summary: [{id: 1, 'shipping_method': data.shipping_method, 'sales_rep': data.sales_rep, 'terms': data.terms, 'slot': data.slot, 'total_price': data.total_price}]
   			})
   		})
   		.catch((err) => {
@@ -139,7 +141,7 @@ class Order extends React.Component {
 					</Row>
 				</div>
         <div className="simple-header">
-          <SimpleTable headers={orderSummaryHeaders} data={this.state}/>
+          <SimpleTable headers={orderSummaryHeaders} data={this.state.order_summary}/>
         </div>
 	    </div>				
 		)
