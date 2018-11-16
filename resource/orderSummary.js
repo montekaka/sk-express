@@ -4,7 +4,7 @@ const skState = {
 		{'id': 2,'name': "sales_rep", "format": "string", "label": "Sales Rep"},
 		{'id': 3,'name': "terms", "format": "string", "label": "Terms"},
 		{'id': 4,'name': "slot", "format": "string", "label": "Slot"},
-		{'id': 5,'name': "total_price", "format": "money", "label": "Total"},
+		{'id': 5,'name': "total_price", "format": "currency", "label": "Total"},
 	]
 }
 
