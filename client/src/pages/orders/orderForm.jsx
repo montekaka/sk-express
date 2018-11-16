@@ -60,8 +60,10 @@ const OrderForm = (props) => {
   }
 
   function typeaheadChange(key, event) {
-    let val = getInputValue(event)
-    props.updateState({name: key, value: val});
+    // let val = getInputValue(event);
+    if(event) {
+      props.updateState({name: key, value: event});
+    }    
   }
 
 	return (
