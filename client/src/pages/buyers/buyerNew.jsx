@@ -1,7 +1,6 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
@@ -93,26 +92,29 @@ class BuyerNew extends React.Component {
     }
 
     render() {
-        if (this.state.toGoback === true) {
-            return <Redirect to='/buyers' />
-        }				
-        return (
-            <div>
-                <SkModal 
-                    modal={this.state.errorModal} 
-                    className={'error'} 
-                    toggle={this.modalToggle}
-                    modalTitle={'Error'}
-                    message={this.state.errorMessage}
-                    closeBtnLabel={'OK'}/>
-                <Dashheader subtitle={'Buyer new'} title={this.state.buyer_company_name}/>
-                <BuyerForm
-                    data={this.state}
-                    backToPage={this.state.backToPage} 
-                    updateState={this.updateState} 
-                    create={this.submit}/>
-            </div>
-        )
+	    if (this.props.isAuthed === false) {
+	      return <Redirect to={'/'} />
+	    }	     	
+      if (this.state.toGoback === true) {
+        return <Redirect to='/buyers' />
+      }				
+      return (
+        <div>
+          <SkModal 
+            modal={this.state.errorModal} 
+            className={'error'} 
+            toggle={this.modalToggle}
+            modalTitle={'Error'}
+            message={this.state.errorMessage}
+            closeBtnLabel={'OK'}/>
+          <Dashheader subtitle={'Buyer new'} title={this.state.buyer_company_name}/>
+          <BuyerForm
+            data={this.state}
+            backToPage={this.state.backToPage} 
+            updateState={this.updateState} 
+            create={this.submit}/>
+        </div>
+      )
     }
 
 }

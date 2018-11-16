@@ -1,8 +1,7 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';

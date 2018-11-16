@@ -1,7 +1,6 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
@@ -90,9 +89,12 @@ class BuyerCompanyShippingAddressNew extends React.Component {
     }
 
     render() {
+        if (this.props.isAuthed === false) {
+          return <Redirect to={'/'} />
+        }                       
         if (this.state.toGoback === true) {
             return <Redirect to={this.state.backToPage} />
-        }				
+        }
         return (
             <div>
                 <SkModal 

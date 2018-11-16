@@ -84,7 +84,7 @@ class BuyerShippingAddresses extends React.Component {
       });
   }
 
-  render() {
+  render() {  
     return (
       <div className="card bg-dark text-white">
         <div className="card-body">

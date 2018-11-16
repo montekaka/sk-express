@@ -157,6 +157,10 @@ class Product extends React.Component {
   }
 
 	render() {
+    if (this.props.isAuthed === false) {
+      return <Redirect to={'/'} />
+    }  
+        
 		if (this.state.toGoback === true) {
 			return <Redirect to='/products' />
     }		

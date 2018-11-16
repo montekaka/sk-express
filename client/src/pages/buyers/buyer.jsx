@@ -34,43 +34,46 @@ class Buyer extends React.Component {
     }	
 
     get(id) {
-        const api_base = `${this.props.skState.apis['GET']}`
-        const api_url = `${base_url+api_base}/${id}.json`;
-        this.setState({api_base: api_base})
-        const _this = this;
-        axios.get(api_url)
-            .then((res) => {
-                const name = res.data.name;
-                const buyer_company_name = res.data.buyer_company_name;
-                const buyer_company_id = res.data.buyer_company_id;
-                const phone_number = res.data.phone_number;
-                _this.setState({name: name, buyer_company_id: buyer_company_id, buyer_company_name: buyer_company_name, phone_number: phone_number});
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+      const api_base = `${this.props.skState.apis['GET']}`
+      const api_url = `${base_url+api_base}/${id}.json`;
+      this.setState({api_base: api_base})
+      const _this = this;
+      axios.get(api_url)
+        .then((res) => {
+            const name = res.data.name;
+            const buyer_company_name = res.data.buyer_company_name;
+            const buyer_company_id = res.data.buyer_company_id;
+            const phone_number = res.data.phone_number;
+            _this.setState({name: name, buyer_company_id: buyer_company_id, buyer_company_name: buyer_company_name, phone_number: phone_number});
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
     delete() {
-        const _this = this;
-        const api_url = `${base_url+this.state.api_base}/${this.state.id}.json`;
-        axios.delete(api_url)
-            .then((res) => {
-                if (res.status === 204) {
-                    _this.setState({toGoback: true});
-                }
-            })
-            .catch((err) => {
-                console.log("err", err);
-            })
+      const _this = this;
+      const api_url = `${base_url+this.state.api_base}/${this.state.id}.json`;
+      axios.delete(api_url)
+        .then((res) => {
+            if (res.status === 204) {
+                _this.setState({toGoback: true});
+            }
+        })
+        .catch((err) => {
+            console.log("err", err);
+        })
     }
 
 
     render() {
-        if (this.state.toGoback === true) {
-            return <Redirect to='/buyers' />
-        }		
-        return (
+      if (this.props.isAuthed === false) {
+        return <Redirect to={'/'} />
+      }        
+      if (this.state.toGoback === true) {
+          return <Redirect to='/buyers' />
+      }		
+      return (
         <div>
           <Dashheader subtitle={'Overview'} title={'Buyer'}/>
           <Link to={this.state.api_base} className="btn btn-outline-info product-btn">Back</Link>
@@ -98,7 +101,7 @@ class Buyer extends React.Component {
           </div>	
           <BuyerShippingAddresses buyer_id={this.state.id}/>
         </div>			
-        )
+      )
     }	
 
 }
