@@ -91,6 +91,9 @@ class ProductEdit extends React.Component {
 	}
 
 	render() {
+    if (this.props.isAuthed === false) {
+      return <Redirect to={'/'} />
+    }		
 		return (
 			<div>
 				<SkModal 

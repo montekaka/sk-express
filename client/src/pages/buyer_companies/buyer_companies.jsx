@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import _ from 'underscore';
 import Dashheader from '../../components/dashheader/dashheader.jsx';
 import TablePagination from '../../components/shared/table-pagination/table-pagination.jsx';
@@ -35,6 +35,9 @@ class BuyerCompanies extends React.Component {
 	}
 
 	render() {
+    if (this.props.isAuthed === false) {
+      return <Redirect to={'/'} />
+    }		
 		const new_api_base = `new${this.props.skState.apis['NEW']}`;
 		return (
 			<div>

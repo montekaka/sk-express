@@ -38,9 +38,9 @@ class BuyerCompanyProductPickProduct extends React.Component {
     if (this.state.toGoback === true) {
         return <Redirect to={this.state.parent_page_url} />
     } 		
-    if (this.state.toGoback === true) {
-      return <Redirect to={this.state.parent_page_url} />
-    }     
+    if (this.props.isAuthed === false) {
+      return <Redirect to={'/'} />
+    }   
 		const buyer_company_id = this.props.params.params.buyer_company_id;        
 		const parent_path = `${this.props.skState.apis['PARENT_PATH']}/${buyer_company_id}/new/external_product_prices`;
 		return (

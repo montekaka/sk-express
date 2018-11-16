@@ -34,10 +34,7 @@ class BuyerCompanyProducts extends React.Component {
 	}
 
 	render() {
-		const new_api_base = `${this.props.parent_id}/new${this.props.skState.apis['NEW']}`;
-    if (this.state.toGoback === true) {
-        return <Redirect to={this.state.parent_page_url} />
-    }     
+		const new_api_base = `${this.props.parent_id}/new${this.props.skState.apis['NEW']}`; 
 		return (
 			<div className="nn">				
         <Link to={new_api_base} className="btn btn-sm btn-outline-info product-btn">Add product</Link>			

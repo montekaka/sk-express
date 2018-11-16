@@ -33,10 +33,7 @@ class BuyerCompanyShippingAddresses extends React.Component {
 		console.log(id)
 	}
 
-	render() {
-    if (this.props.isAuthed === false) {
-      return <Redirect to={'/'} />
-    }         						
+	render() {  						
 		const new_api_base = `${this.props.parent_id}/new${this.props.skState.apis['NEW']}`;
 		return (
 			<div className="nn">		                	

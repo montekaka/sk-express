@@ -71,7 +71,10 @@ class BuyerCompanyNew extends React.Component {
 	render() {
 		if (this.state.toGoback === true) {
 			return <Redirect to='/buyer_companies' />
-		}				
+		}			
+    if (this.props.isAuthed === false) {
+      return <Redirect to={'/'} />
+    }			
 		return (
 			<div>
 				<SkModal 
