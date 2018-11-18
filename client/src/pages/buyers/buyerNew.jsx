@@ -13,6 +13,7 @@ class BuyerNew extends React.Component {
         super(props);
         this.state = {
             toGoback: false,
+            id: null,
             name: '',
             email: '',
             phone_number: '',
@@ -37,7 +38,8 @@ class BuyerNew extends React.Component {
 
     get(buyer_company_id) {
       const api_base = `${this.props.skState.apis['PARENT_GET']}`
-      this.setState({backToPage: `${api_base}/${buyer_company_id}`});
+      const backToPage = `${api_base}/${buyer_company_id}`;
+      this.setState({backToPage: backToPage});
       const api_url = `${base_url+api_base}/${buyer_company_id}.json`;
       //this.setState({api_base: api_base})
       const _this = this;
@@ -46,7 +48,7 @@ class BuyerNew extends React.Component {
           _this.setState({
             buyer_company_name: res.data.name,
             buyer_company_id: res.data.id,
-            backToPage: this.props.skState.apis['GET']
+            // backToPage: this.props.skState.apis['GET']
           });
         })
         .catch((err) => {
@@ -76,8 +78,9 @@ class BuyerNew extends React.Component {
         const data = this.state;
         axios.post(new_api_base, data)
         .then((res) => {
-            console.log(res);
-            _this.setState({toGoback: true});
+            const buyer = res.data;
+            const backToPage = `/buyers/${buyer.id}`;
+            _this.setState({toGoback: true, id: buyer.id, backToPage: backToPage});
             // redirect back
         })
         .catch((err) => {
@@ -96,7 +99,7 @@ class BuyerNew extends React.Component {
 	      return <Redirect to={'/'} />
 	    }	     	
       if (this.state.toGoback === true) {
-        return <Redirect to='/buyers' />
+        return <Redirect to={this.state.backToPage} />
       }				
       return (
         <div>
