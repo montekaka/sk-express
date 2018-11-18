@@ -5,3 +5,4 @@
 4. run `rails s` from rails project
 5. Go to localhost:4200
 
+./push_prod_to_bitbucket.sh
