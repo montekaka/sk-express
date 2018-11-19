@@ -70,6 +70,7 @@ class TablePagination extends React.Component {
 			let startPage = pageItems[0];	
 			_this.props.handleUpdateTotalItems(totalPage, total);
 			_this.props.skState.params.CURRENT_PAGE = page_number;
+			console.log(res.data)
 			_this.setState({
 				items: res.data, 
 				perPage: perPage, 
