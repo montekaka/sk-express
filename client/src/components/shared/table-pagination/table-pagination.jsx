@@ -118,24 +118,32 @@ class TablePagination extends React.Component {
 		});
 	}
 	render() {
+		let table;
+		if(this.state.items.length > 0) {
+			table = <div>
+		    <SkTable 
+		    	headerItems={this.props.skState.tableHeaders} 
+          items={this.state.items}
+          parent_path={this.state.parent_path}
+		    	apis={this.props.skState.apis} 
+		    	handleClickSort={this.handleClickSort}
+		    	handleClickItem={this.props.handleClickItem}/>			
+		    <SkPagination 
+		    	currentPage={this.props.skState.params.CURRENT_PAGE}
+		    	pageItems={this.state.pageItems}
+		    	handleClickPageNumber={this.handleClickPageNumber} 
+		    	totalPage={this.state.totalPage}/>					
+			</div>			
+		} else {
+			table = <div>Loading...</div>
+		}
 		return (
 			<div className="card bg-dark text-white">
 				<div className="card-body">
 					<div className="searchbar">
 						<SkSearchBar handleSearch={this.handleSearch} search_term={this.props.skState.params.SEARCH_TERM}/>		
-					</div>				
-				    <SkTable 
-				    	headerItems={this.props.skState.tableHeaders} 
-              items={this.state.items}
-              parent_path={this.state.parent_path}
-				    	apis={this.props.skState.apis} 
-				    	handleClickSort={this.handleClickSort}
-				    	handleClickItem={this.props.handleClickItem}/>			
-				    <SkPagination 
-				    	currentPage={this.props.skState.params.CURRENT_PAGE}
-				    	pageItems={this.state.pageItems}
-				    	handleClickPageNumber={this.handleClickPageNumber} 
-				    	totalPage={this.state.totalPage}/>					
+					</div>
+					{table}								
 				</div>	    		
 			</div>
 		)
