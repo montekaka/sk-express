@@ -84,6 +84,8 @@ class App extends React.Component {
       // console.log(error);
       _this.setState({user: user, isAuthed: error })
     });
+
+    auth.subscribeToTokenvalidation();
   }
 
   render () {

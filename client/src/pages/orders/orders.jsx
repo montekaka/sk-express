@@ -28,16 +28,6 @@ class Orders extends React.Component {
 		this.handleUpdateTotalItems = this.handleUpdateTotalItems.bind(this);
   }
 
-	componentDidMount() {
-		Auth.validateToken()
-			.then((user) =>{
-				console.log(user)
-			})
-			.fail(() => {
-				console.log('gg no login')
-			});
-	}  
-
 	handleUpdateTotalItems(totalPage, total) {
 		this.setState({totalPage: totalPage, total: total});
 	}
