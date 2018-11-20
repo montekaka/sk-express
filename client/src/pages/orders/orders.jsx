@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from "react-router-dom";
+import Auth from 'j-toker';
 import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import TablePagination from './../../components/shared/table-pagination/table-pagination.jsx';
@@ -26,6 +27,16 @@ class Orders extends React.Component {
 		this.handleClickLinkToOrder = this.handleClickLinkToOrder.bind(this);
 		this.handleUpdateTotalItems = this.handleUpdateTotalItems.bind(this);
   }
+
+	componentDidMount() {
+		Auth.validateToken()
+			.then((user) =>{
+				console.log(user)
+			})
+			.fail(() => {
+				console.log('gg no login')
+			});
+	}  
 
 	handleUpdateTotalItems(totalPage, total) {
 		this.setState({totalPage: totalPage, total: total});
