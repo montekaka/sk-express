@@ -72,13 +72,14 @@ class App extends React.Component {
     if (!error) {
       console.log('Email and Password are not matched');
       this.setState({user: user, isAuthed: error});
-    }
-    this.setState({user: user}, () => {
-      auth.validateToken((user, error) => {
-        console.log(user, error)
-        _this.setState({isAuthed: error})
-      })
-    });   
+    } else {
+      this.setState({user: user}, () => {
+        auth.validateToken((user, error) => {
+          console.log(user, error)
+          _this.setState({isAuthed: error})
+        })
+      }); 
+    }  
   }
 
   componentDidMount(){  
