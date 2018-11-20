@@ -1,7 +1,5 @@
 const skState = {
 	tableHeaders: [
-        {'id': 1,'name': "internal_product_code", "format": "string", "label": "Internal code", "sort_by":"ASC", "sort_on": true},
-        {'id': 2,'name': "internal_product_name", "format": "string", "label": "Internal name", "sort_by":"ASC", "sort_on": true},
         {'id': 3,'name': "external_code", "format": "string", "label": "External code", "sort_by":"ASC", "sort_on": true},
         {'id': 4,'name': "external_name", "format": "string", "label": "External name", "sort_by":"ASC", "sort_on": true},
         {'id': 5,'name': "external_purchase_price_category_label", "format": "string", "label": "Purchase bundle", "sort_by":"ASC", "sort_on": true},
