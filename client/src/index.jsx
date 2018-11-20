@@ -68,24 +68,25 @@ class App extends React.Component {
   }
 
   handleUserState(user, error){
-    //console.log(user, error)
+    var _this = this;
     if (!error) {
       console.log('Email and Password are not matched');
-    } else {
-      // redirect to dashboard page
-      // redirect to order page for now
+      this.setState({user: user, isAuthed: error});
     }
-    this.setState({user: user, isAuthed: error}); 
+    this.setState({user: user}, () => {
+      auth.validateToken((user, error) => {
+        console.log(user, error)
+        _this.setState({isAuthed: error})
+      })
+    });   
   }
 
   componentDidMount(){  
     var _this = this;
     auth.validateToken((user, error) => {
-      // console.log(error);
+      console.log(user, error)
       _this.setState({user: user, isAuthed: error })
     });
-
-    auth.subscribeToTokenvalidation();
   }
 
   render () {

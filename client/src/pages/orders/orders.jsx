@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, Redirect } from "react-router-dom";
-import Auth from 'j-toker';
 import _ from 'underscore';
 import Dashheader from './../../components/dashheader/dashheader.jsx';
 import TablePagination from './../../components/shared/table-pagination/table-pagination.jsx';
 import config from './../../../../resource/config';
+import auth from './../../../../resource/libs/helpers/auth.js';
 // import orderState from './../../../../resource/orderCollection.js';
 // import orderClass from './../../../../resource/libs/helpers/OrderClass.js';
 // const OrderClass = orderClass.OrderClass;
@@ -21,23 +21,12 @@ class Orders extends React.Component {
 			pageItemsCount: 10,
 			totalPage: 0,
       total: 0,
-      isAuthed: false,
 			hasPermission: false
 		}
 		this.handleClickLinkToOrder = this.handleClickLinkToOrder.bind(this);
 		this.handleUpdateTotalItems = this.handleUpdateTotalItems.bind(this);
   }
 
-	componentDidMount() {
-		Auth.validateToken()
-			.then((user) =>{
-				console.log(user)
-			})
-			.fail(() => {
-				console.log('gg no login')
-			});
-	}  
-  
 
 	handleUpdateTotalItems(totalPage, total) {
 		this.setState({totalPage: totalPage, total: total});
@@ -46,11 +35,6 @@ class Orders extends React.Component {
 	handleClickLinkToOrder(id){
 		console.log(id);
 	}
-
-	// handleClickNewOrder() {
-	// 	let order = new OrderClass();
-	// 	workingOrder = order;
-	// }
 
 	render() {
     if (this.props.isAuthed === false) {

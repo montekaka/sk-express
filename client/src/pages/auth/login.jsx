@@ -29,7 +29,7 @@ class Login extends React.Component {
 
 	render() {
 		if (this.props.isAuthed === true) {
-			return <Redirect to='/orders' render={(props) => <Orders isAuthed={true} />} />
+			return <Redirect to='/orders' render={(props) => <Orders isAuthed={true}/>} />
 		}
 		return (
 			<form className="form-signin" onSubmit={this.handleSubmit}>

@@ -1,7 +1,6 @@
 const axios = require('axios');
 const $ = require('jquery');
 const Auth = require('j-toker');
-const PubSub = require('pubsub-js');
 const config = require('./../../config.js');
 const base_url = config.base_url;
 
@@ -40,6 +39,7 @@ var signIn = (user, cb) => {
 	 })
 	.then((res) => {
 		cb(res.data, true)
+		//return user = res.data;
 	})
 	.catch((err) => {
 		cb(null, false);
@@ -61,16 +61,9 @@ var validateToken = (cb) => {
 	})
 }
 
-const subscribeToTokenvalidation = () => {
-	PubSub.subscribe('auth.validation.success', function(ev, user) {
-		console.log(user);
-	});
-}
-
 exports.createSession = createSession;
 exports.isLoggedIn = isLoggedIn;
 exports.checkUser = checkUser;
 exports.signIn  = signIn;
 exports.validateToken = validateToken;
 exports.signOut = signOut;
-exports.subscribeToTokenvalidation = subscribeToTokenvalidation;
