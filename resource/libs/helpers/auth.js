@@ -33,8 +33,7 @@ $.auth.configure({apiUrl: base_url});
 var signIn = (user, cb) => {
 	//const user = {email: 'a@a.com', password: 11111111}
 	// console.log(base_url);
-	console.log('hello world')
-	$auth.emailSignIn({
+	Auth.emailSignIn({
 	  email: user.email,
 	  password: user.password
 	 })
