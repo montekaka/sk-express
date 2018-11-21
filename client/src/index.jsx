@@ -87,6 +87,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // -- josh modified the j-toker/dist/jquery.j-toker.js #626 to force to ignore the check 
     if(prevState.user !== this.state.user) {
       var _this = this;
       auth.validateToken((user, error) => {

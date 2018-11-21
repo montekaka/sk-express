@@ -30863,9 +30863,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     // if this check is already in progress, return existing promise
     
-    if (this.configDfd) {
-      return this.configDfd;
-    }
+    // if (this.configDfd) {
+    //   return this.configDfd;
+    // }
     
     var dfd = $.Deferred();
 
@@ -55931,14 +55931,24 @@ var App = function (_React$Component) {
       });
     }
   }, {
-    key: 'UNSAFE_componentWillMount',
-    value: function UNSAFE_componentWillMount() {
-      var _this = this;
-      _pubsubJs2.default.subscribe('auth.validation.success', function (ev, user) {
-        console.log('user', user);
-        _this.setState({ isAuthed: true });
-      });
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.user !== this.state.user) {
+        var _this = this;
+        _auth2.default.validateToken(function (user, error) {
+          _this.setState({ isAuthed: error });
+        });
+      }
     }
+
+    // UNSAFE_componentWillMount() {
+    //   var _this = this;
+    //   PubSub.subscribe('auth.validation.success', (ev, user) => {
+    //     console.log('user', user)
+    //     _this.setState({isAuthed: true});      
+    //   }) 
+    // }
+
   }, {
     key: 'render',
     value: function render() {
