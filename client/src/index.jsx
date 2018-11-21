@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import Auth from 'j-toker';
+import PubSub from 'pubsub-js';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import $ from 'jquery';
 // import Auth from 'j-toker';
@@ -73,21 +75,22 @@ class App extends React.Component {
       console.log('Email and Password are not matched');
       this.setState({user: user, isAuthed: error});
     } else {
-      this.setState({user: user}, () => {
-        auth.validateToken((user, error) => {
-          console.log(user, error)
-          _this.setState({isAuthed: error})
-        })
-      }); 
+      this.setState({user: user}); 
     }  
   }
 
   componentDidMount(){  
     var _this = this;
     auth.validateToken((user, error) => {
-      console.log(user, error)
-      _this.setState({user: user, isAuthed: error })
+      _this.setState({isAuthed: error })
     });
+  }
+
+  UNSAFE_componentWillMount() {
+    var _this = this;
+    PubSub.subscribe('auth.validation.success', (ev, user) => {
+      _this.setState({isAuthed: true})
+    }) 
   }
 
   render () {

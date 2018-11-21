@@ -38,7 +38,7 @@ var signIn = (user, cb) => {
 	  password: user.password
 	 })
 	.then((res) => {
-		cb(res.data, true)
+		cb(res.data, true);
 		//return user = res.data;
 	})
 	.catch((err) => {
