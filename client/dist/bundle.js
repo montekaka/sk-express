@@ -26187,9 +26187,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // if this check is already in progress, return existing promise
     
     // josh chen comment out this one to force to ignore the check
-    if (this.configDfd) {
-      return this.configDfd;
-    }
+    // if (this.configDfd) {
+    //   return this.configDfd;
+    // }
     
     var dfd = $.Deferred();
 
