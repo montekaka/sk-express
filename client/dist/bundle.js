@@ -55935,6 +55935,7 @@ var App = function (_React$Component) {
     value: function UNSAFE_componentWillMount() {
       var _this = this;
       _pubsubJs2.default.subscribe('auth.validation.success', function (ev, user) {
+        console.log('user', user);
         _this.setState({ isAuthed: true });
       });
     }

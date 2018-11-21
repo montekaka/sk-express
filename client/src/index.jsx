@@ -86,13 +86,22 @@ class App extends React.Component {
     });
   }
 
-  UNSAFE_componentWillMount() {
-    var _this = this;
-    PubSub.subscribe('auth.validation.success', (ev, user) => {
-      console.log('user', user)
-      _this.setState({isAuthed: true})
-    }) 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.user !== this.state.user) {
+      var _this = this;
+      auth.validateToken((user, error) => {
+        _this.setState({isAuthed: error })
+      });      
+    }
   }
+
+  // UNSAFE_componentWillMount() {
+  //   var _this = this;
+  //   PubSub.subscribe('auth.validation.success', (ev, user) => {
+  //     console.log('user', user)
+  //     _this.setState({isAuthed: true});      
+  //   }) 
+  // }
 
   render () {
     return (
