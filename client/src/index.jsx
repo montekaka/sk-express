@@ -89,6 +89,7 @@ class App extends React.Component {
   UNSAFE_componentWillMount() {
     var _this = this;
     PubSub.subscribe('auth.validation.success', (ev, user) => {
+      console.log('user', user)
       _this.setState({isAuthed: true})
     }) 
   }
