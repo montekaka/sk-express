@@ -84,22 +84,36 @@ class App extends React.Component {
     auth.validateToken((user, error) => {
       _this.setState({isAuthed: error })
     });
+    PubSub.subscribe('auth.validation.success', (ev, user) => {
+      _this.setState({isAuthed: true })
+    });    
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // -- josh modified the j-toker/dist/jquery.j-toker.js #626 to force to ignore the check 
-    if(prevState.user !== this.state.user) {
-      var _this = this;
-      auth.validateToken((user, error) => {
-        _this.setState({isAuthed: error })
-      });      
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // -- josh modified the j-toker/dist/jquery.j-toker.js #626 to force to ignore the check 
+  //   if(prevState.user !== this.state.user) {
+  //     console.log('hello')
+  //     var _this = this;  
+  //     PubSub.subscribe('auth.validation.success', (ev, user) => {
+  //       console.log(user);
+  //     });
+  //     PubSub.subscribe('auth.emailSignIn.success', function(ev, msg) {
+  //       console.log('Welcome' + $.auth.user.name + '! Change your password!');
+  //     });         
+  //   }
+  // }
 
   // UNSAFE_componentWillMount() {
   //   var _this = this;
-  //   PubSub.subscribe('auth.validation.success', (ev, user) => {
-  //     console.log('user', user)
+  //   PubSub.subscribe('auth.validation.error', (ev, msg) => {
+  //     console.log('user', ev ,msg)
+  //     Auth.validateToken()
+  //     .then((user) => {
+  //       console.log('yay')
+  //     })
+  //     .catch((err) => {
+  //       console.log('gg')
+  //     })      
   //     _this.setState({isAuthed: true});      
   //   }) 
   // }
