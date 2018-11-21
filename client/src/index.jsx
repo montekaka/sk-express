@@ -82,22 +82,34 @@ class App extends React.Component {
   componentDidMount(){  
     var _this = this;
     auth.validateToken((user, error) => {
+      console.log('Welcome ' + user.name + '!');
       _this.setState({isAuthed: error })
     });
-    // PubSub.subscribe('auth.validation.success', (ev, user) => {
-    //   _this.setState({isAuthed: true })
-    // });    
+
+    PubSub.subscribe('auth.signOut.success', (ev, user) => {
+      _this.setState({isAuthed: false })
+    });   
+
+    PubSub.subscribe('auth.validation.error', function(ev, err) {
+      console.log('Validation failure.');
+      _this.setState({isAuthed: false })
+    });  
+    
+    PubSub.subscribe('auth.validation.success', function(ev, user) {
+      console.log('Welcome back ' + user.name + '!');
+      _this.setState({isAuthed: true })
+    });       
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // -- josh modified the j-toker/dist/jquery.j-toker.js #626 to force to ignore the check 
-    if(prevState.user !== this.state.user) {
-      var _this = this;
-      auth.validateToken((user, error) => {
-        _this.setState({isAuthed: error })
-      });      
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // -- josh modified the j-toker/dist/jquery.j-toker.js #626 to force to ignore the check 
+  //   if(prevState.user !== this.state.user) {
+  //     var _this = this;
+  //     auth.validateToken((user, error) => {
+  //       _this.setState({isAuthed: error })
+  //     });      
+  //   }
+  // }
 
   // UNSAFE_componentWillMount() {
   //   var _this = this;
