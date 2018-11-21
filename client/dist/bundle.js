@@ -55934,24 +55934,21 @@ var App = function (_React$Component) {
       _auth2.default.validateToken(function (user, error) {
         _this.setState({ isAuthed: error });
       });
-      _pubsubJs2.default.subscribe('auth.validation.success', function (ev, user) {
-        _this.setState({ isAuthed: true });
-      });
+      // PubSub.subscribe('auth.validation.success', (ev, user) => {
+      //   _this.setState({isAuthed: true })
+      // });    
     }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //   // -- josh modified the j-toker/dist/jquery.j-toker.js #626 to force to ignore the check 
-    //   if(prevState.user !== this.state.user) {
-    //     console.log('hello')
-    //     var _this = this;  
-    //     PubSub.subscribe('auth.validation.success', (ev, user) => {
-    //       console.log(user);
-    //     });
-    //     PubSub.subscribe('auth.emailSignIn.success', function(ev, msg) {
-    //       console.log('Welcome' + $.auth.user.name + '! Change your password!');
-    //     });         
-    //   }
-    // }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      // -- josh modified the j-toker/dist/jquery.j-toker.js #626 to force to ignore the check 
+      if (prevState.user !== this.state.user) {
+        var _this = this;
+        _auth2.default.validateToken(function (user, error) {
+          _this.setState({ isAuthed: error });
+        });
+      }
+    }
 
     // UNSAFE_componentWillMount() {
     //   var _this = this;
