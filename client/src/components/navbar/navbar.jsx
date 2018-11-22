@@ -49,7 +49,7 @@ class FluidNavbar extends React.Component {
 
   loginButton() {
   	const isLoggedIn = this.props.isAuthed;
-  	let button
+  	let button;
   	if (isLoggedIn) {
   		button = <NavLink onClick={this.handleSignOutClick}>Sign Out</NavLink>;
   	} else {

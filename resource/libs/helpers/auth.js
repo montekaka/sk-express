@@ -42,6 +42,7 @@ var signIn = (user, cb) => {
 		//return user = res.data;
 	})
 	.catch((err) => {
+		alert('Username and Password are not matched.')
 		cb(null, false);
 	})
 }
