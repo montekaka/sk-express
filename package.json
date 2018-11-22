@@ -30,7 +30,7 @@
     "express-session": "^1.15.6",
     "formik": "^1.3.1",
     "isomorphic-fetch": "^2.2.1",
-    "j-toker": "0.0.10-beta3",
+    "j-toker": "git+https://github.com/montekaka/j-toker.git",
     "jquery": "^3.1.1",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
