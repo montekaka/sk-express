@@ -116,6 +116,9 @@ class BuyerCompany extends React.Component {
     }
 
     render() {
+      if (this.props.isAuthed === false) {
+        return <Redirect to={'/'} />
+      }       
       let shippingAddressTable;
       let productTable;
 
