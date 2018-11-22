@@ -14,7 +14,7 @@ class TablePagination extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			items: [],
+			items: null,
 			total: 0,
 			totalPage: 0,
 			perPage: 8,
@@ -119,7 +119,9 @@ class TablePagination extends React.Component {
 	}
 	render() {
 		let table;
-		if(this.state.items.length > 0) {
+		if(this.state.items === null) {
+			table = <div>Loading...</div>
+		} else if (this.state.items.length > 0) {
 			table = <div>
 		    <SkTable 
 		    	headerItems={this.props.skState.tableHeaders} 
@@ -135,7 +137,7 @@ class TablePagination extends React.Component {
 		    	totalPage={this.state.totalPage}/>					
 			</div>			
 		} else {
-			table = <div>Loading...</div>
+			table = <div>There isn't any products for this buyer company</div>
 		}
 		return (
 			<div className="card bg-dark text-white">
