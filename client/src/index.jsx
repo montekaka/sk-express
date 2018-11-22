@@ -95,9 +95,11 @@ class App extends React.Component {
       _this.setState({isAuthed: false })
     });  
     
-    PubSub.subscribe('auth.validation.success', function(ev, user) {
-      console.log('Welcome back ' + user.name + '!');
-      _this.setState({isAuthed: true })
+    PubSub.subscribe('auth.emailSignIn.success', function(ev, msg) {
+      auth.validateToken((user, error) => {
+        console.log('Welcome back ' + user.name + '!', `token auth return: ${error}`);
+        _this.setState({isAuthed: error })
+      });      
     });       
   }
 
