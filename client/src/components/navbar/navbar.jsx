@@ -51,9 +51,9 @@ class FluidNavbar extends React.Component {
   	const isLoggedIn = this.props.isAuthed;
   	let button;
   	if (isLoggedIn) {
-  		button = <NavLink onClick={this.handleSignOutClick}>Sign Out</NavLink>;
+  		button = <NavLink onClick={this.handleSignOutClick}>登出</NavLink>;
   	} else {
-  		button = <NavLink tag={Link} to="/login">Login</NavLink>
+  		button = <NavLink tag={Link} to="/login">登入</NavLink>
   	}
   	return button;
   }
@@ -68,19 +68,19 @@ class FluidNavbar extends React.Component {
 	      <Collapse isOpen={!this.state.collapsed} navbar>
 	        <Nav navbar>
 	          <NavItem>
-	            <NavLink tag={Link} to="/orders">Orders</NavLink>
+	            <NavLink tag={Link} to="/orders">订单</NavLink>
 	          </NavItem>
 						<UncontrolledDropdown nav inNavbar>
-							<DropdownToggle nav caret>Resources</DropdownToggle>
+							<DropdownToggle nav caret>资源分类</DropdownToggle>
 							<DropdownMenu right>
 								<DropdownItem tag={Link} to="/products">
-									Products
+									产品分类
 								</DropdownItem>
 								<DropdownItem tag={Link} to="/buyer_companies">
-									Buyer Companies
+									买家公司
 								</DropdownItem>	
 								<DropdownItem tag={Link} to="/buyers">
-								Buyers
+								  买手
 								</DropdownItem>																
 							</DropdownMenu>
 						</UncontrolledDropdown>											
