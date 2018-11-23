@@ -106,12 +106,12 @@ class BuyerCompanProductNew extends React.Component {
       const data = this.state;
       axios.post(new_api_base, data)
       .then((res) => {
-          _this.setState({toGoback: true});
-          // redirect back
+        _this.setState({toGoback: true});
+        // redirect back
       })
       .catch((err) => {
-          console.log(err);
-          // show error using the modal..
+        console.log(err);
+        // show error using the modal..
       });
     }
 
@@ -120,10 +120,7 @@ class BuyerCompanProductNew extends React.Component {
       this.setState({errorModal: errorModal});
     }
 
-    render() {
-      if (this.state.toGoback === true) {
-          return <Redirect to={this.state.parent_page_url} />
-      }       
+    render() {   
       if (this.state.toGoback === true) {
         return <Redirect to={this.state.backToPage} />
       }				
