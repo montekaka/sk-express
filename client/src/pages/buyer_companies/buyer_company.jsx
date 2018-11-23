@@ -7,12 +7,15 @@ import Dashheader from '../../components/dashheader/dashheader.jsx';
 import config from '../../../../resource/config';
 import BuyerCompanyShippingAddresses from './../buyer_company_shipping_addresses/buyer_company_shipping_addresses.jsx';
 import BuyerCompanyProducts from './../buyer_company_products/buyer_company_products.jsx';
+import Buyers from './../buyers/buyers.jsx';
 import buyerCompanyShippingAddressTable from '../../../../resource/buyerCompanyShippingAddressTable';
 import buyerCompanyProductTable from '../../../../resource/buyerCompanyProductTable';
+import buyerCompanyBuyerTable from '../../../../resource/buyerCompanyBuyerTable';
 
 const base_url = config.base_url;
 const buyerCompanyShippingAddressSkState = buyerCompanyShippingAddressTable.skState;
 const buyerCompanyProductSkState = buyerCompanyProductTable.skState;
+const buyerCompanyBuyerSkState = buyerCompanyBuyerTable.skState;
 // const activeState = ' active';
 
 class BuyerCompany extends React.Component {
@@ -30,6 +33,7 @@ class BuyerCompany extends React.Component {
             toGoback: false,
             shippingAddressClass: '',
             buyerProductClass: '',
+            buyerClass: '',
             tabActiveStateName: ''
         }
         this.get = this.get.bind(this);
@@ -45,11 +49,13 @@ class BuyerCompany extends React.Component {
       const child_component_base_url = `${base_url+this.props.skState.apis['GET']}/${id}`;        
       const shippingAddressClass = this.props.skState.tabs.shippingAddressClass;
       const buyerProductClass = this.props.skState.tabs.buyerProductClass;
+      const buyerClass = this.props.skState.tabs.buyerClass;
       const tabActiveStateName = this.props.skState.tabActiveStateName;
 
       this.setState({
         shippingAddressClass: shippingAddressClass,
         buyerProductClass: buyerProductClass,
+        buyerClass: buyerClass,
         tabActiveStateName: tabActiveStateName,
         edit_page: edit_page, 
         child_component_base_url: child_component_base_url, 
@@ -94,15 +100,16 @@ class BuyerCompany extends React.Component {
     handleTabClick(e) {
       const name = e.target.dataset.name;
       const tabActiveStateName = this.state.tabActiveStateName;
-      let counterName = '';
-      switch(name) {
-        case 'shippingAddressClass':
-          counterName = 'buyerProductClass'
-          break
-        default :
-          counterName = 'shippingAddressClass'
-      } 
-      this.updateToggleState({[name]: tabActiveStateName, [counterName]: ''});
+      const tabNames = ['buyerProductClass', 'shippingAddressClass', 'buyerClass'];
+      let tabStatus = {[name]: tabActiveStateName};      
+      
+      _.each(tabNames, (tab) => {
+        if(tab !== name) {
+          tabStatus[tab] = '';
+        }        
+      });
+
+      this.updateToggleState(tabStatus);
     }
 
 
@@ -121,6 +128,7 @@ class BuyerCompany extends React.Component {
       }       
       let shippingAddressTable;
       let productTable;
+      let buyerTable;
 
       if (this.state.id) {
         shippingAddressTable = <BuyerCompanyShippingAddresses 
@@ -137,12 +145,20 @@ class BuyerCompany extends React.Component {
           parent_id={this.state.id}
         />;
 
+        buyerTable = <Buyers 
+          skState={buyerCompanyBuyerSkState} 
+          parent_path={this.state.parent_path}
+          base_url={this.state.child_component_base_url}
+          parent_id={this.state.id}
+        />;        
+
       } else {
         shippingAddressTable = <div></div>;
         productTable = <div></div>;
+        buyerTable = <div></div>;
       }
       if (this.state.toGoback === true) {
-          return <Redirect to='/buyer_companies' />
+        return <Redirect to='/buyer_companies' />
       }		
       return (
         <div>
@@ -162,7 +178,6 @@ class BuyerCompany extends React.Component {
                   this.state.description && 
                   <p>Description: {this.state.description}</p>
               }                         
-              <Link to={`/new/buyer_companies/${this.state.id}/buyers`} className="btn btn-outline-success product-btn float-right">Add buyer</Link>
               <Link to={this.state.edit_page} className="btn btn-primary product-btn">Edit</Link>
               <div onClick={this.delete} className="btn btn-outline-danger product-btn">Delete</div>
             </div>
@@ -183,6 +198,13 @@ class BuyerCompany extends React.Component {
                 className={"nav-link"+this.state.buyerProductClass} 
                 role="tab" data-toggle="tab" aria-controls="buyer-company-product">Product</div>
               </li>
+              <li className="nav-item" role="presentation">
+                <div
+                onClick={(e) => this.handleTabClick(e)}
+                data-name="buyerClass"
+                className={"nav-link"+this.state.buyerClass} 
+                role="tab" data-toggle="tab" aria-controls="buyer-company-buyer">Buyer</div>
+              </li>              
             </ul>
           </div>
           <div className="tab-content">
@@ -192,6 +214,9 @@ class BuyerCompany extends React.Component {
             <div role="tabpanel" className={"tab-pane"+this.state.buyerProductClass} id="buyer-company-product">
               {productTable}
             </div>
+            <div role="tabpanel" className={"tab-pane"+this.state.buyerClass} id="buyer-company-buyer">
+              {buyerTable}
+            </div>            
           </div>          
         </div>			
       )

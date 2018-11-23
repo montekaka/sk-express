@@ -16,7 +16,8 @@ const skState = {
 	},
 	tabs: {
 		shippingAddressClass: ' active',
-		buyerProductClass: ''
+		buyerProductClass: '',
+		buyerClass: ''
 	},
 	tabActiveStateName: ' active'
 }
