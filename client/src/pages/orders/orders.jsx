@@ -42,13 +42,13 @@ class Orders extends React.Component {
     }	    
 		return (
 			<div>
-				<Dashheader subtitle={'Overview'} title={'订单'}/>
+				<Dashheader subtitle={'Overview'} title={'Order'}/>
 		    <div className="hr-divider mt-3 mb-5">
 		      <h3 className="hr-divider-content hr-divider-heading">Orders</h3>		      
 		      <p>Total Orders: {this.state.total}</p>
 		      <p>Total Page: {this.state.totalPage}</p>
 		    </div>		 		    
-		    <Link to={new_api_base} className="btn btn-outline-info product-btn">新增订单</Link>
+		    <Link to={new_api_base} className="btn btn-outline-info product-btn">New order</Link>
 		    <TablePagination 		 
 		    	handleUpdateTotalItems={this.handleUpdateTotalItems}   	
 		    	base_url={base_url}

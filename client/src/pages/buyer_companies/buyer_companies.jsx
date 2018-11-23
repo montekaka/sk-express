@@ -42,7 +42,7 @@ class BuyerCompanies extends React.Component {
 		return (
 			<div>
 				<Dashheader subtitle={'Overview'} title={'Buyer Company'}/>
-				<Link to={new_api_base} className="btn btn-outline-info product-btn">New</Link>
+				<Link to={new_api_base} className="btn btn-outline-info product-btn">New buyer company</Link>
 				<div className="hr-divider mt-3 mb-5">
 				  <h3 className="hr-divider-content hr-divider-heading">Buyer Companies</h3>		      
 				  <p>Total Company: {this.state.total}</p>

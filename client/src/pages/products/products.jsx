@@ -42,7 +42,7 @@ class Products extends React.Component {
 		return (
 			<div>
 				<Dashheader subtitle={'Overview'} title={'Product'}/>
-				<Link to={new_api_base} className="btn btn-outline-info product-btn">New</Link>
+				<Link to={new_api_base} className="btn btn-outline-info product-btn">New product</Link>
 		    <div className="hr-divider mt-3 mb-5">
 		      <h3 className="hr-divider-content hr-divider-heading">Products</h3>		      
 		      <p>Total Products: {this.state.total}</p>
