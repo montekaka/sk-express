@@ -35,7 +35,7 @@ class TablePagination extends React.Component {
 		this.handleClickSort = this.handleClickSort.bind(this);
 		this.handleClickPageNumber = this.handleClickPageNumber.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
-		this.delayedCallback = debounceHandler(this.handleSearchApi, 1000);
+		this.delayedCallback = debounceHandler(this.handleSearchApi, 250);
 	}
 
 	componentDidMount() {
