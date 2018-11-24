@@ -6,9 +6,11 @@ import SkPagination from './../pagination/skPagination.jsx';
 import SkSearchBar from './../searchbar/skSearchBar.jsx';
 import paginationList from './../../../../../resource/libs/helpers/paginationList';
 import sortedParams from './../../../../../resource/libs/helpers/sortedParams';
+import debounce from './../../../../../resource/libs/helpers/debounce';
 const getPaginationList = paginationList.getPaginationList;
 const getSortedParams = sortedParams.get;
 const resetSortedParams = sortedParams.reset;
+const debounceHandler = debounce.debounce;
 
 class TablePagination extends React.Component {
 	constructor(props) {
@@ -33,6 +35,7 @@ class TablePagination extends React.Component {
 		this.handleClickSort = this.handleClickSort.bind(this);
 		this.handleClickPageNumber = this.handleClickPageNumber.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
+		this.delayedCallback = debounceHandler(this.handleSearchApi, 1000);
 	}
 
 	componentDidMount() {
@@ -113,10 +116,16 @@ class TablePagination extends React.Component {
 	handleSearch(searchTerm) {
 		this.props.skState.params.CURRENT_PAGE = 1;
 		this.props.skState.params.SEARCH_TERM = searchTerm;
-		this.setState({startPage: 1},() => {
-			this.fetch(1);
+
+		this.setState({startPage: 1}, () => {
+			this.delayedCallback();
 		});
 	}
+
+	handleSearchApi(){
+		this.fetch(1);
+	}
+
 	render() {
 		let table;
 		if(this.state.items === null) {
