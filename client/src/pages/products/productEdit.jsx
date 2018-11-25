@@ -81,9 +81,8 @@ class ProductEdit extends React.Component {
 	}
 
 	update() {		
-		const new_api_base = `${base_url+this.props.skState.apis['UPDATE']}/${this.state.id}`;		
+		const new_api_base = `${base_url+this.props.skState.apis['UPDATE']}/${this.state.id}.json`;
 		const data = {
-			id: this.state.id,
 			name: this.state.name,
 			description: this.state.description,
 			product_code: this.state.product_code,
@@ -97,8 +96,7 @@ class ProductEdit extends React.Component {
 		}
 		axios.put(new_api_base, data)
 		.then((res) => {
-			this.setState({goBackToPage: true});
-			console.log(res);
+			this.setState({toGoback: true});
 			// redirect back
 		})
 		.catch((err) => {
@@ -117,7 +115,7 @@ class ProductEdit extends React.Component {
       return <Redirect to={'/'} />
     }  
     if (this.state.toGoback) {
-    	return <Redirect to={this.state.goBackToPage} />
+    	return <Redirect to={this.state.backToPage} />
     }    
 		return (      
 			<div>
