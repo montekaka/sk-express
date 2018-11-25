@@ -19,6 +19,7 @@ class BuyerEdit extends React.Component {
       buyer_company_name: '',
       buyer_company_id: null,
 			backToPage: '',
+			toGoback: false,
 			errorModal: false,
 			errorMessage: 'Please make sure you fill up the name, phone number and email'
 		}
@@ -80,7 +81,7 @@ class BuyerEdit extends React.Component {
 		}
 		axios.put(new_api_base, data)
 		.then((res) => {
-			console.log(res);
+			this.setState({toGoback: true});
 			// redirect back
 		})
 		.catch((err) => {
@@ -98,7 +99,9 @@ class BuyerEdit extends React.Component {
     if (this.props.isAuthed === false) {
       return <Redirect to={'/'} />
     }  
-        
+    if (this.state.toGoback) {
+    	return <Redirect to={this.state.backToPage} />
+    }         
 		return (
 			<div>
 				<SkModal 
