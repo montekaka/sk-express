@@ -18,6 +18,7 @@ class ProductEdit extends React.Component {
 			description: '',
 			billing_address: '',
 			backToPage: '',
+			toGoback: false,
 			errorModal: false,
 			errorMessage: 'Please make sure you fill up the Product name, code and price'
 		}
@@ -76,8 +77,7 @@ class ProductEdit extends React.Component {
 		}
 		axios.put(new_api_base, data)
 		.then((res) => {
-			console.log(res);
-			// redirect back
+			this.setState({toGoback: true});
 		})
 		.catch((err) => {
 			console.log('err',err);
@@ -93,7 +93,10 @@ class ProductEdit extends React.Component {
 	render() {
     if (this.props.isAuthed === false) {
       return <Redirect to={'/'} />
-    }		
+    }	
+    if (this.state.toGoback) {
+    	return <Redirect to={this.state.backToPage} />
+    }     	
 		return (
 			<div>
 				<SkModal 
