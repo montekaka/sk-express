@@ -25,6 +25,7 @@ class ProductEdit extends React.Component {
 			price_category_2_unit: 0,
 			price_category_3_unit: 0,
 			backToPage: '',
+			toGoback: false,
 			errorModal: false,
 			errorMessage: 'Please make sure you fill up the Product name, code and price'
 		}
@@ -81,7 +82,6 @@ class ProductEdit extends React.Component {
 
 	update() {		
 		const new_api_base = `${base_url+this.props.skState.apis['UPDATE']}/${this.state.id}`;		
-		console.log('create',new_api_base, this.state);
 		const data = {
 			id: this.state.id,
 			name: this.state.name,
@@ -97,6 +97,7 @@ class ProductEdit extends React.Component {
 		}
 		axios.put(new_api_base, data)
 		.then((res) => {
+			this.setState({goBackToPage: true});
 			console.log(res);
 			// redirect back
 		})
@@ -114,7 +115,10 @@ class ProductEdit extends React.Component {
 	render() {
     if (this.props.isAuthed === false) {
       return <Redirect to={'/'} />
-    }      
+    }  
+    if (this.state.toGoback) {
+    	return <Redirect to={this.state.goBackToPage} />
+    }    
 		return (      
 			<div>
 				<SkModal 

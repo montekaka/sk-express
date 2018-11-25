@@ -97,7 +97,6 @@ class BuyerCompanyProduct extends React.Component {
     }
 
     submit() {		
-      console.log('hi')
       if (this.state.external_code === null || this.state.external_name === null|| this.state.external_code.length === 0 || this.state.external_name.length === 0) {
         this.setState({errorModal: true});
         console.log('invalid...');
