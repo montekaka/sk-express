@@ -54,7 +54,7 @@ class ProductNew extends React.Component {
 
 	create() {	
 		const _this = this;
-		const new_api_base = `${base_url+this.props.skState.apis['NEW']}`;		
+		const new_api_base = `${base_url+this.props.skState.apis['NEW']}.json`;		
 		//console.log('create',new_api_base, this.state);
 		const data = this.state;
 		axios.post(new_api_base, data)
