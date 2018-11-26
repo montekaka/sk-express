@@ -96,6 +96,7 @@ class ProductEdit extends React.Component {
 		}
 		axios.put(new_api_base, data)
 		.then((res) => {
+			console.log(res);
 			this.setState({toGoback: true});
 			// redirect back
 		})
