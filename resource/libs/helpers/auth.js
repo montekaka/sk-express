@@ -62,9 +62,14 @@ var validateToken = (cb) => {
 	})
 }
 
+var retrieveToken = () => {
+	return $.auth.retrieveData('authHeaders');
+}
+
 exports.createSession = createSession;
 exports.isLoggedIn = isLoggedIn;
 exports.checkUser = checkUser;
 exports.signIn  = signIn;
 exports.validateToken = validateToken;
 exports.signOut = signOut;
+exports.retrieveToken = retrieveToken;

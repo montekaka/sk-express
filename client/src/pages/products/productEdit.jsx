@@ -7,6 +7,7 @@ import Dashheader from './../../components/dashheader/dashheader.jsx';
 import config from './../../../../resource/config';
 import ProductForm from './productForm.jsx';
 import SkModal from './../../components/shared/modal/skModal.jsx';
+
 const base_url = config.base_url;
 
 class ProductEdit extends React.Component {
@@ -48,7 +49,8 @@ class ProductEdit extends React.Component {
 		const _this = this;
 		axios.get(api_url)
 			.then((res) => {
-				_this.setState({id: res.data.id, 
+				_this.setState({
+					id: res.data.id,
 					product_code: res.data.product_code, 
 					name: res.data.name, 
 					price: res.data.price,
@@ -81,7 +83,7 @@ class ProductEdit extends React.Component {
 	}
 
 	update() {		
-		const new_api_base = `${base_url+this.props.skState.apis['UPDATE']}/${this.state.id}.json`;
+		const new_api_base = `${base_url+this.props.skState.apis['UPDATE']}/${this.state.id}.json`;		
 		const data = {
 			name: this.state.name,
 			description: this.state.description,
@@ -94,6 +96,7 @@ class ProductEdit extends React.Component {
 			price_category_2_unit: this.state.price_category_2_unit,
 			price_category_3_unit: this.state.price_category_3_unit,			
 		}
+
 		axios.put(new_api_base, data)
 		.then((res) => {
 			console.log(res);

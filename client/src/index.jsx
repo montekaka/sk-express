@@ -82,12 +82,12 @@ class App extends React.Component {
   componentDidMount(){  
     var _this = this;
     auth.validateToken((user, error) => {
-      console.log('Welcome ' + user.name + '!');
+      console.log('Welcome ' + user.name + '!');      
       _this.setState({isAuthed: error })
     });
 
     PubSub.subscribe('auth.signOut.success', (ev, user) => {
-      _this.setState({isAuthed: false })
+      _this.setState({isAuthed: false });
     });   
 
     PubSub.subscribe('auth.validation.error', function(ev, err) {
@@ -96,7 +96,7 @@ class App extends React.Component {
     });  
     
     PubSub.subscribe('auth.emailSignIn.success', function(ev, msg) {
-      auth.validateToken((user, error) => {
+      auth.validateToken((user, error) => {        
         console.log('Welcome back ' + user.name + '!', `token auth return: ${error}`);
         _this.setState({isAuthed: error })
       });      
