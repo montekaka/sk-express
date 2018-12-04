@@ -36,6 +36,7 @@ class TablePagination extends React.Component {
 		this.handleClickPageNumber = this.handleClickPageNumber.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
 		this.delayedCallback = debounceHandler(this.handleSearchApi, 500);
+		this.handleClickItem = this.handleClickItem.bind(this);
 	}
 
 	componentDidMount() {
@@ -126,6 +127,13 @@ class TablePagination extends React.Component {
 		this.fetch(1);
 	}
 
+	handleClickItem(clickedItem){
+		this.props.skState.params.SEARCH_TERM = '';
+		if(this.props.handleClickItem) {
+			this.props.handleClickItem(clickedItem);
+		}		
+	}
+
 	render() {
 		let table;
 		if(this.state.items === null) {
@@ -138,7 +146,7 @@ class TablePagination extends React.Component {
           parent_path={this.state.parent_path}
 		    	apis={this.props.skState.apis} 
 		    	handleClickSort={this.handleClickSort}
-		    	handleClickItem={this.props.handleClickItem}/>			
+		    	handleClickItem={this.handleClickItem}/>			
 		    <SkPagination 
 		    	currentPage={this.props.skState.params.CURRENT_PAGE}
 		    	pageItems={this.state.pageItems}
