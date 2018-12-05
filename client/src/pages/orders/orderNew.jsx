@@ -71,6 +71,7 @@ class OrderNew extends React.Component {
     this.create = this.create.bind(this);
     this.errorModalToggle = this.errorModalToggle.bind(this);
     this.handleRemoveOrderItem = this.handleRemoveOrderItem.bind(this);
+    this.handleAlert = this.handleAlert.bind(this);
   }
 
   componentDidMount() {       
@@ -78,6 +79,12 @@ class OrderNew extends React.Component {
     const buyer_endpoint = base_url + this.props.buyerSkState.apis['GET'] + '/' + buyer_id + '.json';    
     this.getBuyerShippingAddresses(buyer_id);
     this.setOrder(buyer_endpoint); 
+  }
+
+  handleAlert(data) {
+    const link_to = `${this.props.orderSkState.apis['GET']}/${data.id}`;
+    const message = `Created Order ${data.order_number}`;
+    this.props.handleAlert(message, link_to);
   }
 
   setOrder(buyer_endpoint) {  
@@ -124,8 +131,9 @@ class OrderNew extends React.Component {
     const _this = this;
     axios.post(endpoint, data)
       .then((res) => {
-        _this.setState({toGoback: true});
-        console.log(res);
+        //console.log(res);
+        this.handleAlert(res.data);
+        _this.setState({toGoback: true});        
       })
       .catch((err) => {
         console.log(err);
