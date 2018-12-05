@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 
 const SkAlert = (props) => {
@@ -6,7 +7,10 @@ const SkAlert = (props) => {
     <div>
       {props.isAlerts &&  
         <Alert color="success" className="skAlert">
-          <h4 className="alert-heading">Well done!</h4>
+        	<h4 className="alert-heading">{props.message}</h4>
+        	<p>
+        		To view the detail, please click <Link to={props.link_to} className="alert-link">here</Link>
+        	</p>          
         </Alert>       
       }
     </div>
