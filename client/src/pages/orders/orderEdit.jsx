@@ -148,9 +148,8 @@ class OrderEdit extends React.Component {
     const data = this.state;
     const _this = this;
     axios.put(endpoint, data)
-      .then((res) => {
+      .then((res) => {        
         _this.setState({toGoback: true});
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -263,7 +262,8 @@ class OrderEdit extends React.Component {
 
   render() {
     if (this.state.toGoback === true) {
-      return <Redirect to='/orders' />
+      const link_to = `${this.props.orderSkState.apis['GET']}/${this.state.id}`;
+      return <Redirect to= {link_to} />
     }     
     return (
       <div>
