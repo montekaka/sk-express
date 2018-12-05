@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Auth from 'j-toker';
 import PubSub from 'pubsub-js';
+import SkAlert from './components/shared/alert/alert.jsx';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import $ from 'jquery';
 // import Auth from 'j-toker';
@@ -64,9 +65,13 @@ class App extends React.Component {
     this.state = {
       toProducts: false,
       isAuthed: PropTypes.bool,
-      user: null
+      user: null,
+      isAlerts: false,
+      alertMessage: '',
+      alertLink: ''
     }
     this.handleUserState = this.handleUserState.bind(this);
+    this.handleAlert = this.handleAlert.bind(this);
   }
 
   handleUserState(user, error){
@@ -77,6 +82,15 @@ class App extends React.Component {
     } else {
       this.setState({user: user}); 
     }  
+  }
+
+  handleAlert(message, link) {
+    const _this = this;
+    this.setState({isAlerts: true, alertMessage: message, alertLink: link}, () => {
+      setTimeout(() => {
+        _this.setState({isAlerts: false});
+      }, 3000)      
+    });
   }
 
   componentDidMount(){  
@@ -103,38 +117,14 @@ class App extends React.Component {
     });       
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   // -- josh modified the j-toker/dist/jquery.j-toker.js #626 to force to ignore the check 
-  //   if(prevState.user !== this.state.user) {
-  //     var _this = this;
-  //     auth.validateToken((user, error) => {
-  //       _this.setState({isAuthed: error })
-  //     });      
-  //   }
-  // }
-
-  // UNSAFE_componentWillMount() {
-  //   var _this = this;
-  //   PubSub.subscribe('auth.validation.error', (ev, msg) => {
-  //     console.log('user', ev ,msg)
-  //     Auth.validateToken()
-  //     .then((user) => {
-  //       console.log('yay')
-  //     })
-  //     .catch((err) => {
-  //       console.log('gg')
-  //     })      
-  //     _this.setState({isAuthed: true});      
-  //   }) 
-  // }
 
   render () {
     return (
       <Router>
         <span className="App">
-          <FluidNavbar handleUserState={this.handleUserState} isAuthed={this.state.isAuthed}/>
-          <div className="container-fluid container-fluid-spacious">
-            
+          <FluidNavbar handleUserState={this.handleUserState} isAuthed={this.state.isAuthed}/>          
+          <div className="container-fluid container-fluid-spacious">            
+            <SkAlert isAlerts={this.state.isAlerts} link_to={this.state.alertLink} message={this.state.alertMessage}/>
             <Route exact path='/' 
               render= {(props) => <Login isAuthed={this.state.isAuthed} handleUserState={this.handleUserState} />} 
             />    
@@ -149,7 +139,12 @@ class App extends React.Component {
               render= {(props) => <Orders isAuthed={this.state.isAuthed} skState={orderSkState} workingOrder={workingOrder} OrderClass={OrderClass}/>} 
             />  
             <Route exact path='/new/order/buyers' 
-              render= {(props) => <OrderNewBuyer isAuthed={this.state.isAuthed} skState={orderBuyerSkState} workingOrder={workingOrder} OrderClass={OrderClass} orderSkState={orderSkState}/>} 
+              render= {(props) => <OrderNewBuyer 
+                isAuthed={this.state.isAuthed} 
+                skState={orderBuyerSkState} 
+                workingOrder={workingOrder} 
+                OrderClass={OrderClass}                 
+                orderSkState={orderSkState} />} 
             /> 
             <Route exact path='/edit/orders/:id' 
               render= {(props) => <OrderEdit 
@@ -166,7 +161,10 @@ class App extends React.Component {
               skState={orderBuyerSkState} 
               buyerSkState={buyerSkState}
               orderSkState={orderSkState}
-              workingOrder={workingOrder} OrderClass={OrderClass} params={props.match}/>} 
+              workingOrder={workingOrder} 
+              OrderClass={OrderClass}
+              handleAlert={this.handleAlert} 
+              params={props.match}/>} 
             />                                     
             <Route exact path="/products" 
               render= {
