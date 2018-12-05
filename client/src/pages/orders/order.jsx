@@ -51,10 +51,12 @@ class Order extends React.Component {
       billing_infos: [],
       shipping_headers: [],
       shipping_infos: [],
-      order_summary: []
+      order_summary: [],
+      toGoback: false
 		}
 
 		this.get = this.get.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   componentDidMount() {
@@ -62,9 +64,24 @@ class Order extends React.Component {
   	this.get(id);
   }
 
+  delete() {
+    const _this = this;
+    const api_base = this.props.skState.apis['DELETE'];
+    const api_url = `${base_url+api_base}/${this.state.id}.json`;
+    axios.delete(api_url)
+      .then((res) => {
+        if (res.status === 204) {
+          _this.setState({toGoback: true});
+        }
+      })
+      .catch((err) => {
+        console.log("err", err);
+      })
+  }
+
   get(id) {
   	const _this = this;
-  	const api_base = `${this.props.skState.apis['GET']}`
+  	const api_base = this.props.skState.apis['GET'];
   	const api_url = `${base_url+api_base}/${id}.json`;
   	let editPage = `/edit${this.props.skState.apis['GET']}/${id}`;
   	axios.get(api_url)
@@ -120,12 +137,18 @@ class Order extends React.Component {
 	render() {
     if (this.props.isAuthed === false) {
       return <Redirect to={'/'} />
-    }	    
+    }	 
+
+    if (this.state.toGoback === true) {
+      return <Redirect to='/orders' />
+    }       
+
 		return (
 			<div>
 				<div className="simple-header">       
           <Link to={this.props.skState.apis['GET']} className="btn btn-primary">Back</Link>
 					<Link to={this.state.editPage} className="btn btn-primary float-right">Edit</Link>
+          <div className="btn btn-outline-danger float-right" onClick={this.delete} >Delete</div>
 				</div>				
 				<SimpleHeader pageTitle={this.state.buyer_company_name} pageName={'Order # '+this.state.order_number}/>				
 				<div className="simple-header">
