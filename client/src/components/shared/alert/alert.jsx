@@ -4,15 +4,13 @@ import { Alert } from 'reactstrap';
 
 const SkAlert = (props) => {
   return (
-    <div>
-      {props.isAlerts &&  
-        <Alert color="success" className="skAlert">
-        	<h4 className="alert-heading">{props.message}</h4>
-        	<p>
-        		To view the detail, please click <Link to={props.link_to} className="alert-link">here</Link>
-        	</p>          
-        </Alert>       
-      }
+    <div>      
+      <Alert color="success" className="skAlert" isOpen={props.isAlerts}>
+      	<h4 className="alert-heading">{props.message}</h4>
+      	<p>
+      		To view the detail, please click <Link to={props.link_to} className="alert-link">here</Link>
+      	</p>          
+      </Alert>      
     </div>
   );
 }
