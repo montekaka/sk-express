@@ -33,7 +33,8 @@ import {
   Order,
   OrderNewBuyer,
   OrderNew,
-  OrderEdit
+  OrderEdit,
+  DeliveryNotes
 } from './pages'
 
 import orderTable from './../../resource/orderTable';
@@ -44,12 +45,14 @@ import buyerTable from './../../resource/buyerTable';
 import buyerCompanyShippingAddressTable from './../../resource/buyerCompanyShippingAddressTable';
 import pickProductTable from './../../resource/pickProductTable';
 import buyerCompanyProductTable from './../../resource/buyerCompanyProductTable';
+import deliveryNoteTable from './../../resource/deliveryNoteTable';
 import orderState from './../../resource/orderCollection';
 import orderClass from './../../resource/libs/helpers/OrderClass';
 
 const orderSkState = orderTable.skState;
 const orderBuyerSkState = orderBuyerTable.skState;
 const productSkState = productTable.skState;
+const deliveryNoteSkState = deliveryNoteTable.skState;
 const buyerComapnySkState = buyerCompanyTable.skState;
 const buyerSkState = buyerTable.skState;
 const buyerCompanyShippingAddressSkState = buyerCompanyShippingAddressTable.skState;
@@ -165,7 +168,12 @@ class App extends React.Component {
               OrderClass={OrderClass}
               handleAlert={this.handleAlert} 
               params={props.match}/>} 
-            />                                     
+            />     
+            <Route exact path="/delivery_notes" 
+              render= {
+                (props) => <DeliveryNotes skState={deliveryNoteSkState} isAuthed={this.state.isAuthed}/>
+              }
+            />                                                 
             <Route exact path="/products" 
               render= {
                 (props) => <Products skState={productSkState} isAuthed={this.state.isAuthed}/>

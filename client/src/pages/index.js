@@ -30,6 +30,8 @@ import BuyerCompanyProduct from './buyer_company_products/buyer_company_product.
 import BuyerCompanyProductPickProduct from './buyer_company_products/buyer_company_product_pick_product.jsx'
 import BuyerCompanyProductNew from './buyer_company_products/buyer_company_product_new.jsx'
 
+import DeliveryNotes from './delivery_notes/delivery_notes.jsx'
+
 module.exports.BuyerCompanies = BuyerCompanies
 module.exports.BuyerCompany = BuyerCompany
 module.exports.BuyerCompanyNew = BuyerCompanyNew
@@ -55,3 +57,5 @@ module.exports.BuyerCompanyProducts = BuyerCompanyProducts
 module.exports.BuyerCompanyProduct = BuyerCompanyProduct
 module.exports.BuyerCompanyProductNew = BuyerCompanyProductNew
 module.exports.BuyerCompanyProductPickProduct = BuyerCompanyProductPickProduct
+module.exports.DeliveryNotes = DeliveryNotes
+
