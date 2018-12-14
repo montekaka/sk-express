@@ -68,7 +68,10 @@ class FluidNavbar extends React.Component {
 	      <Collapse isOpen={!this.state.collapsed} navbar>
 	        <Nav navbar>
 	          <NavItem>
-	            <NavLink tag={Link} to="/orders">Orders</NavLink>
+	            <NavLink tag={Link} to="/orders">Orders</NavLink>	            
+	          </NavItem>
+	          <NavItem>
+	          	<NavLink tag={Link} to="/delivery_notes">Delivery notes</NavLink>
 	          </NavItem>
 						<UncontrolledDropdown nav inNavbar>
 							<DropdownToggle nav caret>Resource</DropdownToggle>
