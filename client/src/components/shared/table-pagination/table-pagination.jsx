@@ -54,15 +54,16 @@ class TablePagination extends React.Component {
 
 	fetch(page_number) {
 		const _this = this;	
+		const api_url = _this.state.base_url+_this.state.get_url;
 		let params = getSortedParams(this.props.skState.tableHeaders);
-		// if (this.state.searchTerm !== null && this.state.searchTerm.length > 0) {
-		// 	params['search_value'] = this.state.searchTerm;
-		// }
-
+		params['page'] = page_number;
+		params['per_page'] = _this.state.perPage;
+		
 		if (this.props.skState.params.SEARCH_TERM !== null && this.props.skState.params.SEARCH_TERM.length > 0 ) {
 			params['search_value'] = this.props.skState.params.SEARCH_TERM;
 		}
-		const api_url = `${_this.state.base_url+_this.state.get_url}?page=${page_number}&per_page=${_this.state.perPage}`;
+
+		// const api_url = `${_this.state.base_url+_this.state.get_url}?page=${page_number}&per_page=${_this.state.perPage}`;
 		axios.get(api_url, {
   		params: params
 		})		
