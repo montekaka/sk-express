@@ -30,8 +30,12 @@ class SkTableCell extends React.Component {
     let cell;
     
 		switch(format) {
-      case 'action': 
-        cell = <Link to={this.props.parent_path+this.props.apis[action]+'/'+this.props.tableCell.id} className="btn btn-xs btn-outline-primary" onClick={this.handleViewClick}>{name}</Link>
+      case 'action':
+        let url = `${this.props.parent_path}${this.props.apis[action]}/${this.props.tableCell.id}`
+        if (Number(this.props.tableCell.id) < 0) {
+          url = `${url}?lookup_key=${this.props.tableCell.lookup_key}`
+        }
+        cell = <Link to={url} className="btn btn-xs btn-outline-primary" onClick={this.handleViewClick}>{name}</Link>
         break;
       case 'toggle':
 				if (this.props.tableCell[this.props.headerItem.name] === 'Selected') {
