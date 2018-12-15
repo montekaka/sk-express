@@ -18,7 +18,7 @@ class DeliveryNotes extends React.Component {
       perPage: 8,     
       pageItemsCount: 10,
       totalPage: 0,
-      total: 0      
+      total: 0
     }
     this.handleUpdateTotalItems = this.handleUpdateTotalItems.bind(this);
     this.handleClickItem = this.handleClickItem.bind(this);
@@ -38,9 +38,9 @@ class DeliveryNotes extends React.Component {
       return <Redirect to={'/'} />
     }   
     return (
-      <div>
+      <div>        
         <Dashheader subtitle={'Overview'} title={'Delivery notes'}/>
-        <div className="hr-divider mt-3 mb-5">
+        <div className="hr-divider mt-3 mb-5">          
           <h3 className="hr-divider-content hr-divider-heading">Buyer Companies</h3>          
           <p>Total Delivery notes: {this.state.total}</p>
           <p>Total Page: {this.state.totalPage}</p>
