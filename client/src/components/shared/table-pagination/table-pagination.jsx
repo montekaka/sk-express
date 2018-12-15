@@ -6,6 +6,7 @@ import SkPagination from './../pagination/skPagination.jsx';
 import SkSearchBar from './../searchbar/skSearchBar.jsx';
 import paginationList from './../../../../../resource/libs/helpers/paginationList';
 import sortedParams from './../../../../../resource/libs/helpers/sortedParams';
+import SkPickers from './../sk-picker/skPickers.jsx';
 import debounce from './../../../../../resource/libs/helpers/debounce';
 const getPaginationList = paginationList.getPaginationList;
 const getSortedParams = sortedParams.get;
@@ -37,6 +38,8 @@ class TablePagination extends React.Component {
 		this.handleSearch = this.handleSearch.bind(this);
 		this.delayedCallback = debounceHandler(this.handleSearchApi, 500);
 		this.handleClickItem = this.handleClickItem.bind(this);
+		this.handleSearchApi = this.handleSearchApi.bind(this);
+		this.handleDropdownFilter = this.handleDropdownFilter.bind(this);
 	}
 
 	componentDidMount() {
@@ -58,9 +61,19 @@ class TablePagination extends React.Component {
 		let params = getSortedParams(this.props.skState.tableHeaders);
 		params['page'] = page_number;
 		params['per_page'] = _this.state.perPage;
-		
+
+
 		if (this.props.skState.params.SEARCH_TERM !== null && this.props.skState.params.SEARCH_TERM.length > 0 ) {
 			params['search_value'] = this.props.skState.params.SEARCH_TERM;
+		}
+
+		// additional filters
+		if (this.props.skState.params['FILTERS']) {
+			this.props.skState.params['FILTERS'].forEach((filter) => {
+				let name = filter['name'];
+				let selected = filter['selected'];
+				params[name] = selected;				
+			})
 		}
 
 		// const api_url = `${_this.state.base_url+_this.state.get_url}?page=${page_number}&per_page=${_this.state.perPage}`;
@@ -118,13 +131,17 @@ class TablePagination extends React.Component {
 	handleSearch(searchTerm) {
 		this.props.skState.params.CURRENT_PAGE = 1;
 		this.props.skState.params.SEARCH_TERM = searchTerm;
-
 		this.setState({startPage: 1}, () => {
 			this.delayedCallback();
 		});
 	}
 
 	handleSearchApi(){
+		this.fetch(1);
+	}
+
+	handleDropdownFilter(val, pickerId) {
+		this.props.skState.params.FILTERS[pickerId].selected = val;
 		this.fetch(1);
 	}
 
@@ -157,10 +174,15 @@ class TablePagination extends React.Component {
 		} else {
 			table = <div>There isn't any products for this buyer company</div>
 		}
+		let pickers;
+		if(this.props.skState.params['FILTERS']) {
+			pickers = <SkPickers filters={this.props.skState.params['FILTERS']} handleChange={this.handleDropdownFilter}/>
+		}
 		return (
 			<div className="card bg-dark text-white">
-				<div className="card-body">
+				<div className="card-body">					
 					<div className="searchbar">
+						{pickers}
 						<SkSearchBar handleSearch={this.handleSearch} search_term={this.props.skState.params.SEARCH_TERM}/>		
 					</div>
 					{table}								
