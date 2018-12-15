@@ -11,7 +11,10 @@ const skState = {
 	], 
 	params: {
 		SEARCH_TERM: '',
-		CURRENT_PAGE: 1			
+		CURRENT_PAGE: 1,
+		FILTERS: [
+			{'type': 'statue', options: ['Processed','Pending'], control: 'DROPDOWN'}
+		]			
 	},
 	apis: {
 		FORMAT: '.json',
