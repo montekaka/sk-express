@@ -13,7 +13,7 @@ const skState = {
 		SEARCH_TERM: '',
 		CURRENT_PAGE: 1,
 		FILTERS: [
-			{'type': 'statue', options: ['Processed','Pending'], control: 'DROPDOWN'}
+			{'id': 1, 'name': 'status', label: 'Status', options: [{id: 1, val: 'Processed'},{id: 2, val: 'Pending'}], selected: 'Processed' ,control: 'simple-dropdown'}
 		]			
 	},
 	apis: {
