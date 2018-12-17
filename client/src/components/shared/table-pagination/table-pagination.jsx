@@ -82,10 +82,10 @@ class TablePagination extends React.Component {
 		})		
 		.then((res) => {
 			let perPage = Number(res.headers['per-page']);
-			let total = Number(res.headers['total']);
-			let totalPage = perPage > 0 ? Math.ceil(total / perPage) : 0;	
-			let pageItems = getPaginationList(page_number, this.state.startPage, this.state.pageItemsCount , 0, totalPage);
-			let startPage = pageItems[0];	
+      let total = Number(res.headers['total']);
+      let totalPage = perPage > 0 ? Math.ceil(total / perPage) : 0;
+      let pageItems = getPaginationList(page_number, this.state.startPage, this.state.pageItemsCount , 1, totalPage);      
+			let startPage = pageItems[0];
 			_this.props.handleUpdateTotalItems(totalPage, total);
 			_this.props.skState.params.CURRENT_PAGE = page_number;
 			_this.setState({
