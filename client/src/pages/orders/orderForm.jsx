@@ -119,7 +119,7 @@ const OrderForm = (props) => {
             <Col md={2}>
               <FormGroup check>
                 <Label check>
-                  <Input name="is_per_item_delivery_date" type="checkbox" id="checkbox2" onClick={handleClick} defaultChecked={props.data.is_per_item_delivery_date} />{' '}
+                  <Input name="is_per_item_delivery_date" type="checkbox" id="checkbox2" onClick={handleClick} defaultChecked={props.data.is_per_item_delivery_date} checked={props.data.is_per_item_delivery_date}/>{' '}
                   Delivery per item
                 </Label>
               </FormGroup>                         
