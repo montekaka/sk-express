@@ -71,6 +71,7 @@ class OrderEdit extends React.Component {
     this.update = this.update.bind(this);
     this.errorModalToggle = this.errorModalToggle.bind(this);
     this.handleRemoveOrderItem = this.handleRemoveOrderItem.bind(this);
+    this.setOrderItemDeliveryDate = this.setOrderItemDeliveryDate.bind(this);
   }
 
   componentDidMount() {       
@@ -145,16 +146,32 @@ class OrderEdit extends React.Component {
 
   update() {
     const endpoint = base_url+this.props.orderSkState.apis['NEW']+'/'+this.state.id+'.json';
+    console.log(endpoint)
     const data = this.state;
     const _this = this;
-    axios.put(endpoint, data)
+    this.setOrderItemDeliveryDate(() => {
+      axios.put(endpoint, data)
       .then((res) => {        
         _this.setState({toGoback: true});
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
+    });
   }
+
+  setOrderItemDeliveryDate(cb){
+    if(!this.state.is_per_item_delivery_date) {
+      let order_items = this.state.order_items;
+      let order_delivery_date = this.state.order_delivery_date
+      order_items = _.each(order_items, (order_item) => {
+        order_item['delivery_date'] = order_delivery_date;
+      })
+      this.setState({order_items: order_items}, cb);
+    } else {
+      cb()
+    }
+  }  
 
   updateState(data){
     const name = data['name'];

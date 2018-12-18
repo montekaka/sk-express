@@ -72,6 +72,7 @@ class OrderNew extends React.Component {
     this.errorModalToggle = this.errorModalToggle.bind(this);
     this.handleRemoveOrderItem = this.handleRemoveOrderItem.bind(this);
     this.handleAlert = this.handleAlert.bind(this);
+    this.setOrderItemDeliveryDate = this.setOrderItemDeliveryDate.bind(this);
   }
 
   componentDidMount() {       
@@ -129,15 +130,29 @@ class OrderNew extends React.Component {
     const endpoint = base_url+this.props.orderSkState.apis['NEW']+'.json';
     const data = this.state;
     const _this = this;
-    axios.post(endpoint, data)
+    this.setOrderItemDeliveryDate(() => {
+      axios.post(endpoint, data)
       .then((res) => {
-        //console.log(res);
-        this.handleAlert(res.data);
+        _this.handleAlert(res.data);
         _this.setState({toGoback: true});        
       })
       .catch((err) => {
         console.log(err);
+      });
+    });
+  }
+
+  setOrderItemDeliveryDate(cb){
+    if(!this.state.is_per_item_delivery_date) {
+      let order_items = this.state.order_items;
+      let order_delivery_date = this.state.order_delivery_date
+      order_items = _.each(order_items, (order_item) => {
+        order_item['delivery_date'] = order_delivery_date;
       })
+      this.setState({order_items: order_items}, cb);
+    } else {
+      cb()
+    }
   }
 
   updateState(data){
