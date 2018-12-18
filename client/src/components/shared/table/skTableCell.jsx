@@ -32,6 +32,7 @@ class SkTableCell extends React.Component {
 		switch(format) {
       case 'action':
         let url = `${this.props.parent_path}${this.props.apis[action]}/${this.props.tableCell.id}`
+        // this one is for pending delivery note
         if (Number(this.props.tableCell.id) < 0) {
           url = `${url}?lookup_key=${this.props.tableCell.lookup_key}`
         }
